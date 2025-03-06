@@ -1,75 +1,85 @@
 #include "cub3d.h"
 
-static mlx_image_t* image;
-
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+void draw_square(mlx_image_t *image, uint32_t size, int32_t color)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-void ft_randomize(void* param)
-{
-	(void)param;
-	for (uint32_t i = 0; i < image->width; ++i)
+	for (uint32_t i = 0; i < size; ++i)
 	{
-		for (uint32_t y = 0; y < image->height; ++y)
+		for (uint32_t y = 0; y < size; ++y)
 		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
 			mlx_put_pixel(image, i, y, color);
 		}
 	}
 }
 
-void ft_hook(void* param)
+void ft_hook(void *param)
 {
-	mlx_t* mlx = param;
-
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
+	t_game *game = (t_game *)param;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+		game->image->instances[0].y -= 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+		game->image->instances[0].y += 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		game->image->instances[0].x -= 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		game->image->instances[0].x += 5;
 }
 
-// -----------------------------------------------------------------------------
 
-int32_t main(void)
+void init_game(t_game *game)
 {
-	mlx_t* mlx;
+	game->image = NULL;
+	game->mlx = NULL;
+}
 
-	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+int init_mlx(t_game *game)
+{
+	game->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!game->mlx)
 	{
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (!(image = mlx_new_image(mlx, 128, 128)))
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
+		ft_printf("Error initializing MLX\n");
+		return (0);
 	}
 
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	game->image = mlx_new_image(game->mlx, 50, 50);
+	if (!game->image)
+	{
+		mlx_close_window(game->mlx);
+		ft_printf("Error creating image\n");
+		return (0);
+	}
 
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	draw_square(game->image, 50, 0xFF0000FF);
+
+	if (mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
+	{
+		mlx_close_window(game->mlx);
+		ft_printf("Error adding image to window\n");
+		return (0);
+	}
+
+	return (1);
+}
+
+int main(int argc, char *argv[])
+{
+	t_game game;
+
+	if (argc != 2)
+	{
+		ft_printf("Error!!!\nInvalid number of arguments\n");
+		return (1);
+	}
+	if(argv[1])
+		ft_printf("Hay arg!");
+	init_game(&game);
+	if (!init_mlx(&game))
+		return (1);
+
+	mlx_loop_hook(game.mlx, ft_hook, &game);
+
+	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
+	return (0);
 }
