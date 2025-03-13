@@ -1,30 +1,28 @@
 NAME		=	cub3d
 
-SRC			=	$(addprefix src/, main.c parse_file.c move_player.c init_game.c exit.c)
+SRC			=	$(addprefix src/, main.c init_game.c utils.c parse_file.c move_player.c \
+					player_utils.c map.c end_game.c)
 
-OBJ			=	$(SRC:.c=.o)
+OBJ			= $(SRC:.c=.o)
 
-LIBFT_PATH	=	libft/
-LIBFT_NAME	=	libft.a
-LIBFT		=	$(LIBFT_PATH)$(LIBFT_NAME)
+LIBFT_PATH	= libft/
 
-MLX_PATH	=	MLX42/
-MLX_BUILD	=	$(MLX_PATH)build/
-MLX_LIB		=	$(MLX_BUILD)libmlx42.a
+LIBFT_NAME	= libft.a
+
+LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 
 CC			=	cc
-RM 			=	rm -f
-CFLAGS		=	-Wall -Wextra -Werror -I$(MLX_PATH)include
-MLX_FLAGS	=	-L$(MLX_BUILD) -lmlx42 -ldl -lglfw -pthread -lm
 
-all: $(LIBFT) $(MLX_LIB) $(NAME)
+RM 			=	rm -f
+
+CFLAGS		=	-Wall -Wextra -Werror
+
+MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+
+all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
-
-$(MLX_LIB):
-	@cmake -B $(MLX_BUILD) $(MLX_PATH)
-	@cmake --build $(MLX_BUILD) -j4
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME) $(LIBFT)
@@ -32,7 +30,6 @@ $(NAME): $(OBJ)
 clean:
 	@$(MAKE) -C $(LIBFT_PATH) clean
 	@$(RM) $(OBJ)
-	@rm -rf $(MLX_BUILD)
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_PATH) fclean

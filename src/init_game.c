@@ -1,48 +1,31 @@
 #include "cub3d.h"
 
-int	init_player(t_game *game)
+void	init_game(t_game *game)
 {
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 	{
-		ft_printf("Error allocating memory for player\n");
-		return (0);
+		ft_printf("Error: Memory allocation failed\n");
+		exit(1);
 	}
-	game->player->x = WIDTH / 2;
-	game->player->y = HEIGHT / 2;
-	return (1);
+	init_player(game->player, SO, WIDTH / 2, HEIGHT/2);
+	game->map = get_map();
+	game->mlx = mlx_init();
+	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
+	game->img = mlx_new_image(game->mlx,WIDTH, HEIGHT);
+	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
+	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 }
 
-void init_game(t_game *game)
+void	init_player(t_player *player, float orientation, int x, int y)
 {
-	game->image = NULL;
-	game->mlx = NULL;
-}
-
-int init_mlx(t_game *game)
-{
-	init_player(game);
-	game->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	if (!game->mlx)
-	{
-		ft_printf("Error initializing MLX\n");
-		return (0);
-	}
-	game->image = mlx_new_image(game->mlx, 50, 50);
-	if (!game->image)
-	{
-		mlx_close_window(game->mlx);
-		ft_printf("Error creating image\n");
-		return (0);
-	}
-
-	draw_square(game->image, 50, 0xFF0000FF);
-	if (mlx_image_to_window(game->mlx, game->image, game->player->x, game->player->y) == -1)
-	{
-		mlx_close_window(game->mlx);
-		ft_printf("Error adding image to window\n");
-		return (0);
-	}
-
-	return (1);
+	player->angle = orientation;
+	player->x = x;
+	player->y = y;
+	player->key_up = false;
+	player->key_down = false;
+	player->key_left = false;
+	player->key_right = false;
+	player->left_rotate = false;
+	player->right_rotate = false;
 }
