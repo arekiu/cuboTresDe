@@ -90,6 +90,8 @@ int		key_release(int keycode, t_game *game);
 //MOVE PLAYER
 void	 move_player(t_game *game);
 int		draw_loop(t_game *game);
+bool	collide(float ray_x, float ray_y, t_game *game);
+void	draw_line(t_game *game, float stat_x);
 
 //MAP
 void	draw_map(t_game *game);

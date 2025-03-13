@@ -45,13 +45,58 @@ void	 move_player(t_game *game)
 		game->player->angle = 2 * PI;
 	move_in_direct(game, sin_angle, cos_angle, speed);
 }
+
+bool	collide(float ray_x, float ray_y, t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = ray_x/BLOCK;
+	y = ray_y/BLOCK;
+	if (game->map[y][x] == '1')
+		return (true);
+	return (false);
+}
+
+void	draw_line(t_game *game, float start_x)
+{
+	float	ray_x;
+	float	ray_y;
+	float	cos_angle;
+	float	sin_angle;
+
+	ray_x = game->player->x;
+	ray_y = game->player->y;
+	cos_angle = cos(start_x);
+	sin_angle = sin(start_x);
+
+	while (!collide(ray_x, ray_y, game))
+	{
+		put_pixel(ray_x, ray_y, 0xFF0000, game);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
+}
+
 int	draw_loop(t_game *game)
 {
+	float	fraction;
+	float	start_x;
+	int		i;
 
+	fraction = PI / 3 / WIDTH;
+	start_x = game->player->angle - PI / 6;
+	i = 0;
 	move_player(game);
 	clear(game);
 	draw_square(game->player->x, game->player->y, 30, 0xFF0000, game);
 	draw_map(game);
+	while (i < WIDTH)
+	{
+		draw_line(game, start_x);
+		start_x += fraction;
+		i++;
+	}
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (1);
 }
