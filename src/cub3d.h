@@ -41,6 +41,7 @@ typedef struct s_map_data{
 typedef struct s_player{
 	int		x;
 	int		y;
+	int		player_size;
 	float	angle; //its going to be determined by parsing ---> PD: NO and SO were switched because of gaming cardinal things*
 	//NO == PI/2 (90)
 	//SO == 3PI/2 (270)
@@ -52,6 +53,9 @@ typedef struct s_player{
 	bool	key_right;
 	bool	left_rotate;
 	bool	right_rotate;
+	int		speed;
+	float	angle_speed;
+
 
 }	t_player;
 
@@ -90,7 +94,7 @@ int		key_release(int keycode, t_game *game);
 //MOVE PLAYER
 void	 move_player(t_game *game);
 int		draw_loop(t_game *game);
-bool	collide(float ray_x, float ray_y, t_game *game);
+bool	reach_wall(float ray_x, float ray_y, t_game *game);
 void	draw_line(t_game *game, float stat_x);
 
 //MAP

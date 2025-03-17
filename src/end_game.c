@@ -8,9 +8,3 @@ int	on_destroy(t_game *game)
 	exit(0);
 }
 
-int	esc_hook(int keycode, t_game *game)
-{
-	if (keycode == ESC)
-		on_destroy(game);
-	return (0);
-}

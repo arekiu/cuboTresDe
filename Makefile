@@ -1,7 +1,7 @@
 NAME		=	cub3d
 
 SRC			=	$(addprefix src/, main.c init_game.c utils.c parse_file.c move_player.c \
-					player_utils.c map.c end_game.c)
+					player_utils.c map.c ray_casting.c end_game.c)
 
 OBJ			= $(SRC:.c=.o)
 

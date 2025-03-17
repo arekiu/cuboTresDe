@@ -2,6 +2,11 @@
 
 int key_press(int keycode, t_game *game)
 {
+	if (keycode == ESC)
+	{
+		on_destroy(game);
+		return (0);
+	}
 	if(keycode == W)
 		game->player->key_up = true;
 	if(keycode == S)
