@@ -20,7 +20,9 @@ void	init_game(t_game *game)
 void	init_player(t_player *player, float orientation, int x, int y)
 {
 	player->angle = orientation;
-	player->player_size = 30;
+	player->cos_angle = cos(player->angle);
+	player->sin_angle = sin(player->angle);
+	player->player_size = PLAYER_SIZE;
 	player->x = x;
 	player->y = y;
 	player->key_up = false;
@@ -29,6 +31,6 @@ void	init_player(t_player *player, float orientation, int x, int y)
 	player->key_right = false;
 	player->left_rotate = false;
 	player->right_rotate = false;
-	player->speed = 3;
-	player->angle_speed = 0.1;
+	player->speed = PLAYER_SPEED;
+	player->angle_speed = PLAYER_ANGLE_SPEED;
 }

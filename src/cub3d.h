@@ -9,6 +9,15 @@
 #include <math.h>
 # include <mlx.h>
 
+//VALUES THAT WE CAN MODIFY
+#define WIDTH 1280
+#define HEIGHT 720
+#define BLOCK 64
+#define PLAYER_SIZE 30
+#define PLAYER_SPEED 3
+#define PLAYER_ANGLE_SPEED 0.1
+
+//CONSTANT VALUES
 #define PI 3.1415926535
 
 #define	ESC 65307
@@ -18,10 +27,6 @@
 #define D 100
 #define LEFT 65361
 #define RIGHT 65363
-
-#define WIDTH 1280
-#define HEIGHT 720
-#define BLOCK 64
 
 #define	NO (3*PI/2)
 #define SO (PI/2)
@@ -47,6 +52,8 @@ typedef struct s_player{
 	//SO == 3PI/2 (270)
 	//WE == PI (180)
 	//EA == 0
+	float	cos_angle; // moves the player along the X-axis based on their facing direction.
+	float	sin_angle; // moves the player along the Y-axis based on their facing direction.
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;
@@ -55,7 +62,6 @@ typedef struct s_player{
 	bool	right_rotate;
 	int		speed;
 	float	angle_speed;
-
 
 }	t_player;
 
