@@ -15,7 +15,7 @@
 #define BLOCK 64
 #define PLAYER_SIZE 30
 #define PLAYER_SPEED 3
-#define PLAYER_ANGLE_SPEED 0.1
+#define PLAYER_ANGLE_SPEED 0.05
 
 //CONSTANT VALUES
 #define PI 3.1415926535
@@ -33,14 +33,21 @@
 #define WE (PI)
 #define EA 0
 
-/*
-typedef struct s_map_data{
+
+typedef struct s_data{
 	//parsed map with needed information
-	int		map_length;
+	char	**map_data;
 	int		player_x;
 	int		player_y;
 	char	player_orient;
-}	t_map_data;*/
+	char	*text_NO;
+	char	*text_SO;
+	char	*text_WE;
+	char	*text_EA;
+	char	*text_F;
+	char	*text_C;
+
+}	t_data;
 
 
 typedef struct s_player{
@@ -76,7 +83,7 @@ typedef struct s_game{
 	int			stride; //BYtes per row
 	int			endian; //How values are stored
 	t_player	*player;
-	//t_map_data	*data;
+	t_data		*data;
 
 }	t_game;
 
@@ -109,6 +116,5 @@ char	**get_map(void);
 
 //END
 int		on_destroy(t_game *game);
-int		esc_hook(int keycode, t_game *game);
 
 #endif

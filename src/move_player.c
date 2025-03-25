@@ -83,7 +83,7 @@ static void move_in_direct(t_game *game)
     }
 }
 
-void	 move_player(t_game *game)
+void	move_player(t_game *game)
 {
 	rotate_player(game);
 	move_in_direct(game);
