@@ -26,6 +26,7 @@ static void try_move_player(t_game *game, float next_x, float next_y)
     }
 }
 
+// jess: could the direction problem(after rotation come from here?)
 static void calculate_next_position(t_game  *game, float *next_x, float *next_y, int direction)
 {
     int speed;
@@ -85,6 +86,8 @@ static void move_in_direct(t_game *game)
 
 void	move_player(t_game *game)
 {
+    // jess: i think i found a bug - after rotating the player, move_in_direct does not work correctly. Probably calculation should be improved?
+    // as character does not move starigtht in the direction it has to go to.
 	rotate_player(game);
 	move_in_direct(game);
 }

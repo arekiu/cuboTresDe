@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 		ft_printf("Error!!!\nInvalid number of arguments\n");
 		return (1);
 	}
-	parse_file(argv[1]); // this is where i should use the stuff
+	parse_file(argv[1]); // parse commands perhaps? as map i parse in game->map
 	init_game(&game);
 	mlx_hook(game.window, 2, 1, key_press, &game); //2 is KEYPRESS event and 1 for listen to keys "pressed"
 	mlx_hook(game.window, 3, 2, key_release, &game);

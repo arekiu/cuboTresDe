@@ -1,29 +1,7 @@
 #include "cub3d.h"
 
-char	**get_map(void)
-{
-	char	**map;
-
-	map = malloc(sizeof(char *) * 11);
-	if (!map)
-    {
-        ft_printf("Error allocating memory for map\n");
-        return (NULL);
-    }
-	map[0] = "111111111111111";
-    map[1] = "100000000000001";
-    map[2] = "100000100000001";
-    map[3] = "100010000000001";
-    map[4] = "100100000000001";
-    map[5] = "100000000000001";
-    map[6] = "100000000000001";
-    map[7] = "100000000010001";
-    map[8] = "100000000000001";
-    map[9] = "111111111111111";
-    map[10] = NULL;
-	return (map);
-}
-
+// i would call the file rendering.c or draw.c
+// so you can put also draw collectibles or enemy for the bonus
 void	draw_map(t_game *game)
 {
 	int	color;
@@ -37,7 +15,7 @@ void	draw_map(t_game *game)
         x = 0;
         while (game->map[y][x])
         {
-            if (game->map[y][x] == '1')
+            if (game->map[y][x] == '1') // jess: if wall we draw the wall
 			{
                     draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
             }

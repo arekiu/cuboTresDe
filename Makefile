@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/03/26 13:37:10 by jslusark         ###   ########.fr        #
+#    Updated: 2025/03/26 18:02:52 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,41 +33,41 @@ CFLAGS		=	-Wall -Wextra -Werror
 MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 RM = rm -rf
 
+SRC_DIR = src
+PARSE_DIR = src/parsing
 
 SRC_FILES = \
-	main.c \
-	init_game.c \
-	utils.c \
-	parse_file.c \
-	move_player.c \
-	player_utils.c \
-	map.c \
-	ray_casting.c \
-	end_game.c
-
-SRC_DIR = src
-SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/init_game.c \
+	$(SRC_DIR)/utils.c \
+	$(SRC_DIR)/parse_file.c \
+	$(SRC_DIR)/move_player.c \
+	$(SRC_DIR)/player_utils.c \
+	$(SRC_DIR)/map.c \
+	$(SRC_DIR)/ray_casting.c \
+	$(SRC_DIR)/end_game.c \
+	$(PARSE_DIR)/get_map.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
-# Compile object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+# Compile object files (universal rule for any .c path)
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-
-#Executable name
+# Executable name
 NAME = cub3d
 
 # Default target
 all: $(LIBFT) $(NAME)
 	@echo "$(ORANGE)$(NAME)$(RESET) Cub3d is up to date"
-	
-# Compile the main executable
+
+# Compile libft only if needed
 $(LIBFT):
 	@$(MAKE) --no-print-directory -C $(LIBFT_PATH)
-	
+
+# Compile the main executable
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME) $(LIBFT)
 	@echo "$(ORANGE)$(NAME)$(RESET) compiled successfully"
@@ -87,7 +87,6 @@ clean:
 		echo "$(ORANGE)$(NAME)$(RESET) object files were already removed"; \
 	fi
 
-
 # Full clean
 fclean: clean
 	@if [ -f $(LIBFT) ]; then \
@@ -103,17 +102,16 @@ fclean: clean
 		echo "$(ORANGE)$(NAME)$(RESET) executable was already removed"; \
 	fi
 
-
 # Recompile everything
 re: fclean all
 	@echo "$(ORANGE)$(NAME)$(RESET) successfully recompiled $(RESET)"
 
 %:
-	@echo "$(FAILURE) target '$@' is not a valid target.$(RESET)"
+	@echo "$(RED)Failure:$(RESET) target '$@' is not a valid target."
 	@echo "Please use one of the following valid targets:"
 	@echo "- $(GREEN)make$(RESET): compiles the project"
 	@echo "- $(GREEN)make re$(RESET): recompiles the project"
-	@echo "- $(GREEN)make clean$(RESET): RMs object files"
-	@echo "- $(GREEN)make fclean$(RESET): RMs object files and the final library"
+	@echo "- $(GREEN)make clean$(RESET): removes object files"
+	@echo "- $(GREEN)make fclean$(RESET): removes object files and the final binary"
 
 .PHONY: all clean fclean re %

@@ -111,8 +111,8 @@ bool	reach_wall(float ray_x, float ray_y, t_game *game);
 void	draw_line(t_game *game, float stat_x);
 
 //MAP
-void	draw_map(t_game *game);
 char	**get_map(void);
+void	draw_map(t_game *game);
 
 //END
 int		on_destroy(t_game *game);
