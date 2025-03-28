@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/03/26 18:02:52 by jslusark         ###   ########.fr        #
+#    Updated: 2025/03/28 12:08:28 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,9 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 # Compile object files (universal rule for any .c path)
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
+
 
 # Executable name
 NAME = cub3d
@@ -80,12 +81,13 @@ clean:
 	else \
 		echo "$(MAGENTA)libft.a$(RESET) object files were already removed"; \
 	fi
-	@if ls $(OBJ_DIR)/*.o >/dev/null 2>&1; then \
+	@if [ -d $(OBJ_DIR) ]; then \
 		$(RM) $(OBJ_DIR); \
 		echo "$(ORANGE)$(NAME)$(RESET) object files removed"; \
 	else \
 		echo "$(ORANGE)$(NAME)$(RESET) object files were already removed"; \
 	fi
+
 
 # Full clean
 fclean: clean
