@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/03/28 15:29:45 by jslusark         ###   ########.fr        #
+#    Updated: 2025/03/28 19:22:51 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_FILES = \
 	$(SRC_DIR)/map.c \
 	$(SRC_DIR)/ray_casting.c \
 	$(SRC_DIR)/end_game.c \
-	$(PARSE_DIR)/parse_assets.c
+	$(PARSE_DIR)/parse_assets.c \
+	$(PARSE_DIR)/gnl_small.c 
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

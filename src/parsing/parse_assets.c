@@ -12,64 +12,6 @@
 
 #include "../cub3d.h"
 
-
-bool	has_file_extension(char *file, char *extension)
-{
-	int	file_len;
-	int	ext_len;
-
-	if (!file || !extension) //!extension makes no sense as it will never be null as passed as param
-		return (false);
-	file_len = ft_strlen(file) - 1;
-	ext_len = ft_strlen(extension) - 1;
-	if (ext_len > file_len)
-		return (false);
-	while (ext_len >= 0)
-	{
-		if (file[file_len] != extension[ext_len])
-			return (0);
-		file_len--;
-		ext_len--;
-	}
-	return (true);
-}
-
-bool	check_map(char *file) // returns null if fails
-{
-	int		fd;
-	// char	*file_content;
-	// char	*line;
-
-	fd = open(file, O_RDONLY);
-	if (!has_file_extension(file, ".cub") || fd < 0) 
-	{
-		ft_printf("Error: file does not exist or has wrong extension format\n");
-		// free(level);
-		close(fd);
-        return (NULL);
-	}
-	// line = get_next_line(fd);
-	// file_content = parse_map(fd, level, NULL, line);
-	close(fd);
-	// level->map_array = ft_split(file_content, '\n');
-	// free(file_content);
-	// return (level->map_array);
-	return (true);
-}
-
-
-bool	parse_assets(char	*file_name, t_game *game) // error handling if we have more 
-{
-    (void)game;
-    if(!check_map(file_name))
-        return (false);
-    
-    
-    // if !check_map return false
-    /*Fullfill structure with textures and info*/
-    return (true);
-}
-
 // void	handle_nl_start(int fd, t_map *map_data, char *file_content, char *line)
 // {
 // 	ft_printf("Error: map cannot have an empty newline!\n");
@@ -116,4 +58,60 @@ bool	parse_assets(char	*file_name, t_game *game) // error handling if we have mo
 // 	return (file_content);
 // }
 
+bool	has_file_extension(char *file, char *extension)
+{
+	int	file_len;
+	int	ext_len;
+
+	if (!file || !extension) //!extension makes no sense as it will never be null as passed as param
+		return (false);
+	file_len = ft_strlen(file) - 1;	
+	ext_len = ft_strlen(extension) - 1;
+	if (ext_len > file_len)
+		return (false);
+	while (ext_len >= 0)	
+	{
+		if (file[file_len] != extension[ext_len])
+			return (0);
+		file_len--;	
+		ext_len--;
+	}	
+	return (true);
+}	
+
+bool	check_map(char *file) // returns null if fails
+{
+	int		fd;
+	// char	*file_content;
+	// char	*line;
+
+	fd = open(file, O_RDONLY);
+	if (!has_file_extension(file, ".cub") || fd < 0) 
+	{
+		ft_printf("Error: file does not exist or has wrong extension format\n");
+		// free(level);
+		close(fd);
+        return (NULL);
+	}	
+	// line = get_next_line(fd);
+	// file_content = parse_map(fd, level, NULL, line);
+	close(fd);
+	// level->map_array = ft_split(file_content, '\n');
+	// free(file_content);
+	// return (level->map_array);
+	return (true);
+}	
+
+
+bool	parse_assets(char	*file_name, t_game *game) // error handling if we have more 
+{
+    (void)game;
+    if(!check_map(file_name))
+        return (false);
+    
+    
+    // if !check_map return false	
+    /*Fullfill structure with textures and info*/
+    return (true);
+}	
 

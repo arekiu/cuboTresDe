@@ -91,6 +91,7 @@ typedef struct s_game{
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
 bool	parse_assets(char	*file_name, t_game *game);
+char	*gnl(int fd);
 
 //INIT
 void	init_game(t_game *game);
