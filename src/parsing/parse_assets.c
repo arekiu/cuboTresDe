@@ -13,17 +13,17 @@
 #include "../cub3d.h"
 
 
-static int	has_file_extension(char *file, char *extension)
+bool	has_file_extension(char *file, char *extension)
 {
 	int	file_len;
 	int	ext_len;
 
-	if (!file || !extension)
-		return (0);
+	if (!file || !extension) //!extension makes no sense as it will never be null as passed as param
+		return (false);
 	file_len = ft_strlen(file) - 1;
 	ext_len = ft_strlen(extension) - 1;
 	if (ext_len > file_len)
-		return (0);
+		return (false);
 	while (ext_len >= 0)
 	{
 		if (file[file_len] != extension[ext_len])
@@ -31,7 +31,7 @@ static int	has_file_extension(char *file, char *extension)
 		file_len--;
 		ext_len--;
 	}
-	return (1);
+	return (true);
 }
 
 bool	check_map(char *file) // returns null if fails
@@ -41,7 +41,7 @@ bool	check_map(char *file) // returns null if fails
 	// char	*line;
 
 	fd = open(file, O_RDONLY);
-	if (!has_file_extension(file, ".cub") || fd < 0)
+	if (!has_file_extension(file, ".cub") || fd < 0) 
 	{
 		ft_printf("Error: file does not exist or has wrong extension format\n");
 		// free(level);
