@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/03/28 12:08:28 by jslusark         ###   ########.fr        #
+#    Updated: 2025/03/28 15:29:45 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,12 @@ SRC_FILES = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/init_game.c \
 	$(SRC_DIR)/utils.c \
-	$(SRC_DIR)/parse_file.c \
 	$(SRC_DIR)/move_player.c \
 	$(SRC_DIR)/player_utils.c \
 	$(SRC_DIR)/map.c \
 	$(SRC_DIR)/ray_casting.c \
 	$(SRC_DIR)/end_game.c \
-	$(PARSE_DIR)/get_map.c
+	$(PARSE_DIR)/parse_assets.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

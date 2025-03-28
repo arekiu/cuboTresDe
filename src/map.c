@@ -1,7 +1,34 @@
 #include "cub3d.h"
 
-// i would call the file rendering.c or draw.c
-// so you can put also draw collectibles or enemy for the bonus
+char	**load_map(void)
+{
+    //jess: instead of doing this we could still add
+    // some error management if the map fails to load
+    // but besides parsing failing, what else could
+    // make the map loading fail? rendering perhaps? but that is in the draw_map
+    // so not sure if we need this function at all
+	char	**map;
+
+	map = malloc(sizeof(char *) * 11);
+	if (!map)
+    {
+        ft_printf("Error loading map\n");
+        return (NULL);
+    }
+	map[0] = "111111111111111";
+    map[1] = "100000000000001";
+    map[2] = "100000100000001";
+    map[3] = "100010000000001";
+    map[4] = "100100000000001";
+    map[5] = "100000000000001";
+    map[6] = "100000000000001";
+    map[7] = "100000000010001";
+    map[8] = "100000000000001";
+    map[9] = "111111111111111";
+    map[10] = NULL;
+	return (map);
+}
+
 void	draw_map(t_game *game)
 {
 	int	color;

@@ -3,6 +3,7 @@
 
 # include "../libft/src/libft.h"
 
+# include <stdbool.h> // jess: I use this so instead of using 1/0 we can return true/false (easier to not get confused)
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -87,8 +88,9 @@ typedef struct s_game{
 
 }	t_game;
 
-//PARSE FILE
-int	parse_file(char	*file_name);
+//PARSING FUNCTIONS
+// Assets are contents in a game, so we can parse/check everything here
+bool	parse_assets(char	*file_name, t_game *game);
 
 //INIT
 void	init_game(t_game *game);
@@ -111,7 +113,7 @@ bool	reach_wall(float ray_x, float ray_y, t_game *game);
 void	draw_line(t_game *game, float stat_x);
 
 //MAP
-char	**get_map(void);
+char	**load_map(void);
 void	draw_map(t_game *game);
 
 //END

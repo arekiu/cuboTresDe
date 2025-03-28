@@ -9,7 +9,8 @@ void	init_game(t_game *game)
 		exit(1);
 	}
 	init_player(game->player, NO, WIDTH / 2, HEIGHT/2); // jess: i guess x/y has to change based on the map file player position?
-	game->map = get_map(); // jess: hook to link parsing ?
+	// jess: called it load as we just load an array and have an error if we fail to load
+	game->map = load_map(); // jess: we should already have the map loaded from parsing so this may not be needed
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
 	game->img = mlx_new_image(game->mlx,WIDTH, HEIGHT);
