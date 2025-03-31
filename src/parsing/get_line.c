@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl_small.c                                        :+:      :+:    :+:   */
+/*   ft_get_line_small.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,45 +12,48 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <limits.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
-#define BUFFER_SIZE 42
+#include "../cub3d.h"
 
-char *ft_strdup(char *src)
-{
-	char *dst;
-	int len = 0;
-	int i = 0;
+// #define INT_MAX 42
+
+// char *ft_strdup(char *src)
+// {
+// 	char *dst;
+// 	int len = 0;
+// 	int i = 0;
 	
-	while(src[len] != '\0')
-		len++;
-	dst = (char *)malloc(sizeof(char) * len + 1); // why (char *)
-	while(src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return(dst);
-}
+// 	while(src[len] != '\0')
+// 		len++;
+// 	dst = (char *)malloc(sizeof(char) * len + 1); // why (char *)
+// 	while(src[i] != '\0')
+// 	{
+// 		dst[i] = src[i];
+// 		i++;
+// 	}
+// 	dst[i] = '\0';
+// 	return(dst);
+// }
 
 
-char *gnl(int fd)
+char *ft_get_line(int fd)
 {
-	static char	buff[BUFFER_SIZE];
+	static char	buff[42];
 	char		line[70000];
 	static int		buff_read;
 	static int		buff_pos;
 	int i = 0;
 	
-	if(fd < 0 || BUFFER_SIZE <= 0) // <-------------- FD SHOULD BE < 0 AND NOT <= 0
+	if(fd < 0 || 42 <= 0) // <-------------- FD SHOULD BE < 0 AND NOT <= 0
 		return(NULL);
 	while(1)
 	{
 		if(buff_pos >= buff_read)
 		{
-			buff_read = read(fd, buff, BUFFER_SIZE);
+			buff_read = read(fd, buff, 42);
 			buff_pos = 0;
 			if(buff_read <= 0)
 				break;
@@ -69,16 +72,27 @@ char *gnl(int fd)
 	return(ft_strdup(line));
 }
 
-// int main(void)
-// {
-// 	int fd = open("./txt.txt", O_RDONLY);
-// 	//printf("%s", gnl(fd));
-// 	char *line;
-// 	while((line = gnl(fd)) != NULL)
-// 	{
-// 		printf("%s", line);
-// 	}
-// 	/*int fd = open("./txt.txt", O_RDONLY);
-// 	printf("%s", gnl(fd));
-// 	return(0);*/
-// }
+bool	collect_map(int fd, char ***map)
+{
+	char *line;
+	int i = 0;
+	*map = malloc(sizeof(char *) * 1024 + 1);
+	if (!*map) // and free?
+		return (false);
+
+	while(1) // get next line returns the full line until /n
+	{
+		line = ft_get_line(fd);
+		if(line == NULL)
+		{
+			if(i == 0) // if no lines were read
+				return (false);
+			break; // else break the loop as no lines left
+		}
+		(*map)[i] = ft_strdup(line);
+		free(line);
+		i++;
+	}
+	(*map)[i] = NULL; // add null terminator to the end of the map
+	return(true);
+}

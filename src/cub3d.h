@@ -45,8 +45,8 @@ typedef struct s_data{
 	char	*text_SO;
 	char	*text_WE;
 	char	*text_EA;
-	char	*text_F;
-	char	*text_C;
+	char	*text_F; // jess: i think this should be int array
+	char	*text_C; // jess: i think this should be int array
 
 }	t_data;
 
@@ -78,7 +78,6 @@ typedef struct s_game{
 	void		*mlx;
 	void		*window;
 	void		*img;
-	char		**map;
 	char		*buffer; //store the pixels
 	int			bpp; //bits per pixel
 	int			stride; //BYtes per row
@@ -91,7 +90,11 @@ typedef struct s_game{
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
 bool	parse_assets(char	*file_name, t_game *game);
-char	*gnl(int fd);
+char	*ft_get_line(int fd);
+bool	collect_map(int fd, char ***map);
+//debugging
+void print_map(char **map);
+
 
 //INIT
 void	init_game(t_game *game);

@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/03/28 19:22:51 by jslusark         ###   ########.fr        #
+#    Updated: 2025/03/31 14:46:55 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBFT_NAME	= libft.a
 
 LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 # Compiler flags and commands
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g #added g for debugging with gdb
 MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 RM = rm -rf
 
@@ -46,7 +46,8 @@ SRC_FILES = \
 	$(SRC_DIR)/ray_casting.c \
 	$(SRC_DIR)/end_game.c \
 	$(PARSE_DIR)/parse_assets.c \
-	$(PARSE_DIR)/gnl_small.c 
+	$(PARSE_DIR)/get_line.c \
+	$(PARSE_DIR)/parsing_debugger.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

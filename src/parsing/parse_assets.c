@@ -87,26 +87,26 @@ bool	has_file_extension(char *file, char *extension)
 	return (true);
 }	
 
-bool	check_map(char *file) // returns null if fails
+bool	check_map(char *file, t_game *game) // returns null if fails
 {
 	int		fd;
-	// char	*file_content;
-	// char	*line;
+	(void)game;
+
 
 	fd = open(file, O_RDONLY);
 	if (!has_file_extension(file, ".cub") || fd < 0) 
 	{
 		ft_printf("Error: file does not exist or has wrong extension format\n");
-		// free(level);
 		close(fd);
         return (NULL);
 	}	
-	// line = get_next_line(fd);
-	// file_content = parse_map(fd, level, NULL, line);
+	if(!collect_map(fd, &game->data->map_data))
+	{	
+		close(fd);
+		return (false);
+	}
 	close(fd);
-	// level->map_array = ft_split(file_content, '\n');
-	// free(file_content);
-	// return (level->map_array);
+	print_map(game->data->map_data);
 	return (true);
 }	
 
@@ -114,7 +114,7 @@ bool	check_map(char *file) // returns null if fails
 bool	parse_assets(char	*file_name, t_game *game) // error handling if we have more 
 {
     (void)game;
-    if(!check_map(file_name))
+    if(!check_map(file_name, game))
         return (false);
     
     
