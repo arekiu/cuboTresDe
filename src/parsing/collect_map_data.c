@@ -54,8 +54,10 @@ char *ft_get_line(int fd)
 bool	collect_map(int fd, char ***map, t_game *game)
 {
 	char *line;
+	bool err = false;
 	(void)game;
 	int i = 0;
+	int line_n = i;
 	*map = malloc(sizeof(char *) * 1024 + 1);
 	if (!*map) // and free?
 		return (false);
@@ -69,21 +71,26 @@ bool	collect_map(int fd, char ***map, t_game *game)
 				return (false);
 			break; // else break the loop as no lines left to read
 		}
-		// // check if the line is part of the map or other data
-		if(not_map(line, game, &i))
+		// check if the line is part of the map or other data
+		if(texture_data(line, game, &line_n, &err))
 		{
-			if(line == NULL)// if not_map finds an error is overwrites line as null to trigger the error
+			if(err)// if texture_data finds an error is overwrites line as null to trigger the error
 			{
+				printf("yoyoyoyoy\n");
+				err = false;
 				free(line);
 				return(false);
 			}
+			line_n++;
 		}
 		else
 		{
+			// printf("is_map: %s\n", line);
 			(*map)[i] = ft_strdup(line);
 			free(line);
+			i++;
+			line_n++;
 		}
-		i++;
 	}
 	(*map)[i] = NULL; // add null terminator to the end of the map
 	return(true);

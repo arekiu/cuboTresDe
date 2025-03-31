@@ -33,35 +33,70 @@
 //     return (false);
 // }
 
-bool not_map(char *line, t_game *game, int *line_n)
+bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 {
 	// bool found_texture = 0;
 	int i = 0;
+	// bool map_started = false;
 	(void)game;
+	(void)err;
 	(void)line_n;
 	// printf("line %d: %c\n", *line_n, line[0]);
 
 	while (line[i] != '\0')
 	{
-		// while(line[i] != ' ') // skip spaces
-		// 	i++;
-		// if(line[i] != '\0')
+		while (line[i] == ' ') // skip spaces
+			i++;
+		if (line[i] == '\n' || line[i] == '\0' ) // end of line
+		{
+			if(!game->data->map_started) 
+				return (true); // if map did not start we can skip empyt lines and not include them 
+			else
+				return (false); // if map started we have to include in the map
+		}
+		if(line[i] == 'N') // skip spaces
+			return(true);
+		if (line[i] == 'S')
+			return(true);
+		if (line[i] == 'W')
+			return(true);
+		if (line[i] == 'E')
+			return(true);
+		if (line[i] == 'C' || line[i] == 'F')
+			return(true); // check colors(line[i], line, game)
+		if(line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\n') // check if its a map
+		{	
+			game->data->map_started = true;
+			return(false); // check_map(line, game)
+		}
+		else
+		{
+			printf("Error: invalid format or duplicate in line %d\n", *line_n);
+			*err = true;
+			return(true); // check_map(line, game)
+		}
+		i++;
+	}
+	return (false);
+
+
+		// else if(line[i] == 'N')
 		// {
-		// 	if(line[i] == 'N')
-		// 	{
-		// 		i++;
-		// 		if(line[i] == 'O' && line[i] != '\0' && !game->data->n_found) // NO SO 
-		// 		{	
-		// 			game->data->s_found = true;
-		// 			// save_texture(line, game, i);
-		// 		}
-		// 		else // its an error
-		// 		{
-		// 			printf("Error: invalid format or duplicate in line %d\n", *line_n);
-		// 			line = NULL; //(so it triggers error)
-		// 		}
-        //         return (false);
+		// 	printf("heyyyyy 1\n");
+		// 	i++;
+		// 	if(line[i] == 'O' && !game->data->n_found) // NO SO 
+		// 	{	
+		// 		game->data->n_found = true;
+		// 		printf("heyyyyy 2\n");
+		// 		// save_texture(line, game, i);
 		// 	}
+		// 	else // its an error
+		// 	{
+		// 		printf("Error: invalid format or duplicate in line %d\n", *line_n);
+		// 		*err = true;
+		// 	}
+		// 	return (true);
+		// }
 		// 	if(line[i] == 'S')
 		// 	{
 		// 		i++;
@@ -108,7 +143,7 @@ bool not_map(char *line, t_game *game, int *line_n)
 		// 	}
         //     return (false);
 		// }
-		i++;
-	}
-	return (false);
+		// i++;
+	// }
+	// return (false);
 }

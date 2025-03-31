@@ -51,6 +51,7 @@ typedef struct s_data{
 	bool	s_found; // all textures are available
 	bool	w_found; // and if they are no duplicates
 	bool	e_found;
+	bool	map_started; // jess: a check i use to skip empty lines before start of map
 
 }	t_data;
 
@@ -96,7 +97,7 @@ typedef struct s_game{
 bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);
 bool	collect_map(int fd, char ***map, t_game *game);
-bool not_map(char *line, t_game *game, int *line_n);
+bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
 
 //debugging
 void print_map(char **map);

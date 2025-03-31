@@ -44,7 +44,7 @@ bool	has_file_extension(char *file, char *extension)
 bool	check_map(char *file, t_game *game) // returns null if fails
 {
 	int		fd;
-	(void)game;
+	(void) game;
 
 
 	fd = open(file, O_RDONLY);
@@ -69,12 +69,10 @@ bool	check_map(char *file, t_game *game) // returns null if fails
 bool	parse_assets(char	*file_name, t_game *game) // error handling if we have more 
 {
     (void)game;
-    if(!check_map(file_name, game))
+    if(!check_map(file_name, game)) 
         return (false);
-    
-    
-    // if !check_map return false	
-    /*Fullfill structure with textures and info*/
+	// parse_map(game->data->map, game); -- parse items in the map array
+	// parse textures -- parse textures if they can be found and valid
     return (true);
 }	
 
