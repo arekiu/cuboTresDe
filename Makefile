@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/03/31 14:46:55 by jslusark         ###   ########.fr        #
+#    Updated: 2025/03/31 17:24:09 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ SRC_FILES = \
 	$(SRC_DIR)/ray_casting.c \
 	$(SRC_DIR)/end_game.c \
 	$(PARSE_DIR)/parse_assets.c \
-	$(PARSE_DIR)/get_line.c \
+	$(PARSE_DIR)/collect_map_data.c \
+	$(PARSE_DIR)/collect_map_env.c \
 	$(PARSE_DIR)/parsing_debugger.c
 
 OBJ_DIR = obj

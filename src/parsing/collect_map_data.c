@@ -18,27 +18,6 @@
 #include <stdio.h>
 #include "../cub3d.h"
 
-// #define INT_MAX 42
-
-// char *ft_strdup(char *src)
-// {
-// 	char *dst;
-// 	int len = 0;
-// 	int i = 0;
-	
-// 	while(src[len] != '\0')
-// 		len++;
-// 	dst = (char *)malloc(sizeof(char) * len + 1); // why (char *)
-// 	while(src[i] != '\0')
-// 	{
-// 		dst[i] = src[i];
-// 		i++;
-// 	}
-// 	dst[i] = '\0';
-// 	return(dst);
-// }
-
-
 char *ft_get_line(int fd)
 {
 	static char	buff[42];
@@ -72,9 +51,10 @@ char *ft_get_line(int fd)
 	return(ft_strdup(line));
 }
 
-bool	collect_map(int fd, char ***map)
+bool	collect_map(int fd, char ***map, t_game *game)
 {
 	char *line;
+	(void)game;
 	int i = 0;
 	*map = malloc(sizeof(char *) * 1024 + 1);
 	if (!*map) // and free?
@@ -83,14 +63,26 @@ bool	collect_map(int fd, char ***map)
 	while(1) // get next line returns the full line until /n
 	{
 		line = ft_get_line(fd);
-		if(line == NULL)
+		if(line == NULL) // null check before processing the line after
 		{
 			if(i == 0) // if no lines were read
 				return (false);
-			break; // else break the loop as no lines left
+			break; // else break the loop as no lines left to read
 		}
-		(*map)[i] = ft_strdup(line);
-		free(line);
+		// // check if the line is part of the map or other data
+		if(not_map(line, game, &i))
+		{
+			if(line == NULL)// if not_map finds an error is overwrites line as null to trigger the error
+			{
+				free(line);
+				return(false);
+			}
+		}
+		else
+		{
+			(*map)[i] = ft_strdup(line);
+			free(line);
+		}
 		i++;
 	}
 	(*map)[i] = NULL; // add null terminator to the end of the map

@@ -54,13 +54,14 @@ bool	check_map(char *file, t_game *game) // returns null if fails
 		close(fd);
         return (NULL);
 	}	
-	if(!collect_map(fd, &game->data->map))
+	if(!collect_map(fd, &game->data->map, game))
 	{	
 		close(fd);
 		return (false);
 	}
 	close(fd);
 	print_map(game->data->map);
+	exit(0); // removing this after testing
 	return (true);
 }	
 

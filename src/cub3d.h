@@ -47,6 +47,10 @@ typedef struct s_data{
 	char	*text_EA;
 	char	*text_F; // jess: i think this should be int array
 	char	*text_C; // jess: i think this should be int array
+	bool	n_found; // jess: uding these flags to check if
+	bool	s_found; // all textures are available
+	bool	w_found; // and if they are no duplicates
+	bool	e_found;
 
 }	t_data;
 
@@ -91,7 +95,9 @@ typedef struct s_game{
 // Assets are contents in a game, so we can parse/check everything here
 bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);
-bool	collect_map(int fd, char ***map);
+bool	collect_map(int fd, char ***map, t_game *game);
+bool not_map(char *line, t_game *game, int *line_n);
+
 //debugging
 void print_map(char **map);
 
