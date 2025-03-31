@@ -68,14 +68,22 @@ bool	has_file_extension(char *file, char *extension)
 	file_len = ft_strlen(file) - 1;	
 	ext_len = ft_strlen(extension) - 1;
 	if (ext_len > file_len)
-		return (false);
+	return (false);
 	while (ext_len >= 0)	
 	{
 		if (file[file_len] != extension[ext_len])
-			return (0);
+		return (0);
 		file_len--;	
 		ext_len--;
-	}	
+	}
+	while(file_len >= 0) // added this as a warmup and handle filenames like map.ber.cub
+	{
+		if (file[file_len] == '/') // if we passed the path to file, the check ends here
+			break;
+		if (file[file_len] == '.')
+			return (false);
+		file_len--;
+	}
 	return (true);
 }	
 

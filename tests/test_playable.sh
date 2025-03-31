@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the directory containing the map files
-MAP="map/playable"
+MAP="../map/playable"
 
 # Define color codes
 RED='\033[0;31m'
@@ -21,7 +21,7 @@ run_test() {
     echo -e "${CYAN}Running ${test_type} maps:${RESET} ${map_color}$map${RESET}"
 
     # Run the program and capture both stdout and stderr
-    ./game "$map"
+    ../cub3d "$map"
     exit_status=$?
 
     # After the program runs, check if it exited with a non-zero status (failed test)
@@ -34,7 +34,7 @@ run_test() {
  # Only run valgrind on Linux
     if [[ "$(uname)" == "Linux" ]]; then
         # Run valgrind and capture output
-        valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./game "$map" 2>&1)
+        valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ../cub3d "$map" 2>&1)
 
         # Check for memory leaks or errors
         if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
