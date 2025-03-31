@@ -82,6 +82,7 @@ typedef struct s_game{
 	int			bpp; //bits per pixel
 	int			stride; //BYtes per row
 	int			endian; //How values are stored
+	char		**map; // <----------------------jess: i tried to remove the map and have the exec use data->map but will go in segfault, leaving it for merge
 	t_player	*player;
 	t_data		*data;
 
