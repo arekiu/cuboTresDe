@@ -12,52 +12,6 @@
 
 #include "../cub3d.h"
 
-// void	handle_nl_start(int fd, t_map *map_data, char *file_content, char *line)
-// {
-// 	ft_printf("Error: map cannot have an empty newline!\n");
-// 	free(map_data);
-// 	free(file_content);
-// 	free(line);
-// 	close(fd);
-// 	exit(1);
-// }
-
-// void	no_content(int fd, t_map *map_data, char *file_content)
-// {
-// 	ft_printf("Error: file is empty!\n");
-// 	free(map_data);
-// 	free(file_content);
-// 	close(fd);
-// 	exit(1);
-// }
-
-// static char	*parse_map(int fd, t_map *map_data, char *file_content, char *line)
-// {
-// 	char	*temp;
-// 	int		i;
-
-// 	i = 0;
-// 	while (line != NULL)
-// 	{
-// 		if (line[0] == '\n')
-// 			handle_nl_start(fd, map_data, file_content, line);
-// 		if (file_content == NULL)
-// 			file_content = ft_strdup(line);
-// 		else
-// 		{
-// 			temp = ft_strjoin(file_content, line);
-// 			free(file_content);
-// 			file_content = temp;
-// 		}
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		i++;
-// 	}
-// 	if (!file_content)
-// 		no_content(fd, map_data, file_content);
-// 	return (file_content);
-// }
-
 bool	has_file_extension(char *file, char *extension)
 {
 	int	file_len;
@@ -100,13 +54,13 @@ bool	check_map(char *file, t_game *game) // returns null if fails
 		close(fd);
         return (NULL);
 	}	
-	if(!collect_map(fd, &game->data->map_data))
+	if(!collect_map(fd, &game->data->map))
 	{	
 		close(fd);
 		return (false);
 	}
 	close(fd);
-	print_map(game->data->map_data);
+	print_map(game->data->map);
 	return (true);
 }	
 

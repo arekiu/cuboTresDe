@@ -16,10 +16,10 @@ static void	rotate_player(t_game *game)
 
 static void try_move_player(t_game *game, float next_x, float next_y)
 {
-    if (game->map[(int)(next_y / BLOCK)][(int)(next_x / BLOCK)] != '1' && // TOP LEFT
-        game->map[(int)(next_y / BLOCK)][(int)((next_x + game->player->player_size) / BLOCK)] != '1' && //TOP RIGHT
-        game->map[(int)((next_y + game->player->player_size) / BLOCK)][(int)(next_x / BLOCK)] != '1' && //BOTTOM LEFT
-        game->map[(int)((next_y + game->player->player_size) / BLOCK)][(int)((next_x + game->player->player_size) / BLOCK)] != '1') //BOTTOM RIGHT
+    if (game->data->map[(int)(next_y / BLOCK)][(int)(next_x / BLOCK)] != '1' && // TOP LEFT
+        game->data->map[(int)(next_y / BLOCK)][(int)((next_x + game->player->player_size) / BLOCK)] != '1' && //TOP RIGHT
+        game->data->map[(int)((next_y + game->player->player_size) / BLOCK)][(int)(next_x / BLOCK)] != '1' && //BOTTOM LEFT
+        game->data->map[(int)((next_y + game->player->player_size) / BLOCK)][(int)((next_x + game->player->player_size) / BLOCK)] != '1') //BOTTOM RIGHT
     {
         game->player->x = next_x;
         game->player->y = next_y;

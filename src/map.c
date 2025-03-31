@@ -37,12 +37,12 @@ void	draw_map(t_game *game)
 
 	color = 0x0000FF;
 	y = 0;
-    while (game->map[y])
+    while (game->data->map[y])
     {
         x = 0;
-        while (game->map[y][x])
+        while (game->data->map[y][x])
         {
-            if (game->map[y][x] == '1') // jess: if wall we draw the wall
+            if (game->data->map[y][x] == '1') // jess: if wall we draw the wall
 			{
                     draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
             }

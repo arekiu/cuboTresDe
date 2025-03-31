@@ -7,7 +7,7 @@ bool	reach_wall(float ray_x, float ray_y, t_game *game)
 
 	x = ray_x/BLOCK; //determine which tile in the grid the ray is in.
 	y = ray_y/BLOCK;
-	if (game->map[y][x] == '1')
+	if (game->data->map[y][x] == '1')
 		return (true);
 	return (false);
 }
