@@ -7,9 +7,9 @@ void	init_game(t_game *game)
 
 	game->map = get_map();
 	map_width = get_map_width(game->map);
-    map_height = get_map_height(game->map);
+	map_height = get_map_height(game->map);
 	game->screen_width = map_width * BLOCK;
-    game->screen_height = map_height * BLOCK;
+	game->screen_height = map_height * BLOCK;
 
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
@@ -18,7 +18,7 @@ void	init_game(t_game *game)
 		exit(1);
 	}
 	game->raycaster = malloc(sizeof(t_ray));
-    if (!game->raycaster)
+	if (!game->raycaster)
 		exit(1);
 	init_player(game->player, SO, 5, 7);
 	game->mlx = mlx_init();
@@ -26,7 +26,6 @@ void	init_game(t_game *game)
 	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
-
 }
 
 void	init_player(t_player *player, float orientation, int x, int y)

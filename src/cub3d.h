@@ -31,7 +31,6 @@
 #define WE (PI)
 #define EA 0
 
-
 typedef struct s_data{
 	//parsed map with needed information
 	char	**map_data;
@@ -48,20 +47,20 @@ typedef struct s_data{
 }	t_data;
 
 typedef struct s_ray {
-    double dir_x;
-    double dir_y;
-    int map_x;
-    int map_y;
-    double delta_x;
-    double delta_y;
-    int step_x;
-    int step_y;
-    double side_x;
-	double side_y;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_x;
+	double	delta_y;
+	int		step_x;
+	int		step_y;
+	double	side_x;
+	double	side_y;
 	int		side;
-    int hit_side;
+	int		hit_side;
 	double	wall_dist;
-	double camera_x;
+	double	camera_x;
 } t_ray;
 
 typedef struct s_player{
@@ -107,7 +106,7 @@ typedef struct s_game{
 }	t_game;
 
 //PARSE FILE
-int	parse_file(char	*file_name);
+int		parse_file(char	*file_name);
 
 //INIT
 void	init_game(t_game *game);
@@ -117,6 +116,7 @@ void	init_player(t_player *player, float orientation, int x, int y);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
+void	draw_debug_ray(t_game *game, float end_x, float end_y, int color);
 
 
 //PLAYER UTILS
@@ -124,16 +124,23 @@ int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 
 //MOVE PLAYER
-void	 move_player(t_game *game);
+void	move_player(t_game *game);
+void	move_in_direct(t_game *game);
+void	rotate_player(t_game *game);
+
+
+//RAY CASTING
 int		draw_loop(t_game *game);
-bool	reach_wall(float ray_x, float ray_y, t_game *game);
-void	draw_line(t_game *game, float stat_x);
+void	raycaster(t_game *game, int i);
+void	perform_DDA(t_game *game);
+void	calc_delta_dist(t_ray *raycaster);
+void	calc_side_dist(t_game *game);
 
 //MAP
 void	draw_map(t_game *game);
 char	**get_map(void);
-int get_map_height(char **map);
-int get_map_width(char **map);
+int		get_map_height(char **map);
+int		get_map_width(char **map);
 
 //END
 int		on_destroy(t_game *game);

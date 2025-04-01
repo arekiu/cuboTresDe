@@ -1,19 +1,5 @@
 #include "cub3d.h"
 
-
-void draw_debug_ray(t_game *game, float end_x, float end_y, int color)
-{
-    float dx = end_x - game->player->x;
-    float dy = end_y - game->player->y;
-    float steps = fmax(fabs(dx), fabs(dy));
-
-    for (int i = 0; i <= steps; i++) {
-        float x = game->player->x + dx * (i/steps);
-        float y = game->player->y + dy * (i/steps);
-        put_pixel((int)x, (int)y, color, game);
-    }
-}
-
 void calc_side_dist(t_game *game)
 {
     if (game->raycaster->dir_x < 0)
