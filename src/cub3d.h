@@ -102,7 +102,7 @@ bool	collect_map(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
 
 //debugging
-void print_map(char **map);
+void print_map(t_data *data);
 
 
 //INIT

@@ -60,7 +60,7 @@ bool	check_map(char *file, t_game *game) // returns null if fails
 		return (false);
 	}
 	close(fd);
-	print_map(game->data->map);
+	print_map(game->data);
 	exit(0); // removing this after testing
 	return (true);
 }	

@@ -129,18 +129,12 @@ bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 			game->data->map_started = true; // flag to avoid skipping spac 	
 			return(false); // false - should be saved in map
 		}
-		// else
-		// {
-		// 	printf("Error: invalid format or duplicate in line %d\n", *line_n);
-		// 	*err = true;
-		// 	return(true); // check_map(line, game)
-		// }
-	
-		// if got all textures - check if we got dups or enough
-		// if(game->data->n_found > 1)
-		// {
-		// 	printf("Error: found duplicate coordinates in NO\n");
-		// }
+		else
+		{
+			printf("Error: invalid coord format in line %d\n", *line_n);
+			*err = true;
+			return(true); // check_map(line, game)
+		}
 
 		i++;
 	}
