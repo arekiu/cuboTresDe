@@ -53,6 +53,8 @@ typedef struct s_data{
 	int	ea_found;
 	int	c_found;
 	int	f_found;
+	int rgb_amount; // number of values passed as rgb, if >3 it is error
+	bool parse_err; // flags the system if parsing error present to make thinsg easier
 	bool	map_started; // jess: a check i use to skip empty lines before start of map
 
 }	t_data;
