@@ -10,8 +10,6 @@
 # include <mlx.h>
 
 //VALUES THAT WE CAN MODIFY
-#define WIDTH 1280
-#define HEIGHT 720
 #define BLOCK 64
 #define PLAYER_SIZE 30
 #define PLAYER_SPEED 3
@@ -49,18 +47,34 @@ typedef struct s_data{
 
 }	t_data;
 
+typedef struct s_ray {
+    double dir_x;
+    double dir_y;
+    int map_x;
+    int map_y;
+    double delta_x;
+    double delta_y;
+    int step_x;
+    int step_y;
+    double side_x;
+	double side_y;
+	int		side;
+    int hit_side;
+	double	wall_dist;
+	double camera_x;
+} t_ray;
 
 typedef struct s_player{
-	int		x;
-	int		y;
+	float		x;
+	float		y;
 	int		player_size;
 	float	angle; //its going to be determined by parsing ---> PD: NO and SO were switched because of gaming cardinal things*
 	//NO == PI/2 (90)
 	//SO == 3PI/2 (270)
 	//WE == PI (180)
 	//EA == 0
-	float	cos_angle; // moves the player along the X-axis based on their facing direction.
-	float	sin_angle; // moves the player along the Y-axis based on their facing direction.
+	float	dir_x; // moves the player along the X-axis based on their facing direction.
+	float	dir_y; // moves the player along the Y-axis based on their facing direction.
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;
@@ -69,6 +83,8 @@ typedef struct s_player{
 	bool	right_rotate;
 	int		speed;
 	float	angle_speed;
+	float	plane_x;
+	float	plane_y;
 
 }	t_player;
 
@@ -78,12 +94,15 @@ typedef struct s_game{
 	void		*window;
 	void		*img;
 	char		**map;
+	int			screen_width;
+	int			screen_height;
 	char		*buffer; //store the pixels
 	int			bpp; //bits per pixel
 	int			stride; //BYtes per row
 	int			endian; //How values are stored
 	t_player	*player;
 	t_data		*data;
+	t_ray		*raycaster;
 
 }	t_game;
 
@@ -113,6 +132,8 @@ void	draw_line(t_game *game, float stat_x);
 //MAP
 void	draw_map(t_game *game);
 char	**get_map(void);
+int get_map_height(char **map);
+int get_map_width(char **map);
 
 //END
 int		on_destroy(t_game *game);

@@ -4,7 +4,7 @@ void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
 
-	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+	if(x >= game->screen_width || y >= game->screen_height || x < 0 || y < 0)
 		return;
 	index = y * game->stride + x * game->bpp / 8;
 	game->buffer[index] = color & 0xFF;
@@ -33,10 +33,10 @@ void	clear(t_game *game)
 	int	y;
 
 	y = 0;
-	while (y < HEIGHT)
+	while (y < game->screen_height)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < game->screen_width)
 		{
 			put_pixel(x, y, 0, game);
 			x++;

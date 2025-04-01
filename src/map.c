@@ -18,8 +18,8 @@ char	**get_map(void)
     map[5] = "100000000000001";
     map[6] = "100000000000001";
     map[7] = "100000000010001";
-    map[8] = "100000000000001";
-    map[9] = "111111111111111";
+    map[8] = "100000011000001";
+    map[9] = "1111111  1111111";
     map[10] = NULL;
 	return (map);
 }
@@ -45,4 +45,19 @@ void	draw_map(t_game *game)
         }
         y++;
     }
+}
+
+int get_map_height(char **map)
+{
+    int height = 0;
+    while (map[height])
+        height++;
+    return height;
+}
+
+int get_map_width(char **map)
+{
+    if (!map[0])
+        return 0;
+    return strlen(map[0]);
 }

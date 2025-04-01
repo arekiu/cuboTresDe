@@ -10,20 +10,24 @@ static void	rotate_player(t_game *game)
 		game->player->angle = 0;
 	if (game->player->angle < 0) //less than 0, gets 360
 		game->player->angle = 2 * PI;
-    game->player->cos_angle = cos(game->player->angle);
-    game->player->sin_angle = sin(game->player->angle);
+    game->player->dir_x = cos(game->player->angle);
+    game->player->dir_y = sin(game->player->angle);
+	game->player->plane_x = -game->player->dir_y * 0.66;  // FOV scaling factor
+	game->player->plane_y = game->player->dir_x * 0.66;
+
 }
+
 
 static void try_move_player(t_game *game, float next_x, float next_y)
 {
-    if (game->map[(int)(next_y / BLOCK)][(int)(next_x / BLOCK)] != '1' && // TOP LEFT
-        game->map[(int)(next_y / BLOCK)][(int)((next_x + game->player->player_size) / BLOCK)] != '1' && //TOP RIGHT
-        game->map[(int)((next_y + game->player->player_size) / BLOCK)][(int)(next_x / BLOCK)] != '1' && //BOTTOM LEFT
-        game->map[(int)((next_y + game->player->player_size) / BLOCK)][(int)((next_x + game->player->player_size) / BLOCK)] != '1') //BOTTOM RIGHT
-    {
-        game->player->x = next_x;
-        game->player->y = next_y;
-    }
+    if (game->map[(int)((next_y - game->player->player_size / 2) / BLOCK)][(int)((next_x - game->player->player_size / 2) / BLOCK)] != '1' && // TOP LEFT
+    game->map[(int)((next_y - game->player->player_size / 2) / BLOCK)][(int)((next_x + game->player->player_size / 2) / BLOCK)] != '1' && //TOP RIGHT
+    game->map[(int)((next_y + game->player->player_size / 2) / BLOCK)][(int)((next_x - game->player->player_size / 2) / BLOCK)] != '1' && //BOTTOM LEFT
+    game->map[(int)((next_y + game->player->player_size / 2) / BLOCK)][(int)((next_x + game->player->player_size / 2) / BLOCK)] != '1') //BOTTOM RIGHT
+{
+    game->player->x = next_x;
+    game->player->y = next_y;
+}
 }
 
 static void calculate_next_position(t_game  *game, float *next_x, float *next_y, int direction)
@@ -35,23 +39,23 @@ static void calculate_next_position(t_game  *game, float *next_x, float *next_y,
     speed = player->speed;
     if (direction == 1)//UP
     {
-        *next_x = player->x + player->cos_angle * speed;
-        *next_y = player->y + player->sin_angle * speed;
+        *next_x = player->x + player->dir_x * speed;
+        *next_y = player->y + player->dir_y * speed;
     }
     if (direction == 2)//DOWN
     {
-        *next_x = player->x - player->cos_angle * speed;
-        *next_y = player->y - player->sin_angle * speed;
+        *next_x = player->x - player->dir_x * speed;
+        *next_y = player->y - player->dir_y * speed;
     }
     if (direction == 3)//LEFT
     {
-        *next_x = player->x + player->sin_angle * speed;
-        *next_y = player->y - player->cos_angle * speed;
+        *next_x = player->x + player->dir_y * speed;
+        *next_y = player->y - player->dir_x * speed;
     }
     if (direction == 4)//RIGHT
     {
-        *next_x = player->x - player->sin_angle * speed;
-        *next_y = player->y + player->cos_angle * speed;
+        *next_x = player->x - player->dir_y * speed;
+        *next_y = player->y + player->dir_x * speed;
     }
 }
 
