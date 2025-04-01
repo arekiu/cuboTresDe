@@ -41,16 +41,18 @@ typedef struct s_data{
 	int		player_x;
 	int		player_y;
 	char	player_orient;
-	char	*text_NO;
-	char	*text_SO;
-	char	*text_WE;
-	char	*text_EA;
-	char	*text_F; // jess: i think this should be int array
-	char	*text_C; // jess: i think this should be int array
-	bool	n_found; // jess: uding these flags to check if
-	bool	s_found; // all textures are available
-	bool	w_found; // and if they are no duplicates
-	bool	e_found;
+	char	*NO_path;
+	char	*SO_path;
+	char	*WE_path;
+	char	*EA_path;
+	char	*F_path; // jess: i think this should be int array
+	char	*C_path; // jess: i think this should be int array
+	int	no_found; // jess: uding these int to check if
+	int	so_found; // all textures are available
+	int	we_found; // and if they appear more than once
+	int	ea_found;
+	int	c_found;
+	int	f_found;
 	bool	map_started; // jess: a check i use to skip empty lines before start of map
 
 }	t_data;

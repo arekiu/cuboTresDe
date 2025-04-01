@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_debugger.c                                 :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 13:38:12 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/01 11:28:26 by jslusark         ###   ########.fr       */
+/*   Created: 2025/04/01 10:14:51 by jslusark          #+#    #+#             */
+/*   Updated: 2025/04/01 10:25:08 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-void print_map(char **map)
+char *ft_strcpy(char *dest, const char *src)
 {
-    int i = 0;
+	int	i;
 
-    while (map[i] != NULL)
-    {
-        printf("%s", map[i]);
-        i++;
-    }
-    printf("\n");
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

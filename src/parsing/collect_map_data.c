@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include "../cub3d.h"
 
+
 char *ft_get_line(int fd)
 {
 	static char	buff[42];

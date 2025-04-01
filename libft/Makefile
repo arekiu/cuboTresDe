@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 12:06:22 by aschmidt          #+#    #+#              #
-#    Updated: 2025/03/26 13:37:24 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/01 10:15:52 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC	= $(addprefix src/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha
 	  ft_strrchr.c ft_tolower.c ft_toupper.c ft_substr.c ft_strjoin.c \
 	  ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c get_next_line.c \
-	  ft_print.c ft_pointer.c ft_unsigned.c ft_printcds.c)
+	  ft_print.c ft_pointer.c ft_unsigned.c ft_printcds.c \
+	  ft_strcpy.c)
 
 OBJS	:= $(SRC:%.c=%.o)
 
