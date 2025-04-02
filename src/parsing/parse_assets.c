@@ -70,7 +70,11 @@ bool	parse_assets(char	*file_name, t_game *game) // error handling if we have mo
 {
     (void)game;
     if(!check_map(file_name, game))
-        return (false);
+		return (false);
+	if(!parse_textures(game->data))
+		return (false);
+
+	
 	// parse_map(game->data->map, game); -- parse items in the map array
 	// parse textures -- parse textures if they can be found and valid
     return (true);

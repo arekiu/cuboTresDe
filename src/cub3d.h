@@ -130,6 +130,8 @@ bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);
 bool	collect_map(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
+bool    parse_textures(t_data *data);
+
 
 //debugging
 void print_map(t_data *data);
