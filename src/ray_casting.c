@@ -13,6 +13,7 @@ void calc_side_dist(t_game *game)
         game->raycaster->side_x = (game->raycaster->map_x + 1.0 - game->player->x / BLOCK) * game->raycaster->delta_x;
     }
 
+
     if (game->raycaster->dir_y < 0)
     {
         game->raycaster->step_y = -1;
@@ -23,6 +24,7 @@ void calc_side_dist(t_game *game)
         game->raycaster->step_y = 1;
         game->raycaster->side_y = (game->raycaster->map_y + 1.0 - game->player->y / BLOCK) * game->raycaster->delta_y;
     }
+
 }
 
 void	calc_delta_dist(t_ray *raycaster)

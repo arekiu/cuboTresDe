@@ -3,11 +3,20 @@
 
 # include "../libft/src/libft.h"
 
+# include <stdbool.h> // jess: I use this so instead of using 1/0 we can return true/false (easier to not get confused)
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
 # include <mlx.h>
+
+//COLORS - for debugging and printing pretty ;)
+# define RESET_T "\033[0m"
+# define RED_T "\033[31m"
+# define BLUE_T "\033[0;94m"
+# define PURPLE_T "\033[35m"
+# define YELLOW_T "\033[33m"
+# define GREEN_T "\033[32m"
 
 //VALUES THAT WE CAN MODIFY
 #define BLOCK 64
@@ -33,16 +42,25 @@
 
 typedef struct s_data{
 	//parsed map with needed information
-	char	**map_data;
+	char	**map;
 	int		player_x;
 	int		player_y;
 	char	player_orient;
-	char	*text_NO;
-	char	*text_SO;
-	char	*text_WE;
-	char	*text_EA;
-	char	*text_F;
-	char	*text_C;
+	char	*NO_path;
+	char	*SO_path;
+	char	*WE_path;
+	char	*EA_path;
+	int		*F_rgb; // jess: i think this should be int array
+	int		*C_rgb; // jess: i think this should be int array
+	int		no_found; // jess: uding these int to check if
+	int		so_found; // all textures are available
+	int		we_found; // and if they appear more than once
+	int		ea_found;
+	int		c_found;
+	int		f_found;
+	int		rgb_amount; // number of values passed as rgb, if >3 it is error
+	bool	parse_err; // flags the system if parsing error present to make thinsg easier
+	bool	map_started; // jess: a check i use to skip empty lines before start of map
 
 }	t_data;
 
@@ -92,7 +110,6 @@ typedef struct s_game{
 	void		*mlx;
 	void		*window;
 	void		*img;
-	char		**map;
 	int			screen_width;
 	int			screen_height;
 	char		*buffer; //store the pixels
@@ -103,11 +120,20 @@ typedef struct s_game{
 	t_data		*data;
 	t_ray		*raycaster;
 	
-
 }	t_game;
 
+
 //PARSE FILE
-int		parse_file(char	*file_name);
+//PARSING FUNCTIONS
+// Assets are contents in a game, so we can parse/check everything here
+bool	parse_assets(char	*file_name, t_game *game);
+char	*ft_get_line(int fd);
+bool	collect_map(int fd, char ***map, t_game *game);
+bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
+
+//debugging
+void print_map(t_data *data);
+
 
 //INIT
 void	init_game(t_game *game);
@@ -138,6 +164,7 @@ void	calc_delta_dist(t_ray *raycaster);
 void	calc_side_dist(t_game *game);
 
 //MAP
+char	**load_map(void);
 void	draw_map(t_game *game);
 char	**get_map(void);
 int		get_map_height(char **map);

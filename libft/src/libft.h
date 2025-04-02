@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:01:39 by aschmidt          #+#    #+#             */
-/*   Updated: 2024/06/11 11:54:12 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:15:26 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	ft_putunsig(unsigned int n);
 int		unsig_num_len(unsigned int n);
 int		ft_put_hexa(unsigned int n, char format);
 int		ft_put_point(uintptr_t n);
+char *ft_strcpy(char *dest, const char *src);
+
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1

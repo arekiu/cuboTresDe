@@ -5,22 +5,17 @@ void	init_game(t_game *game)
 	int	map_height;
 	int	map_width;
 
-	game->map = get_map();
 	map_width = get_map_width(game->map);
 	map_height = get_map_height(game->map);
 	game->screen_width = map_width * BLOCK;
 	game->screen_height = map_height * BLOCK;
 
-	game->player = malloc(sizeof(t_player));
-	if (!game->player)
-	{
-		ft_printf("Error: Memory allocation failed\n");
-		exit(1);
-	}
 	game->raycaster = malloc(sizeof(t_ray));
 	if (!game->raycaster)
 		exit(1);
 	init_player(game->player, WE, 5, 7);
+	// jess: called it load as we just load an array and have an error if we fail to load
+	game->data->map = load_map(); // jess: we should already have the map loaded from parsing so this may not be needed
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3d");
 	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);

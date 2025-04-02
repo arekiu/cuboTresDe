@@ -3,12 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschmidt <aschmidt@student.42berlin.d      +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 12:06:22 by aschmidt          #+#    #+#              #
-#    Updated: 2024/05/02 15:45:40 by aschmidt         ###   ########.fr        #
+#    Updated: 2025/04/01 10:15:52 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# Colors
+RED = \033[0;31m
+GRAY = \033[0;90m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+RESET = \033[0;97m
 
 SRC	= $(addprefix src/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 	  ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c \
@@ -17,7 +27,8 @@ SRC	= $(addprefix src/, ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha
 	  ft_strrchr.c ft_tolower.c ft_toupper.c ft_substr.c ft_strjoin.c \
 	  ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c get_next_line.c \
-	  ft_print.c ft_pointer.c ft_unsigned.c ft_printcds.c)
+	  ft_print.c ft_pointer.c ft_unsigned.c ft_printcds.c \
+	  ft_strcpy.c)
 
 OBJS	:= $(SRC:%.c=%.o)
 
@@ -28,21 +39,23 @@ CC 	= cc
 CCFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
+	@echo "$(MAGENTA)$(NAME)$(RESET) is up to date"
 
-#ar archive tool to create, modify...from archives (Replace,Create,Swrite index)
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
+	@echo "$(MAGENTA)$(NAME)$(RESET) compiled successfully"
 
 %.o: %.c
-	$(CC) $(CCFLAGS) -o $@ -c $<
+	@$(CC) $(CCFLAGS) -o $@ -c $<
 
 #rm -f force in case the file doesnt exist
 clean:
-	rm -f $(OBJS) 
+	@rm -f $(OBJS) 
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
+	echo "$(WARNING) $(MAGENTA)$(NAME)$(RESET) has been recompiled succelly"
 
 .PHONY: all clean fclean re

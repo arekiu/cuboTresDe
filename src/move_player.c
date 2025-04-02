@@ -28,6 +28,7 @@ static void try_move_player(t_game *game, float next_x, float next_y)
 	game->player->x = next_x;
 	game->player->y = next_y;
 }
+
 }
 
 static void calculate_next_position(t_game  *game, float *next_x, float *next_y, int direction)
