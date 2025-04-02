@@ -29,7 +29,7 @@ void	calc_delta_dist(t_ray *raycaster)
 {
 	//calculate delta dist x
 	if (raycaster->dir_x == 0)
-		raycaster->delta_x = 1e30; //ray parallel to y-axis, give super high value
+		raycaster->delta_x = 1e30; //ray parallel to x-axis, give super high value
 	else if (raycaster->dir_x > 0)
 		raycaster->delta_x = 1 / raycaster->dir_x;
 	else
@@ -46,7 +46,6 @@ void	calc_delta_dist(t_ray *raycaster)
 
 void	perform_DDA(t_game *game)
 {
-
 	game->raycaster->hit_side = 0;
 	while (game->raycaster->hit_side == 0)
 	{
@@ -57,8 +56,7 @@ void	perform_DDA(t_game *game)
             game->raycaster->hit_side = 1; // Stop the loop
             break;
         }
-		//jump to next map square, either in x-direction, or in y-direction
-		if (game->raycaster->side_x < game->raycaster->side_y)
+		if (game->raycaster->side_x < game->raycaster->side_y)//jump to next map square, either in x-direction, or in y-direction
 		{
 			game->raycaster->side_x += game->raycaster->delta_x;
 			game->raycaster->map_x += game->raycaster->step_x;
@@ -70,7 +68,6 @@ void	perform_DDA(t_game *game)
 			game->raycaster->map_y += game->raycaster->step_y;
 			game->raycaster->side = 1;
 		}
-
 		if (game->map[game->raycaster->map_y][game->raycaster->map_x] == '1')
 			game->raycaster->hit_side = 1;
 		if (game->raycaster->side == 0)

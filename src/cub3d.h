@@ -102,6 +102,7 @@ typedef struct s_game{
 	t_player	*player;
 	t_data		*data;
 	t_ray		*raycaster;
+	
 
 }	t_game;
 

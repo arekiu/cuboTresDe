@@ -20,7 +20,7 @@ void	init_game(t_game *game)
 	game->raycaster = malloc(sizeof(t_ray));
 	if (!game->raycaster)
 		exit(1);
-	init_player(game->player, SO, 5, 7);
+	init_player(game->player, WE, 5, 7);
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3d");
 	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);
