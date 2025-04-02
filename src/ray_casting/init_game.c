@@ -1,21 +1,19 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	init_game(t_game *game)
 {
 	int	map_height;
 	int	map_width;
 
-	map_width = get_map_width(game->map);
-	map_height = get_map_height(game->map);
+	map_width = get_map_width(game->data->map);
+	map_height = get_map_height(game->data->map);
 	game->screen_width = map_width * BLOCK;
 	game->screen_height = map_height * BLOCK;
 
 	game->raycaster = malloc(sizeof(t_ray));
 	if (!game->raycaster)
 		exit(1);
-	init_player(game->player, WE, 5, 7);
-	// jess: called it load as we just load an array and have an error if we fail to load
-	game->data->map = load_map(); // jess: we should already have the map loaded from parsing so this may not be needed
+	init_player(game->player, WE, 2, 2);
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3d");
 	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);

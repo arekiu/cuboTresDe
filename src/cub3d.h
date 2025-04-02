@@ -21,8 +21,8 @@
 //VALUES THAT WE CAN MODIFY
 #define BLOCK 64
 #define PLAYER_SIZE 30
-#define PLAYER_SPEED 3
-#define PLAYER_ANGLE_SPEED 0.05
+#define PLAYER_SPEED 1
+#define PLAYER_ANGLE_SPEED 0.005
 
 //CONSTANT VALUES
 #define PI 3.1415926535
@@ -98,7 +98,7 @@ typedef struct s_player{
 	bool	key_right;
 	bool	left_rotate;
 	bool	right_rotate;
-	int		speed;
+	float		speed;
 	float	angle_speed;
 	float	plane_x;
 	float	plane_y;
@@ -119,7 +119,7 @@ typedef struct s_game{
 	t_player	*player;
 	t_data		*data;
 	t_ray		*raycaster;
-	
+
 }	t_game;
 
 
@@ -164,9 +164,7 @@ void	calc_delta_dist(t_ray *raycaster);
 void	calc_side_dist(t_game *game);
 
 //MAP
-char	**load_map(void);
 void	draw_map(t_game *game);
-char	**get_map(void);
 int		get_map_height(char **map);
 int		get_map_width(char **map);
 

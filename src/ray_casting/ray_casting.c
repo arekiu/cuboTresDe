@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void calc_side_dist(t_game *game)
 {
@@ -51,8 +51,8 @@ void	perform_DDA(t_game *game)
 	game->raycaster->hit_side = 0;
 	while (game->raycaster->hit_side == 0)
 	{
-		if (game->raycaster->map_x < 0 || game->raycaster->map_x >= get_map_width(game->map) ||
-    game->raycaster->map_y < 0 || game->raycaster->map_y >= get_map_height(game->map))
+		if (game->raycaster->map_x < 0 || game->raycaster->map_x >= get_map_width(game->data->map) ||
+    game->raycaster->map_y < 0 || game->raycaster->map_y >= get_map_height(game->data->map))
         {
             printf("Ray went out of bounds: map_x=%d, map_y=%d\n", game->raycaster->map_x, game->raycaster->map_y);
             game->raycaster->hit_side = 1; // Stop the loop
@@ -70,7 +70,7 @@ void	perform_DDA(t_game *game)
 			game->raycaster->map_y += game->raycaster->step_y;
 			game->raycaster->side = 1;
 		}
-		if (game->map[game->raycaster->map_y][game->raycaster->map_x] == '1')
+		if (game->data->map[game->raycaster->map_y][game->raycaster->map_x] == '1')
 			game->raycaster->hit_side = 1;
 		if (game->raycaster->side == 0)
 			game->raycaster->wall_dist = (game->raycaster->side_x - game->raycaster->delta_x);
