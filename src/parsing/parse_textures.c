@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/02 18:59:25 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:22:15 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ bool    parse_textures(t_data *data)
         || !check_amount(data->ea_found, "east")
         || !check_amount(data->we_found, "west"))
         return(false);
-    // parse .xpm of coordinates here
+        // NEED TO FIX DOES NOT WORK
+    if (!has_file_extension(data->NO_path, ".xpm") // also add not found
+        || !has_file_extension(data->SO_path, ".xpm")
+        || !has_file_extension(data->EA_path, ".xpm")
+        || !has_file_extension(data->WE_path, ".xpm"))
+        return(false);
+
     return(true);
 }

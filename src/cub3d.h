@@ -126,11 +126,13 @@ typedef struct s_game{
 //PARSE FILE
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
+bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);
 bool	collect_map(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
 bool    parse_textures(t_data *data);
+
 
 
 //debugging

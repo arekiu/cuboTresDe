@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/02 17:49:12 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/02 19:05:51 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_FILES = \
 	$(RAY_DIR)/map.c \
 	$(RAY_DIR)/ray_casting.c \
 	$(PARSE_DIR)/parse_assets.c \
+	$(PARSE_DIR)/file_parsing.c \
 	$(PARSE_DIR)/collect_map_data.c \
 	$(PARSE_DIR)/collect_map_env.c \
 	$(PARSE_DIR)/parsing_debugger.c \
