@@ -1,79 +1,118 @@
 #include "cub3d.h"
 
-bool	reach_wall(float ray_x, float ray_y, t_game *game)
+void calc_side_dist(t_game *game)
 {
-	int	x;
-	int	y;
+    if (game->raycaster->dir_x < 0)
+    {
+        game->raycaster->step_x = -1;
+        game->raycaster->side_x = (game->player->x / BLOCK - game->raycaster->map_x) * game->raycaster->delta_x;
+    }
+    else
+    {
+        game->raycaster->step_x = 1;
+        game->raycaster->side_x = (game->raycaster->map_x + 1.0 - game->player->x / BLOCK) * game->raycaster->delta_x;
+    }
 
-	x = ray_x/BLOCK; //determine which tile in the grid the ray is in.
-	y = ray_y/BLOCK;
-	if (game->data->map[y][x] == '1')
-		return (true);
-	return (false);
+
+    if (game->raycaster->dir_y < 0)
+    {
+        game->raycaster->step_y = -1;
+        game->raycaster->side_y = (game->player->y / BLOCK - game->raycaster->map_y) * game->raycaster->delta_y;
+    }
+    else
+    {
+        game->raycaster->step_y = 1;
+        game->raycaster->side_y = (game->raycaster->map_y + 1.0 - game->player->y / BLOCK) * game->raycaster->delta_y;
+    }
+
 }
 
-void	draw_line(t_game *game, float start_x)
+void	calc_delta_dist(t_ray *raycaster)
 {
-	float	ray_x;
-	float	ray_y;
-	float	cos_angle;
-	float	sin_angle;
+	//calculate delta dist x
+	if (raycaster->dir_x == 0)
+		raycaster->delta_x = 1e30; //ray parallel to x-axis, give super high value
+	else if (raycaster->dir_x > 0)
+		raycaster->delta_x = 1 / raycaster->dir_x;
+	else
+		raycaster->delta_x = 1 / -raycaster->dir_x;
+//calculate delta dist y
+	if (raycaster->dir_y == 0)
+		raycaster->delta_y = 1e30; //ray parallel to y-axis, give super high value
+	else if (raycaster->dir_y > 0)
+		raycaster->delta_y = 1 / raycaster->dir_y;
+	else
+		raycaster->delta_y = 1 / -raycaster->dir_y;
 
-	ray_x = game->player->x;
-	ray_y = game->player->y;
-	cos_angle = cos(start_x);
-	sin_angle = sin(start_x);
-	/*The ray starts from the player's position.
-	The direction of the ray is determined by cos(start_x) and sin(start_x).*/
-	while (!reach_wall(ray_x, ray_y, game))
+}
+
+void	perform_DDA(t_game *game)
+{
+	game->raycaster->hit_side = 0;
+	while (game->raycaster->hit_side == 0)
 	{
-		put_pixel(ray_x, ray_y, 0xFF0000, game); //The ray is extended until it hits a wall
-		ray_x += cos_angle;//Each step of loop, the ray moves a little further along its angle
-		ray_y += sin_angle;
+		if (game->raycaster->map_x < 0 || game->raycaster->map_x >= get_map_width(game->map) ||
+    game->raycaster->map_y < 0 || game->raycaster->map_y >= get_map_height(game->map))
+        {
+            printf("Ray went out of bounds: map_x=%d, map_y=%d\n", game->raycaster->map_x, game->raycaster->map_y);
+            game->raycaster->hit_side = 1; // Stop the loop
+            break;
+        }
+		if (game->raycaster->side_x < game->raycaster->side_y)//jump to next map square, either in x-direction, or in y-direction
+		{
+			game->raycaster->side_x += game->raycaster->delta_x;
+			game->raycaster->map_x += game->raycaster->step_x;
+			game->raycaster->side = 0;
+		}
+		else
+		{
+			game->raycaster->side_y += game->raycaster->delta_y;
+			game->raycaster->map_y += game->raycaster->step_y;
+			game->raycaster->side = 1;
+		}
+		if (game->map[game->raycaster->map_y][game->raycaster->map_x] == '1')
+			game->raycaster->hit_side = 1;
+		if (game->raycaster->side == 0)
+			game->raycaster->wall_dist = (game->raycaster->side_x - game->raycaster->delta_x);
+		else
+			game->raycaster->wall_dist = (game->raycaster->side_y - game->raycaster->delta_y);
 	}
+}
+
+void	raycaster(t_game *game, int i)
+{
+	game->raycaster->camera_x = 2 * i / (double)game->screen_width - 1; //x-coord in camera space
+	game->raycaster->dir_x = game->player->dir_x + game->player->plane_x * game->raycaster->camera_x;
+	game->raycaster->dir_y = game->player->dir_y + game->player->plane_y * game->raycaster->camera_x;
+	game->raycaster->map_x = (int)(game->player->x / BLOCK);
+	game->raycaster->map_y = (int)(game->player->y / BLOCK);
+	calc_delta_dist(game->raycaster);
+	calc_side_dist(game);
+	perform_DDA(game);
 }
 
 int	draw_loop(t_game *game)
 {
-	float	fraction;
-	float	start_x;
 	int		i;
 
-	fraction = PI / 3 / WIDTH; // PI = 180, PI/3 = 60 grades (common view angle used in games og this type)
-	start_x = game->player->angle - PI / 6; // the position of player (center) - 30 grades ((end_x will be game->player->angle + PI / 6))
 	i = 0;
 	move_player(game);
 	clear(game);
-	draw_square(game->player->x, game->player->y, game->player->player_size, 0xFF0000, game);
+	draw_square((int)game->player->x - PLAYER_SIZE / 2,\
+		(int)game->player->y - PLAYER_SIZE / 2, PLAYER_SIZE,0xFF0000,game);
 	draw_map(game);
-	while (i < WIDTH)
+	while (i < game->screen_width)
 	{
-		draw_line(game, start_x);
-		start_x += fraction;
-		i++;
-	}
+		raycaster(game, i);
+
+        // Calculate ray end position for debugging
+       float ray_end_x = game->player->x + game->raycaster->dir_x * game->raycaster->wall_dist * BLOCK;
+       float ray_end_y = game->player->y + game->raycaster->dir_y * game->raycaster->wall_dist * BLOCK;
+
+        draw_debug_ray(game, ray_end_x, ray_end_y, 0x00FF00);
+        i++;
+    }
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (1);
 }
-/*
-Dividing the Screen into Rays:
-	In raycasting, each vertical column on the screen corresponds to one ray.
-
-	Let's assume:
-		Screen width (WIDTH) = 800 pixels
-		FOV = 60° (π/3 radians)
-		Each pixel represents a small change in the angle.
-
-	How do we calculate the angle step per pixel?
-		The total angle we need to cover is PI / 3 (60°).
-			We divide this by the number of pixels in width (WIDTH), so:
-
-					fraction = 𝜋/3 ÷ WIDTH
-
-		For example, if WIDTH = 800 pixels:
-
-					𝜋/3 ÷	800 ≈	0.00131 radians per pixel
-
-Each time we move one pixel to the right, the angle increases by this small fraction.
-*/
 

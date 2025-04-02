@@ -2,18 +2,23 @@
 
 void	init_game(t_game *game)
 {
-	game->player = malloc(sizeof(t_player));
-	if (!game->player)
-	{
-		ft_printf("Error: Memory allocation failed\n");
+	int	map_height;
+	int	map_width;
+
+	map_width = get_map_width(game->map);
+	map_height = get_map_height(game->map);
+	game->screen_width = map_width * BLOCK;
+	game->screen_height = map_height * BLOCK;
+
+	game->raycaster = malloc(sizeof(t_ray));
+	if (!game->raycaster)
 		exit(1);
-	}
-	init_player(game->player, NO, WIDTH / 2, HEIGHT/2); // jess: i guess x/y has to change based on the map file player position?
+	init_player(game->player, WE, 5, 7);
 	// jess: called it load as we just load an array and have an error if we fail to load
 	game->data->map = load_map(); // jess: we should already have the map loaded from parsing so this may not be needed
 	game->mlx = mlx_init();
-	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
-	game->img = mlx_new_image(game->mlx,WIDTH, HEIGHT);
+	game->window = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3d");
+	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 }
@@ -21,11 +26,11 @@ void	init_game(t_game *game)
 void	init_player(t_player *player, float orientation, int x, int y)
 {
 	player->angle = orientation;
-	player->cos_angle = cos(player->angle);
-	player->sin_angle = sin(player->angle);
+	player->dir_x = cos(player->angle);
+	player->dir_y = sin(player->angle);
 	player->player_size = PLAYER_SIZE;
-	player->x = x;
-	player->y = y;
+	player->x = x * BLOCK;
+	player->y = y * BLOCK;
 	player->key_up = false;
 	player->key_down = false;
 	player->key_left = false;
@@ -34,4 +39,7 @@ void	init_player(t_player *player, float orientation, int x, int y)
 	player->right_rotate = false;
 	player->speed = PLAYER_SPEED;
 	player->angle_speed = PLAYER_ANGLE_SPEED;
+	// Set the plane perpendicular to the direction
+	player->plane_x = -player->dir_y * 0.66;  // 0.66 controls FOV (default 66°)
+	player->plane_y = player->dir_x * 0.66;
 }
