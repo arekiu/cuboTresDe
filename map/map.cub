@@ -1,7 +1,7 @@
 NO img/NORTH.xpm
 WE img/WEST.xpm
 F 1, 2,0
-SO img/SOUTH.xpm
+ SO img/SOUTH.xpm
 EA img/EAST.xpm
 C 120,0,16
 

@@ -12,40 +12,32 @@
 
 #include "../cub3d.h"
 
-bool	check_map(char *file, t_game *game) // returns null if fails
+int check_fd(char *file, char *type)
 {
-	int		fd;
-
-	fd = open(file, O_RDONLY);
-	if (!has_file_extension(file, ".cub") || fd < 0)
+	int fd = open(file, O_RDONLY);
+	if (!has_file_extension(file, type) || fd < 0)
 	{
-		ft_printf("Error: file does not exist or has wrong extension format\n");
-		close(fd);
-        return (NULL);
+		ft_printf("Error: file does not exist or has wrong extension\n");
+		return (-1);
 	}
-	if(!collect_map(fd, &game->data->map, game))
-	{
-		close(fd);
-		return (false);
-	}
-	close(fd);
-	print_map(game->data);
-	// exit(0); // removing this after testing
-	return (true);
+	return (fd);
 }
 
-
-bool	parse_assets(char	*file_name, t_game *game) // error handling if we have more
+bool parse_assets(char *file_name, t_game *game)
 {
-    (void)game;
-    if(!check_map(file_name, game))
+	game->data->fd = check_fd(file_name, ".cub");
+	if (game->data->fd == -1 || !get_fd_data(game->data->fd, &game->data->map, game))
+	{
+		if (game->data->fd != -1)
+			close(game->data->fd);
 		return (false);
+	}
+	close(game->data->fd);
 	if(!parse_textures(game->data))
 		return (false);
-
-	
+	// print_map(game->data);
+	exit(0);
 	// parse_map(game->data->map, game); -- parse items in the map array
 	// parse textures -- parse textures if they can be found and valid
-    return (true);
+	return (true);
 }
-

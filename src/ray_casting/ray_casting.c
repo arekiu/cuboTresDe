@@ -54,7 +54,7 @@ void	perform_DDA(t_game *game)
 		if (game->raycaster->map_x < 0 || game->raycaster->map_x >= get_map_width(game->data->map) ||
     game->raycaster->map_y < 0 || game->raycaster->map_y >= get_map_height(game->data->map))
         {
-            printf("Ray went out of bounds: map_x=%d, map_y=%d\n", game->raycaster->map_x, game->raycaster->map_y);
+            // printf("Ray went out of bounds: map_x=%d, map_y=%d\n", game->raycaster->map_x, game->raycaster->map_y);
             game->raycaster->hit_side = 1; // Stop the loop
             break;
         }

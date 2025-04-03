@@ -140,7 +140,7 @@ bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 		{
 			printf("Error: invalid coord format in line %d\n", *line_n);
 			*err = true;
-			return(true); // check_map(line, game)
+			return(true); // check_fd(line, game)
 		}
 
 		i++;

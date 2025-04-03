@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Path to the directory containing the map files
-MAP="../map/playable"
+MAP="./map/not_playable/parse_textures"
+# MAP="./map/not_playable/wrong_format"
+# MAP="./map/not_playable/wrong_ext_fd"
+# MAP="./map/playable"
+
 
 # Define color codes
 RED='\033[0;31m'
@@ -21,7 +25,7 @@ run_test() {
     echo -e "${CYAN}Running ${test_type} maps:${RESET} ${map_color}$map${RESET}"
 
     # Run the program and capture both stdout and stderr
-    ../cub3d "$map"
+    ./cub3d "$map"
     exit_status=$?
 
     # After the program runs, check if it exited with a non-zero status (failed test)
@@ -31,10 +35,10 @@ run_test() {
         echo -e "${GREEN}Test passed: No exit encountered.${RESET}"
     fi
 
- # Only run valgrind on Linux
+    # Only run valgrind on Linux
     # if [[ "$(uname)" == "Linux" ]]; then
     #     # Run valgrind and capture output
-    #     valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ../cub3d "$map" 2>&1)
+    #     valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
 
     #     # Check for memory leaks or errors
     #     if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
@@ -44,7 +48,7 @@ run_test() {
     #         echo "$valgrind_output" # Show full valgrind output if there are issues
     #     fi
     # else
-    #     echo -e "${YELLOW}Test does not handle nor support memory check on mac OS.${RESET}"
+    #     echo -e "${YELLOW}Test does not handle nor support memory check on mac OS${RESET}"
     # fi
 
     # Add a new line after each test
@@ -54,5 +58,5 @@ run_test() {
 # Loop through invalid map files
 for map in "$MAP"/*
 do
-    run_test "$map" "bonus" "$RED"
+    run_test "$map" "invalid" "$RED"
 done

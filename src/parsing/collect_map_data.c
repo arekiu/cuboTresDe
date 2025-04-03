@@ -10,12 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "../cub3d.h"
 
 
@@ -52,7 +46,7 @@ char *ft_get_line(int fd)
 	return(ft_strdup(line));
 }
 
-bool	collect_map(int fd, char ***map, t_game *game)
+bool	get_fd_data(int fd, char ***map, t_game *game)
 {
 	char *line;
 	bool err = false;

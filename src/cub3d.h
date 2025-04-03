@@ -42,6 +42,7 @@
 
 typedef struct s_data{
 	//parsed map with needed information
+	int		fd; // fd of various files?
 	char	**map;
 	int		player_x;
 	int		player_y;
@@ -129,7 +130,7 @@ typedef struct s_game{
 bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);
-bool	collect_map(int fd, char ***map, t_game *game);
+bool	get_fd_data(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
 bool    parse_textures(t_data *data);
 
