@@ -79,9 +79,9 @@ void	perform_DDA(t_game *game)
 	}
 }
 
-void	raycaster(t_game *game, int i)
+void	raycaster(t_game *game)
 {
-	game->raycaster->camera_x = 2 * i / (double)game->screen_width - 1; //x-coord in camera space
+	game->raycaster->camera_x = 2 * game->raycaster->current_x / (double)WIN_WIDTH - 1; //x-coord in camera space
 	game->raycaster->dir_x = game->player->dir_x + game->player->plane_x * game->raycaster->camera_x;
 	game->raycaster->dir_y = game->player->dir_y + game->player->plane_y * game->raycaster->camera_x;
 	game->raycaster->map_x = (int)(game->player->x / BLOCK);
@@ -93,24 +93,23 @@ void	raycaster(t_game *game, int i)
 
 int	draw_loop(t_game *game)
 {
-	int		i;
-
-	i = 0;
+	game->raycaster->current_x = 0;
 	move_player(game);
 	clear(game);
-	draw_square((int)game->player->x - PLAYER_SIZE / 2,\
+	/*draw_square((int)game->player->x - PLAYER_SIZE / 2,\
 		(int)game->player->y - PLAYER_SIZE / 2, PLAYER_SIZE,0xFF0000,game);
-	draw_map(game);
-	while (i < game->screen_width)
+	draw_map(game);*/
+	while (game->raycaster->current_x < WIN_WIDTH)
 	{
-		raycaster(game, i);
-
+		raycaster(game);
+		/*
         // Calculate ray end position for debugging
        float ray_end_x = game->player->x + game->raycaster->dir_x * game->raycaster->wall_dist * BLOCK;
        float ray_end_y = game->player->y + game->raycaster->dir_y * game->raycaster->wall_dist * BLOCK;
 
-        draw_debug_ray(game, ray_end_x, ray_end_y, 0x00FF00);
-        i++;
+        draw_debug_ray(game, ray_end_x, ray_end_y, 0x00FF00);*/
+		ray_drawer(game);
+        game->raycaster->current_x++;
     }
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (1);

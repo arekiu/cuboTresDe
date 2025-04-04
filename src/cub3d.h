@@ -19,6 +19,8 @@
 # define GREEN_T "\033[32m"
 
 //VALUES THAT WE CAN MODIFY
+#define	WIN_WIDTH 1200
+#define WIN_HEIGHT 700
 #define BLOCK 64
 #define PLAYER_SIZE 30
 #define PLAYER_SPEED 1
@@ -79,6 +81,13 @@ typedef struct s_ray {
 	int		hit_side;
 	double	wall_dist;
 	double	camera_x;
+	int		current_x;
+	double	wall_x; //x-axis where ray hit wall
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
 } t_ray;
 
 typedef struct s_player{
@@ -158,11 +167,12 @@ void	rotate_player(t_game *game);
 
 //RAY CASTING
 int		draw_loop(t_game *game);
-void	raycaster(t_game *game, int i);
+void	raycaster(t_game *game);
 void	perform_DDA(t_game *game);
 void	calc_delta_dist(t_ray *raycaster);
 void	calc_side_dist(t_game *game);
-
+void	ray_drawer(t_game *game);
+int		paint_line(t_game *game, int y, int i, int color);
 //MAP
 void	draw_map(t_game *game);
 int		get_map_height(char **map);

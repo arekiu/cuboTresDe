@@ -15,8 +15,8 @@ void	init_game(t_game *game)
 		exit(1);
 	init_player(game->player, WE, 2, 2);
 	game->mlx = mlx_init();
-	game->window = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3d");
-	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);
+	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
+	game->img = mlx_new_image(game->mlx,WIN_WIDTH, WIN_HEIGHT);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 }

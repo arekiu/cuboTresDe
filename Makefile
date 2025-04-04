@@ -46,6 +46,7 @@ SRC_FILES = \
 	$(RAY_DIR)/player_utils.c \
 	$(RAY_DIR)/map.c \
 	$(RAY_DIR)/ray_casting.c \
+	$(RAY_DIR)/ray_drawer.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/collect_map_data.c \
 	$(PARSE_DIR)/collect_map_env.c \
