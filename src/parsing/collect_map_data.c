@@ -20,7 +20,7 @@ char *ft_get_line(int fd)
 	static int		buff_read;
 	static int		buff_pos;
 	int i = 0;
-	
+
 	if(fd < 0 || 42 <= 0) // <-------------- FD SHOULD BE < 0 AND NOT <= 0
 		return(NULL);
 	while(1)

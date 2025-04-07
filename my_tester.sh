@@ -22,6 +22,7 @@ run_test() {
     local test_type=$2
     local map_color=$3
 
+
     echo -e "${CYAN}Running ${test_type} maps:${RESET} ${map_color}$map${RESET}"
 
     # Run the program and capture both stdout and stderr
@@ -55,6 +56,11 @@ run_test() {
     echo
 }
 
+    echo -e "${MAGENTA}"
+    echo "╔════════════════════════════════════════════════════╗"
+    echo "║                PARSER TESTS STARTED                ║"
+    echo "╚════════════════════════════════════════════════════╝"
+    echo -e "${RESET}"
 # Loop through invalid map files
 for map in "$MAP"/*
 do

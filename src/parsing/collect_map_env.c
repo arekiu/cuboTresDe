@@ -55,7 +55,7 @@ char	*store_texture(int *amount_found, int *i, char *line, char *path)
 {
 	(void)path;
 	(*amount_found)++;
-	*i = *i + 2; //jump the coord 
+	*i = *i + 2; //jump the coord
 	// printf("c: %c\n", line[*i]);
 	while(line[*i] == ' ' && line[*i] != '\0')
 		(*i)++; //skip spaces
@@ -132,8 +132,8 @@ bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 		if(search_textures(line, &i, game))
 			return(true);
 		if(line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\n') // check if its a map
-		{	
-			game->data->map_started = true; // flag to avoid skipping spac 	
+		{
+			game->data->map_started = true; // flag to avoid skipping spac
 			return(false); // false - should be saved in map
 		}
 		else

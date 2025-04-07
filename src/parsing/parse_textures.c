@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/03 13:53:06 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:04:42 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 
 bool check_amount(int   amount, char *type)
 {
@@ -27,7 +28,7 @@ bool check_amount(int   amount, char *type)
     return(true);
 }
 
-bool check_rgb_values(int   *   code, char *type)
+bool check_rgb_values(int   *code, char *type)
 {
       const char *color[3];
       int i;
@@ -60,12 +61,10 @@ bool    parse_textures(t_data *data)
         || !check_amount(data->ea_found, "east")
         || !check_amount(data->we_found, "west"))
         return(false);
-        // check fd!! 
-    // if (!has_file_extension(data->NO_path, ".xpm") // also add not found
-    //     || !has_file_extension(data->SO_path, ".xpm")
-    //     || !has_file_extension(data->EA_path, ".xpm")
-    //     || !has_file_extension(data->WE_path, ".xpm"))
-    //     return(false);
-
+   if (!check_fd(data->NO_path, ".xpm", data) // also add not found
+        || !check_fd(data->SO_path, ".xpm", data)
+        || !check_fd(data->EA_path, ".xpm", data)
+        || !check_fd(data->WE_path, ".xpm", data))
+        return(false);
     return(true);
 }

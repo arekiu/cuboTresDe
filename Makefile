@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/03 16:39:40 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/04 16:47:20 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT_NAME	= libft.a
 LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 # Compiler flags and commands
 CFLAGS		=	-Wall -Wextra -Werror -g #added g for debugging with gdb
-MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+# MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 RM = rm -rf
 
 SRC_DIR = src
@@ -39,19 +39,20 @@ RAY_DIR = src/ray_casting
 
 SRC_FILES = \
 	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/end_game.c \
-	$(RAY_DIR)/init_game.c \
-	$(RAY_DIR)/utils.c \
-	$(RAY_DIR)/move_player.c \
-	$(RAY_DIR)/player_utils.c \
-	$(RAY_DIR)/map.c \
-	$(RAY_DIR)/ray_casting.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/file_parsing.c \
 	$(PARSE_DIR)/collect_map_data.c \
 	$(PARSE_DIR)/collect_map_env.c \
 	$(PARSE_DIR)/parsing_debugger.c \
 	$(PARSE_DIR)/parse_textures.c
+
+# $(SRC_DIR)/end_game.c \
+# $(RAY_DIR)/init_game.c \
+# $(RAY_DIR)/utils.c \
+# $(RAY_DIR)/move_player.c \
+# $(RAY_DIR)/player_utils.c \
+# $(RAY_DIR)/map.c \
+# $(RAY_DIR)/ray_casting.c \
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

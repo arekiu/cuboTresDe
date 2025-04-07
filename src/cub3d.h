@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
-# include <mlx.h>
+// # include <mlx.h>
 
 //COLORS - for debugging and printing pretty ;)
 # define RESET_T "\033[0m"
@@ -127,6 +127,7 @@ typedef struct s_game{
 //PARSE FILE
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
+int		check_fd(char *file, char *type, t_data *data);
 bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);
