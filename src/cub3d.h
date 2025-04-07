@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <limits.h>
 // # include <mlx.h>
 
 //COLORS - for debugging and printing pretty ;)

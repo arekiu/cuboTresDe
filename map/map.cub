@@ -4,7 +4,7 @@ WE textures/west.xpm
 
 
 
-F 1, 2,0
+F , 50, 120
  SO  textures/south.xpm    
 EA  textures/east.xpm
 C 120,0,16

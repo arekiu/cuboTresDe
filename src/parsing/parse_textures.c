@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/07 15:06:03 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:29:21 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 bool check_amount(int   amount, char *type)
 {
+
     if(amount > 1)
     {
         printf("Error: found duplicate %s data\n", type);
@@ -22,7 +23,7 @@ bool check_amount(int   amount, char *type)
     }
     if(amount == 0)
     {
-        printf("Error: %s data is missing\n", type);
+        printf("Error: %s data \n", type);
         return(false);
     }
     return(true);
@@ -33,6 +34,11 @@ bool check_rgb_values(int   *code, char *type)
       const char *color[3];
       int i;
 
+      if(code == NULL)
+      {
+          printf("Error: %s rgb data has less or more than 3 values\n", type);
+          return(false);
+      }
       i = 0;
       color[0] = "R";
       color[1] = "G";
@@ -41,7 +47,7 @@ bool check_rgb_values(int   *code, char *type)
       {
           if(code[i] > 255 || code[i] < 0)
           {
-              printf("Error: %s's %s:%d is not a valid number between 0 and 255\n", type, color[i], code[i]);
+              printf("Error: %s's %s:%d is not a valid number between 0 and 255 or not written in the format required", type, color[i], code[i]);
               return(false);
           }
           i++;
