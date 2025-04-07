@@ -127,7 +127,7 @@ typedef struct s_game{
 //PARSE FILE
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
-int		check_fd(char *file, char *type, t_data *data);
+int check_fd(char *file, char *type, t_data *data, char *obj);
 bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 char	*ft_get_line(int fd);

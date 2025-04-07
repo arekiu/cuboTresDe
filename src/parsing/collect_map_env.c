@@ -57,23 +57,24 @@ char	*store_texture(int *amount_found, int *i, char *line, char *path)
 	(*amount_found)++;
 	*i = *i + 2; //jump the coord
 	// printf("c: %c\n", line[*i]);
-	while(line[*i] == ' ' && line[*i] != '\0')
+	while(line[*i] == ' ' && line[*i] != '\0' && line[*i] != '\n' )
 		(*i)++; //skip spaces
 	// printf("c: %c\n len path: ", line[*i]);
 	int len = 0;
 	while (line[*i + len] != '\0' && line[*i + len] != '\n')
 	{
-		// printf("%c", line[*i + len]);
+		// printf("%c\n", line[*i + len]);
 		len++;
 	}
-	// printf("len: %d\n", len);
+	// printf("len: %d | line: %s\n", len, line);
 	path = malloc(sizeof(char) * (len + 1));
 	if (!path || len == 0)
 	{
 		// printf("error\n");
 		return (NULL);
 	}
-	return(ft_strcpy(path, line + *i));
+	ft_strlcpy(path, line + *i, len + 1); // fixes issue of saving \n (could use strncpy instead)
+	return(path);
 }
 
 
