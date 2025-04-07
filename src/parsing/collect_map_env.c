@@ -59,9 +59,10 @@ char	*store_texture(int *amount_found, int *i, char *line, char *path)
 	// printf("c: %c\n", line[*i]);
 	while(line[*i] == ' ' && line[*i] != '\0' && line[*i] != '\n' )
 		(*i)++; //skip spaces
+	// if line is \0 rrepeated check here
 	// printf("c: %c\n len path: ", line[*i]);
 	int len = 0;
-	while (line[*i + len] != '\0' && line[*i + len] != '\n')
+	while (line[*i + len] != '\0' && line[*i + len] != '\n' && line[*i + len] != ' ')
 	{
 		// printf("%c\n", line[*i + len]);
 		len++;
