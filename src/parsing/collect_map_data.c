@@ -71,7 +71,6 @@ bool	get_fd_data(int fd, char ***map, t_game *game)
 		{
 			if(err)// if texture_data finds an error is overwrites line as null to trigger the error
 			{
-				printf("yoyoyoyoy\n");
 				err = false;
 				free(line);
 				return(false);

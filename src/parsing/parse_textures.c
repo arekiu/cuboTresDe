@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/04 18:04:42 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:57:11 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ bool check_rgb_values(int   *code, char *type)
       int i;
 
       i = 0;
-      color[0] = "red";
-      color[1] = "green";
-      color[2] = "blue";
+      color[0] = "R";
+      color[1] = "G";
+      color[2] = "B";
       while(i < 3)
       {
           if(code[i] > 255 || code[i] < 0)
           {
-              printf("Error: %s's %s color code is not between 0 and 255\n", type, color[i]);
+              printf("Error: %s's %s:%d is not a valid number between 0 and 255\n", type, color[i], code[i]);
               return(false);
           }
           i++;

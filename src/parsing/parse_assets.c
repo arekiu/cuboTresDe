@@ -15,11 +15,9 @@
 int check_fd(char *file, char *type, t_data *data)
 {
 	data->fd = open(file, O_RDONLY);
-	printf("%d\n", data->fd);
 	if (!has_file_extension(file, type) || data->fd < 0)
 	{
-		printf("bubu\n");
-		ft_printf("Error: file%s does not exist or has wrong extension\n", type);
+		printf("Error: file%s does not exist or has wrong extension\n", type);
 		return (false);
 	}
 	return (true);

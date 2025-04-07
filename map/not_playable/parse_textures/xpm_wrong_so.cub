@@ -1,7 +1,7 @@
-NO img/MARBFAC2.xpm
-WE img/SKULWALL.xpm
-SO img/MARBFACE.jpg
-EA img/SKULWAL3.xpm
+NO textures/north.xpm
+WE textures/west.xpm
+SO textures/invalid.jpg
+EA textures/east.xpm
 
 F 0,32, 2
 C 120,0,16

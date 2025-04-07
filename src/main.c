@@ -25,11 +25,9 @@ int main(int argc, char **argv)
 		// that exec will use
 		// free(game.map); // should free all game data and have if statements to check if they are not null before freeing
 		// print_map(game->data);
-		printf("MAP DOES NOT PASS! \n");
 		exit(1);
 	}
 	print_map(game->data);
-	printf("MAP PASSES! \n");
 	exit(0);
 	// init_game(game);
 	// mlx_hook(game->window, 2, 1, key_press, game); //2 is KEYPRESS event and 1 for listen to keys "pressed"

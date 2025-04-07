@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:04:19 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/04 18:02:57 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:43:32 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ bool	has_file_extension(char *file, char *extension)
 			return (false);
 		file_len--;
 	}
-	printf("treu\n");
 	return (true);
 }
 
