@@ -4,10 +4,10 @@ int main(int argc, char **argv)
 {
 	t_game *game;
 	// jess: to avoid segfaults while we code it's better
-	// we allocate the structs at least at the beginning 
+	// we allocate the structs at least at the beginning
 	game = malloc(sizeof(t_game));
 	game->data = malloc(sizeof(t_data));
-	game->player = malloc(sizeof(t_data));
+	game->player = malloc(sizeof(t_player));
 	if (!game || !game->data || !game->player)
 	{
 		ft_printf("Error: malloc failed\n");
