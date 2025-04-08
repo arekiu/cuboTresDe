@@ -33,3 +33,20 @@ void	init_player(t_player *player, float orientation, int x, int y)
 	player->plane_x = -player->dir_y * 0.66;  // 0.66 controls FOV (default 66°)
 	player->plane_y = player->dir_x * 0.66;
 }
+
+
+int	draw_loop(t_game *game)
+{
+	game->ray->current_x = 0;
+	move_player(game);
+	clear(game);
+	while (game->ray->current_x < WIN_WIDTH)
+	{
+		raycaster(game);
+		ray_drawer(game);
+		game->ray->current_x++;
+	}
+	draw_minimap(game);
+	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
+	return (1);
+}

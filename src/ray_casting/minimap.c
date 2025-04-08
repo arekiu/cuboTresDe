@@ -54,8 +54,9 @@ void	draw_minimap(t_game *game)
 {
 	int		x, y;
 	int		color;
-	char	**map = game->data->map;
+	char	**map;
 
+	map = game->data->map;
 	y = 0;
 	while (map[y])
 	{
@@ -66,12 +67,8 @@ void	draw_minimap(t_game *game)
 				color = 0xFFFFFF; // white for walls
 			else
 				color = 0x000000; // black for empty space
-
-			draw_square(MINIMAP_OFFSET_X + x * MINI_BLOCK,
-						MINIMAP_OFFSET_Y + y * MINI_BLOCK,
-						MINI_BLOCK,
-						color,
-						game);
+			draw_square(MINIMAP_OFFSET_X + x * MINI_BLOCK,\
+				 MINIMAP_OFFSET_Y + y * MINI_BLOCK, MINI_BLOCK, color, game);
 			x++;
 		}
 		y++;
