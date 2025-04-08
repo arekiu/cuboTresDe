@@ -2,14 +2,6 @@
 
 void	init_game(t_game *game)
 {
-	int	map_height;
-	int	map_width;
-
-	map_width = get_map_width(game->data->map);
-	map_height = get_map_height(game->data->map);
-	game->screen_width = map_width * BLOCK;
-	game->screen_height = map_height * BLOCK;
-
 	game->ray = malloc(sizeof(t_ray));
 	if (!game->ray)
 		exit(1);

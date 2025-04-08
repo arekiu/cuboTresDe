@@ -96,21 +96,13 @@ int	draw_loop(t_game *game)
 	game->ray->current_x = 0;
 	move_player(game);
 	clear(game);
-	/*draw_square((int)game->player->x - PLAYER_SIZE / 2,\
-		(int)game->player->y - PLAYER_SIZE / 2, PLAYER_SIZE,0xFF0000,game);
-	draw_map(game);*/
 	while (game->ray->current_x < WIN_WIDTH)
 	{
 		raycaster(game);
-		/*
-        // Calculate ray end position for debugging
-       float ray_end_x = game->player->x + game->ray->dir_x * game->ray->wall_dist * BLOCK;
-       float ray_end_y = game->player->y + game->ray->dir_y * game->ray->wall_dist * BLOCK;
-
-        draw_debug_ray(game, ray_end_x, ray_end_y, 0x00FF00);*/
 		ray_drawer(game);
         game->ray->current_x++;
     }
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (1);
 }

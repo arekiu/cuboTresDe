@@ -27,19 +27,6 @@ void	draw_square(int x, int y, int size, int color, t_game *game)
 	}
 }
 
-void draw_debug_ray(t_game *game, float end_x, float end_y, int color)
-{
-    float dx = end_x - game->player->x;
-    float dy = end_y - game->player->y;
-    float steps = fmax(fabs(dx), fabs(dy));
-
-    for (int i = 0; i <= steps; i++) {
-        float x = game->player->x + dx * (i/steps);
-        float y = game->player->y + dy * (i/steps);
-        put_pixel((int)x, (int)y, color, game);
-    }
-}
-
 void	clear(t_game *game)
 {
 	int	x;
@@ -57,5 +44,3 @@ void	clear(t_game *game)
 		y++;
 	}
 }
-
-

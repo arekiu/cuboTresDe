@@ -22,9 +22,12 @@
 #define	WIN_WIDTH 1200
 #define WIN_HEIGHT 700
 #define BLOCK 64
-#define PLAYER_SIZE 30
+#define PLAYER_SIZE 10
 #define PLAYER_SPEED 1
 #define PLAYER_ANGLE_SPEED 0.005
+#define MINI_BLOCK 20
+#define MINIMAP_OFFSET_X 10 //position in the screen
+#define MINIMAP_OFFSET_Y 10 //position in the screen
 
 //CONSTANT VALUES
 #define PI 3.1415926535
@@ -119,8 +122,6 @@ typedef struct s_game{
 	void		*mlx;
 	void		*window;
 	void		*img;
-	int			screen_width;
-	int			screen_height;
 	char		*buffer; //store the pixels
 	int			bpp; //bits per pixel
 	int			stride; //BYtes per row
@@ -152,7 +153,6 @@ void	init_player(t_player *player, float orientation, int x, int y);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
-void	draw_debug_ray(t_game *game, float end_x, float end_y, int color);
 
 
 //PLAYER UTILS
@@ -173,10 +173,16 @@ void	calc_delta_dist(t_ray *ray);
 void	calc_side_dist(t_game *game);
 void	ray_drawer(t_game *game);
 int		paint_line(t_game *game, int y, int i, int color);
+
 //MAP
 void	draw_map(t_game *game);
 int		get_map_height(char **map);
 int		get_map_width(char **map);
+void	draw_line(t_game *game, int x0, int y0, int x1, int y1, int color);
+//MINIMAP
+void	draw_minimap(t_game *game);
+void	draw_player(t_game *game);
+void	draw_player_dir(t_game *game);
 
 //END
 int		on_destroy(t_game *game);
