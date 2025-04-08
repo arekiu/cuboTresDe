@@ -20,7 +20,7 @@ void ray_drawer(t_game *game)
 
 int	paint_line(t_game *game, int y_end, int y_start, int color) // or paint_texture_line
 {
-	while (y_start < y_end)
+	while (y_start <= y_end) //the = fix problem showing pixel line at the bottom
 	{
 		put_pixel(game->ray->current_x, y_start, color, game);
 		y_start++;
