@@ -42,9 +42,12 @@ void	draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 
 void	draw_player(t_game *game)
 {
-	int px = MINIMAP_OFFSET_X + (int)(game->player->x / BLOCK * MINI_BLOCK);
-	int py = MINIMAP_OFFSET_Y + (int)(game->player->y / BLOCK * MINI_BLOCK);
-	draw_square(px - 2, py - 2, PLAYER_SIZE, 0x000000, game);
+	int	px;
+	int	py;
+
+	py = MINIMAP_OFFSET_Y + (int)(game->player->y / BLOCK * MINI_BLOCK);
+	px = MINIMAP_OFFSET_X + (int)(game->player->x / BLOCK * MINI_BLOCK);
+	draw_square(px - 2, py - 2, PLAYER_SIZE, 0x0000FF, game);
 }
 
 void	draw_minimap(t_game *game)

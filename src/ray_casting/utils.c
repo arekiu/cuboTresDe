@@ -12,17 +12,29 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->buffer[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_square(int x, int y, int size, int color, t_game *game)
+void draw_square(int x, int y, int size, int color, t_game *game)
 {
-	int	i;
+	int i;
+	int j;
 
 	i = 0;
-	while (i < size)
+	while (i < size)// Fill the square
 	{
-		put_pixel(x + i, y, color, game);
-		put_pixel(x, y + i, color, game);
-		put_pixel(x + size, y + i, color, game);
-		put_pixel(x + i, y + size, color, game);
+		j = 0;
+		while (j < size)
+		{
+			put_pixel(x + i, y + j, color, game);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < size) // Draw the borders
+	{
+		put_pixel(x + i, y, color, game);             // Top border
+		put_pixel(x + i, y + size - 1, color, game);  // Bottom border
+		put_pixel(x, y + i, color, game);             // Left border
+		put_pixel(x + size - 1, y + i, color, game);  // Right border
 		i++;
 	}
 }

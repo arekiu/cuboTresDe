@@ -81,7 +81,7 @@ void	perform_DDA(t_game *game)
 
 void	raycaster(t_game *game)
 {
-	game->ray->camera_x = 2 * game->ray->current_x / (double)WIN_WIDTH - 1; //x-coord in camera space
+	game->ray->camera_x = 2 * game->ray->current_x / (double)WIN_WIDTH - 1; //x-coord in camera space, the view from the player
 	game->ray->dir_x = game->player->dir_x + game->player->plane_x * game->ray->camera_x;
 	game->ray->dir_y = game->player->dir_y + game->player->plane_y * game->ray->camera_x;
 	game->ray->map_x = (int)(game->player->x / BLOCK);
