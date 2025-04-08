@@ -10,8 +10,8 @@ void	init_game(t_game *game)
 	game->screen_width = map_width * BLOCK;
 	game->screen_height = map_height * BLOCK;
 
-	game->raycaster = malloc(sizeof(t_ray));
-	if (!game->raycaster)
+	game->ray = malloc(sizeof(t_ray));
+	if (!game->ray)
 		exit(1);
 	init_player(game->player, WE, 2, 2);
 	game->mlx = mlx_init();

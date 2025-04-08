@@ -127,7 +127,7 @@ typedef struct s_game{
 	int			endian; //How values are stored
 	t_player	*player;
 	t_data		*data;
-	t_ray		*raycaster;
+	t_ray		*ray;
 
 }	t_game;
 
@@ -169,7 +169,7 @@ void	rotate_player(t_game *game);
 int		draw_loop(t_game *game);
 void	raycaster(t_game *game);
 void	perform_DDA(t_game *game);
-void	calc_delta_dist(t_ray *raycaster);
+void	calc_delta_dist(t_ray *ray);
 void	calc_side_dist(t_game *game);
 void	ray_drawer(t_game *game);
 int		paint_line(t_game *game, int y, int i, int color);
