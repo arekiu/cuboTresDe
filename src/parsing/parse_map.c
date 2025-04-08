@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map_closure.c                                :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/08 12:54:06 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:06:11 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ bool found_empty_line(t_data *data) // as remove_nl and expand_map_lines fille t
 bool parse_map(t_data *data)
 {
     (void)data;
-    // trim each line of the map until the first \n character
     remove_nl(data);
     int longest_len = find_longest_line(data);
     expand_map_lines(data, longest_len);
