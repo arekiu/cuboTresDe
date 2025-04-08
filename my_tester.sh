@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Path to the directory containing the map files
-MAP="./map/not_playable/parse_textures"
+# MAP="./map/not_playable/parse_textures"
+MAP="./map/not_playable/parse_map"
 # MAP="./map/not_playable/wrong_format"
 # MAP="./map/not_playable/wrong_ext_fd"
 # MAP="./map/playable"
@@ -31,9 +32,9 @@ run_test() {
 
     # After the program runs, check if it exited with a non-zero status (failed test)
     if [ $exit_status -ne 0 ]; then
-        echo -e "${RED}EXITED with non-zero status.${RESET}"
+        echo -e "${RED}Exited with non 0 status.${RESET}"
     else
-        echo -e "${GREEN}Test passed: No exit encountered.${RESET}"
+        echo -e "${GREEN}Exited with status 0.${RESET}"
     fi
 
     # Only run valgrind on Linux
@@ -64,5 +65,5 @@ run_test() {
 # Loop through invalid map files
 for map in "$MAP"/*
 do
-    run_test "$map" "invalid" "$RED"
+    run_test "$map"
 done

@@ -44,12 +44,10 @@ bool parse_assets(char *file_name, t_game *game)
 	}
 	close(game->data->fd);
 	// printf("  Closed map fd, fd number: %d\n", game->data->fd);
-	// printf("C found %d\n", game->data->c_found);
-	// printf("F found %d\n", game->data->f_found);
 	if(!parse_textures(game->data))
 		return (false);
+	if(!parse_map(game->data))
+		return (false);
 	// print_map(game->data);
-	// parse_map(game->data->map, game); -- parse items in the map array
-	// parse textures -- parse textures if they can be found and valid
 	return (true);
 }

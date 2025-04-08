@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/07 12:23:03 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/08 10:16:20 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRC_FILES = \
 	$(PARSE_DIR)/collect_map_data.c \
 	$(PARSE_DIR)/collect_map_env.c \
 	$(PARSE_DIR)/parsing_debugger.c \
-	$(PARSE_DIR)/parse_textures.c
+	$(PARSE_DIR)/parse_textures.c \
+	$(PARSE_DIR)/check_map_closure.c
 
 # $(SRC_DIR)/end_game.c \
 # $(RAY_DIR)/init_game.c \
