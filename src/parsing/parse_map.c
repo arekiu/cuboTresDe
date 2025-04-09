@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/09 14:32:46 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:44:52 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ bool parse_map(t_data *data)
 	// printf("Map has %d lines and each line is %d characters\n", total_lines, longest_len);
 	expand_line_len(data, longest_len);
 	// do i add null as last line of the array in gnl?
-	if(found_empty_line(data) || !is_framed(data->map, total_lines - 1, longest_len -1))
+	if(found_empty_line(data) || !is_shaped(data->map, total_lines - 1, longest_len -1))
 		return(false);
 	return(true);
 }

@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/09 14:30:34 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:36:13 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,31 +97,5 @@
 // 	}
 // 	map_data->loot_n = c;
 // 	map_data->moves = 0;
-// 	return (1);
-// }
-
-// int	is_framed(char **map, int last_r, int last_c)
-// {
-// 	int	r;
-// 	int	c;
-
-// 	r = 0;
-// 	while (map[r] != NULL)
-// 	{
-// 		c = 0;
-// 		while (map[r][c] != '\0')
-// 		{
-// 			if (r == 0 || r == last_r || c == 0 || c == last_c)
-// 			{
-// 				if (map[r][c] != '1')
-// 				{
-// 					ft_printf("Error: Not framed at map[%d][%d]\n", r, c);
-// 					return (0);
-// 				}
-// 			}
-// 			c++;
-// 		}
-// 		r++;
-// 	}
 // 	return (1);
 // }

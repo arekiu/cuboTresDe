@@ -14,10 +14,10 @@
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 
-NO img/MARBFAC2.xpm
-WE img/SKULWALL.xpm
-SO img/MARBFACE.xpm
-EA img/SKULWAL3.xpm
+NO textures/north.xpm
+WE textures/west.xpm
+SO textures/south.xpm
+EA  textures/east.xpm
 
 F 0,32,0
 C 120,0,16

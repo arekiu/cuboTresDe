@@ -1,14 +1,14 @@
-NO img/MARBFAC2.xpm
+NO textures/north.xpm
 
-WE img/SKULWALL.xpm
+WE textures/west.xpm
 
-SO img/MARBFACE.xpm
+SO textures/south.xpm
 
 F 0,32,0
 
 
 
-EA img/SKULWAL3.xpm
+EA  textures/east.xpm
 
 C 120,0,16
 
