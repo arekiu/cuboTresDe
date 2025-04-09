@@ -3,16 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/08 13:06:11 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:32:46 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void expand_map_lines(t_data *data, int longest_len)
+int count_map_lines(char **map)
+{
+	int count = 0;
+
+	if (!map)
+		return (0);
+
+	while (map[count])
+		count++;
+
+	return (count);
+}
+
+void expand_line_len(t_data *data, int longest_len)
 {
 	int i = 0;
 	while (data->map[i])
@@ -51,7 +64,7 @@ int find_longest_line(t_data *data)
     {
         line_len = ft_strlen(data->map[i]);
         if (line_len > longest_len)
-        {    
+        {
             longest_len = line_len;
             line_n = i;
         }
@@ -82,7 +95,7 @@ void remove_nl(t_data *data) // better check this
 	}
 }
 
-bool found_empty_line(t_data *data) // as remove_nl and expand_map_lines fille the nl only line with space we check if there are lines only 
+bool found_empty_line(t_data *data) // as remove_nl and expand_line_len fille the nl only line with space we check if there are lines only
 {
     int x;
     int y = 0;
@@ -102,17 +115,17 @@ bool found_empty_line(t_data *data) // as remove_nl and expand_map_lines fille t
     return(false);
 }
 
+
 bool parse_map(t_data *data)
 {
-    (void)data;
-    remove_nl(data);
-    int longest_len = find_longest_line(data);
-    expand_map_lines(data, longest_len);
-    if(found_empty_line(data))
-    {
-        printf("Error: map is not closed\n");
-        return(false);
-    }
-    (void)longest_len;
-    return(true);
+	(void)data;
+	remove_nl(data);
+	int longest_len = find_longest_line(data);
+	int total_lines = count_map_lines(data->map);
+	// printf("Map has %d lines and each line is %d characters\n", total_lines, longest_len);
+	expand_line_len(data, longest_len);
+	// do i add null as last line of the array in gnl?
+	if(found_empty_line(data) || !is_framed(data->map, total_lines - 1, longest_len -1))
+		return(false);
+	return(true);
 }

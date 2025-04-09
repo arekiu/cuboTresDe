@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/08 13:04:05 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/09 15:08:11 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBFT_NAME	= libft.a
 
 LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 # Compiler flags and commands
-CFLAGS		=	-Wall -Wextra -Werror -g #added g for debugging with gdb 
+CFLAGS		=	-Wall -Wextra -Werror -g #added g for debugging with gdb
 # MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm #commented this to avoid problems on mac compilation for parser
 RM = rm -rf
 
@@ -45,7 +45,8 @@ SRC_FILES = \
 	$(PARSE_DIR)/collect_map_env.c \
 	$(PARSE_DIR)/parsing_debugger.c \
 	$(PARSE_DIR)/parse_textures.c \
-	$(PARSE_DIR)/parse_map.c
+	$(PARSE_DIR)/parse_map.c \
+	$(PARSE_DIR)/parse_map_frame.c
 
 # $(SRC_DIR)/end_game.c \
 # $(RAY_DIR)/init_game.c \

@@ -136,6 +136,7 @@ bool	get_fd_data(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
 bool    parse_textures(t_data *data);
 bool parse_map(t_data *data);
+bool is_framed(char **map, int last_r, int last_c);
 
 
 
