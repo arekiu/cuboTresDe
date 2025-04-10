@@ -7,6 +7,10 @@ void	init_game(t_game *game)
 		exit(1);
 	init_player(game->player, WE, 2, 2);
 	game->mlx = mlx_init();
+	game->no_text = malloc(sizeof(t_texture));
+	if (!game->no_text)
+	exit(1);
+	load_texture(game, game->no_text, "textures/wood.xpm");
 	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	game->img = mlx_new_image(game->mlx,WIN_WIDTH, WIN_HEIGHT);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);

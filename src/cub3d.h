@@ -45,6 +45,11 @@
 #define WE (PI)
 #define EA 0
 
+#define WEST  0
+#define EAST  1
+#define NORTH 2
+#define SOUTH 3
+
 typedef struct s_data{
 	//parsed map with needed information
 	char	**map;
@@ -89,8 +94,11 @@ typedef struct s_ray {
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-	int		tex_x;
-	int		tex_y;
+	int		text_x;
+	int		text_y;
+	int		text_start;
+	int		step; //how much we move in the texture vertically per screen pixel.
+	// //So if the wall slice is 64 pixels tall and the texture is 64 pixels tall, the step is 1.0 (1 texel per screen pixel).
 } t_ray;
 
 typedef struct s_player{
@@ -117,6 +125,16 @@ typedef struct s_player{
 
 }	t_player;
 
+typedef struct s_texture {
+	void	*img;
+	int		width;
+	int		height;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_texture;
+
 typedef struct s_game{
 
 	void		*mlx;
@@ -129,7 +147,7 @@ typedef struct s_game{
 	t_player	*player;
 	t_data		*data;
 	t_ray		*ray;
-
+	t_texture	*no_text;
 }	t_game;
 
 
@@ -173,6 +191,10 @@ void	calc_delta_dist(t_ray *ray);
 void	calc_side_dist(t_game *game);
 void	ray_drawer(t_game *game);
 int		paint_line(t_game *game, int y, int i, int color);
+
+//TEXTURE
+void	load_texture(t_game *game, t_texture *tex, char *path);
+int		draw_texture(t_game *game, int y_start);
 
 //MAP
 void	draw_map(t_game *game);

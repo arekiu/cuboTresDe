@@ -48,6 +48,7 @@ SRC_FILES = \
 	$(RAY_DIR)/ray_casting.c \
 	$(RAY_DIR)/ray_drawer.c \
 	$(RAY_DIR)/minimap.c \
+	$(RAY_DIR)/texture.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/collect_map_data.c \
 	$(PARSE_DIR)/collect_map_env.c \

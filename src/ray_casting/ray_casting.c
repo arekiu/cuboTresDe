@@ -43,16 +43,24 @@ void	calc_delta_dist(t_ray *ray)
 
 }
 
-static int	is_ray_out(t_game *game)
+void	set_side(t_game *game, char hit)
 {
-	if (game->ray->map_x < 0 || game->ray->map_x >= get_map_width(game->data->map) ||
-	game->ray->map_y < 0 || game->ray->map_y >= get_map_height(game->data->map))
-		{
-			printf("Ray went out of bounds: map_x=%d, map_y=%d\n", game->ray->map_x, game->ray->map_y);
-			game->ray->hit_side = 1; // Stop the loop
-			return (1);
-		}
-		return (0);
+	t_ray *ray = game->ray;
+
+	if (hit == 'x')
+	{
+		if (ray->dir_x < 0)
+			ray->side = WEST;
+		else
+			ray->side = EAST;
+	}
+	else if (hit == 'y')
+	{
+		if (ray->dir_y < 0)
+			ray->side = NORTH;
+		else
+			ray->side = SOUTH;
+	}
 }
 
 void	perform_DDA(t_game *game)
@@ -60,23 +68,21 @@ void	perform_DDA(t_game *game)
 	game->ray->hit_side = 0;
 	while (game->ray->hit_side == 0)
 	{
-		if (is_ray_out(game)) //actually, this shoudnt happen (from parsing)
-			break;
 		if (game->ray->side_x < game->ray->side_y)//jump to next map square, either in x-direction, or in y-direction
 		{
 			game->ray->side_x += game->ray->delta_x;
 			game->ray->map_x += game->ray->step_x;
-			game->ray->side = 0;
+			set_side(game, 'x');
 		}
 		else
 		{
 			game->ray->side_y += game->ray->delta_y;
 			game->ray->map_y += game->ray->step_y;
-			game->ray->side = 1;
+			set_side(game, 'y');
 		}
 		if (game->data->map[game->ray->map_y][game->ray->map_x] == '1')
 			game->ray->hit_side = 1;
-		if (game->ray->side == 0)
+		if (game->ray->side == 0 || game->ray->side == 1)
 			game->ray->wall_dist = (game->ray->side_x - game->ray->delta_x);
 		else
 			game->ray->wall_dist = (game->ray->side_y - game->ray->delta_y);
