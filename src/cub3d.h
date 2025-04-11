@@ -41,8 +41,6 @@
 #define WE (PI)
 #define EA 0
 
-// jess - parsing macros
-#define VALID_CHARACTERS "01 NSEW"
 
 typedef struct s_data{
 	//parsed map with needed information

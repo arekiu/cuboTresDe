@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/11 19:33:17 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:13:00 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 	int	r;
 	int	c;
 
-	// const char *CORDS = "NSEW"; // valid characters in the map - this gives me probke
-
+	char *valid_chars = "01 NEW"; // valid characters in the map - this gives me probke
 
 	r = 0;
 	while (map[r] != NULL)
@@ -27,12 +26,15 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-            if (strchr(VALID_CHARACTERS, map[r][c]) != NULL) // GOT IT
+            if (strchr(valid_chars, map[r][c]) != NULL) // check if the character is valid
             {
-               player->orientation = map[r][c];
-               player->y = r; // vertical poisition / line / row of the array
-               player->x = c; // horizontal poisition / index / column of the array
-			   // does not
+				if (strchr("NSEW", map[r][c]) != NULL) // if any of the chars are players we store them
+				{
+					player->orientation = map[r][c];
+					player->y = r; // vertical poisition / line / row of the array
+					player->x = c; // horizontal poisition / index / column of the array
+					// does not need to be in the map
+				}
             }
             else
             {
