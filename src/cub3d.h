@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <limits.h>
-// # include <mlx.h>
+# include <mlx.h>
 
 //COLORS - for debugging and printing pretty ;)
 # define RESET_T "\033[0m"
