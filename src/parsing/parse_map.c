@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/11 13:42:16 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:12:41 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int find_longest_line(t_data *data)
         }
         i++;
     }
-    printf("Line[%d] has the longest len of %d \nLine:'%s'\n", line_n, longest_len, data->map[line_n]);
+    // printf("Line[%d] has the longest len of %d \nLine:'%s'\n", line_n, longest_len, data->map[line_n]);
     return(longest_len);
 }
 // Copy the original content
@@ -128,7 +128,6 @@ bool parse_map(t_data *data, t_player *player)
 	if(found_empty_line(data) || !is_shaped(data->map, total_lines - 1, longest_len -1) || 
 	   !has_required_text(data->map, player) || !has_enough_sprites(data->map))
 		return(false);
-	// collect_player_position(data->map, data);
 	// error if there is space inside the map (can be checked with flood fill once we know the position of the player)
 	// - check if character is blocked?
 	return(true);

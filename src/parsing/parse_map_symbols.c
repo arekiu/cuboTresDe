@@ -6,17 +6,20 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/11 13:53:25 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:20:17 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 
-bool	has_required_text(char **map, t_player *player)
+bool	has_required_text(char **map, t_player *player) // i need a diff function to colculate coords!!
 {
 	int	r;
 	int	c;
+
+	const char *CORDS = "NSEW"; // valid characters in the map - this gives me probke
+
 
 	r = 0;
 	while (map[r] != NULL)
@@ -24,11 +27,12 @@ bool	has_required_text(char **map, t_player *player)
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-            if (strchr(VALID_CHARACTERS, map[r][c]) != NULL)
+            if (strchr(CORDS, map[r][c]) != NULL) // GOT IT 
             {
                player->orientation = map[r][c];
                player->y = r; // vertical poisition / line / row of the array
                player->x = c; // horizontal poisition / index / column of the array
+			   // does not 
             }
             else
             {
