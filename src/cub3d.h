@@ -41,6 +41,9 @@
 #define WE (PI)
 #define EA 0
 
+// jess - parsing macros
+#define VALID_CHARACTERS "01 NSEW"
+
 typedef struct s_data{
 	//parsed map with needed information
 	int		fd; // fd of various files?
@@ -86,6 +89,7 @@ typedef struct s_ray {
 typedef struct s_player{
 	float		x;
 	float		y;
+	char	orientation;
 	int		player_size;
 	float	angle; //its going to be determined by parsing ---> PD: NO and SO were switched because of gaming cardinal things*
 	//NO == PI/2 (90)
@@ -131,18 +135,21 @@ typedef struct s_game{
 int check_fd(char *file, char *type, t_data *data, char *obj);
 bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
+bool	collect_map_data(int fd, char ***map, t_game *game);
 char	*ft_get_line(int fd);
-bool	get_fd_data(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
 bool    parse_textures(t_data *data);
-bool parse_map(t_data *data);
+bool parse_map(t_data *data, t_player *player);
 bool is_shaped(char **map, int last_r, int last_c);
+bool	has_required_text(char **map, t_player *player);
+bool	has_enough_sprites(char **map);
+
 
 
 
 
 //debugging
-void print_map(t_data *data);
+void print_map(t_data *data, t_player *player);
 
 
 //INIT

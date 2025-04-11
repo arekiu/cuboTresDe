@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/09 15:08:11 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/11 10:30:58 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ SRC_FILES = \
 	$(PARSE_DIR)/parsing_debugger.c \
 	$(PARSE_DIR)/parse_textures.c \
 	$(PARSE_DIR)/parse_map.c \
-	$(PARSE_DIR)/parse_map_frame.c
+	$(PARSE_DIR)/parse_map_frame.c \
+	$(PARSE_DIR)/parse_map_symbols.c
 
 # $(SRC_DIR)/end_game.c \
 # $(RAY_DIR)/init_game.c \

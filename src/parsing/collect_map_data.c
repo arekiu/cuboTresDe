@@ -46,7 +46,7 @@ char *ft_get_line(int fd)
 	return(ft_strdup(line));
 }
 
-bool	get_fd_data(int fd, char ***map, t_game *game)
+bool	collect_map_data(int fd, char ***map, t_game *game)
 {
 	char *line;
 	bool err = false;

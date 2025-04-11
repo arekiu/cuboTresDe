@@ -37,7 +37,7 @@ int check_fd(char *file, char *type, t_data *data, char *obj)
 
 bool parse_assets(char *file_name, t_game *game)
 {
-	if (!check_fd(file_name, ".cub", game->data, "map data") || !get_fd_data(game->data->fd, &game->data->map, game))
+	if (!check_fd(file_name, ".cub", game->data, "map data") || !collect_map_data(game->data->fd, &game->data->map, game))
 	{
 		close(game->data->fd);
 		return (false);
@@ -46,7 +46,7 @@ bool parse_assets(char *file_name, t_game *game)
 	// printf("  Closed map fd, fd number: %d\n", game->data->fd);
 	if(!parse_textures(game->data))
 		return (false);
-	if(!parse_map(game->data))
+	if(!parse_map(game->data, game->player))
 		return (false);
 	// print_map(game->data);
 	return (true);

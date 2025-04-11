@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_frame.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 14:31:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/09 16:44:52 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:12:07 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,13 @@ bool is_shaped(char **map, int last_r, int last_c)
 	// printf("Map has %d lines and each line has %d characters\n", last_r+1, last_c+1);
 	int	r;
 	r = 0;
-	(void)last_c;
+	// (void)last_c;
 	while (map[r] != NULL) // we check every line
 	{
 		// for every line we check if there are characters that should not be out of the walls
 		// in valid_edges we check if this happens in the first and last line and on the side of the lines
 		// the check is only done thorugh the x axis, and y axis only for the first and last line since I will use spaces to determine the rest
-		if(!valid_edges(map[r], r, last_r, last_c))
-			return (false);
-		// in space_contained we check if the spaces are not touching 0,N,S,W,E, outside and inside the walls, on every axis
-		if(!space_contained(map, map[r], r, last_r))
+		if(!valid_edges(map[r], r, last_r, last_c) || !space_contained(map, map[r], r, last_r))
 			return (false);
 		r++;
 	}

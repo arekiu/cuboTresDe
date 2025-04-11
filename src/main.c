@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 		// print_map(game->data);
 		exit(1);
 	}
-	print_map(game->data);
+	print_map(game->data, game->player);
 	exit(0);
 	// init_game(game);
 	// mlx_hook(game->window, 2, 1, key_press, game); //2 is KEYPRESS event and 1 for listen to keys "pressed"

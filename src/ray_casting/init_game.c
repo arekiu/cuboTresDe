@@ -13,7 +13,7 @@ void	init_game(t_game *game)
 	game->raycaster = malloc(sizeof(t_ray));
 	if (!game->raycaster)
 		exit(1);
-	init_player(game->player, WE, 2, 2);
+	init_player(game->player, game->player->orientation, game->player->x, game->player->y);
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, game->screen_width, game->screen_height, "cub3d");
 	game->img = mlx_new_image(game->mlx,game->screen_width, game->screen_height);
@@ -23,7 +23,14 @@ void	init_game(t_game *game)
 
 void	init_player(t_player *player, float orientation, int x, int y)
 {
-	player->angle = orientation;
+	if(orientation == 'W')
+		player->angle = WE;
+	else if (orientation == 'E')
+		player->angle = EA;
+	else if (orientation == 'N')
+		player->angle = NO;
+	else if (orientation == 'S')
+		player->angle = SO;
 	player->dir_x = cos(player->angle);
 	player->dir_y = sin(player->angle);
 	player->player_size = PLAYER_SIZE;
