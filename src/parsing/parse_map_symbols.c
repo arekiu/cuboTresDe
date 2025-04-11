@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_symbols.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/11 17:20:17 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:33:17 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 	int	r;
 	int	c;
 
-	const char *CORDS = "NSEW"; // valid characters in the map - this gives me probke
+	// const char *CORDS = "NSEW"; // valid characters in the map - this gives me probke
 
 
 	r = 0;
@@ -27,12 +27,12 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-            if (strchr(CORDS, map[r][c]) != NULL) // GOT IT 
+            if (strchr(VALID_CHARACTERS, map[r][c]) != NULL) // GOT IT
             {
                player->orientation = map[r][c];
                player->y = r; // vertical poisition / line / row of the array
                player->x = c; // horizontal poisition / index / column of the array
-			   // does not 
+			   // does not
             }
             else
             {
@@ -88,7 +88,7 @@ bool	has_enough_sprites(char **map)
 	- 1 should be at least 6
 	- NSEW should be at least 1 (and between these 4 letters)
 	*/
-    
+
     int floor;
     int wall;
     int player;
@@ -97,7 +97,7 @@ bool	has_enough_sprites(char **map)
     player = count_sprite(map, 'N') + count_sprite(map, 'S') + count_sprite(map, 'E') + count_sprite(map, 'W');
     // printf("floor: %d, wall: %d, player: %d\n", floor, wall, player);
 
-    // see if a tile amount for floor and wall is  
+    // see if a tile amount for floor and wall is
 	if (player == 0 || player > 1 || floor < 0 || wall < 0)
 	{
 		ft_printf("Error: Map does not have the required amount assets:\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/11 17:12:41 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:07:58 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int find_longest_line(t_data *data)
     int i = 0;
     int line_len;
     int longest_len = 0;
-    int line_n = 0;
 
     while (data->map[i])
     {
@@ -66,7 +65,6 @@ int find_longest_line(t_data *data)
         if (line_len > longest_len)
         {
             longest_len = line_len;
-            line_n = i;
         }
         i++;
     }
@@ -125,7 +123,7 @@ bool parse_map(t_data *data, t_player *player)
 	// printf("Map has %d lines and each line is %d characters\n", total_lines, longest_len);
 	expand_line_len(data, longest_len);
 	// do i add null as last line of the array in gnl?
-	if(found_empty_line(data) || !is_shaped(data->map, total_lines - 1, longest_len -1) || 
+	if(found_empty_line(data) || !is_shaped(data->map, total_lines - 1, longest_len -1) ||
 	   !has_required_text(data->map, player) || !has_enough_sprites(data->map))
 		return(false);
 	// error if there is space inside the map (can be checked with flood fill once we know the position of the player)
