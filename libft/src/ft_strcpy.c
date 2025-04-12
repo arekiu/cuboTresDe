@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:14:51 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/01 10:25:08 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:00:38 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ char *ft_strcpy(char *dest, const char *src)
 		i++;
 	}
 	dest[i] = '\0';
+	// printf("DEST: %s hey", dest);
 	return (dest);
 }

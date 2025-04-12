@@ -12,67 +12,42 @@
 
 #include "../cub3d.h"
 
-bool	has_file_extension(char *file, char *extension)
+int check_fd(char *file, char *type, t_data *data, char *obj)
 {
-	int	file_len;
-	int	ext_len;
-
-	if (!file || !extension) //!extension makes no sense as it will never be null as passed as param
+	if(file == NULL)
+	{
+		printf("Error: %s was not given a path to file\n", obj);
 		return (false);
-	file_len = ft_strlen(file) - 1;
-	ext_len = ft_strlen(extension) - 1;
-	if (ext_len > file_len)
-	return (false);
-	while (ext_len >= 0)
-	{
-		if (file[file_len] != extension[ext_len])
-		return (0);
-		file_len--;
-		ext_len--;
 	}
-	while(file_len >= 0) // added this as a warmup and handle filenames like map.ber.cub
+	data->fd = open(file, O_RDONLY);
+	// printf("Opened %s fd, fd number: %d\n", file, data->fd);
+	if (!has_file_extension(file, type) || data->fd < 0)
 	{
-		if (file[file_len] == '/') // if we passed the path to file, the check ends here
-			break;
-		if (file[file_len] == '.')
-			return (false);
-		file_len--;
+		printf("Error: %s used for %s does not exist or has wrong extension\n", file, obj);
+		return (false);
+	}
+	if(strcmp(obj, "map data") != 0) // as i close fd in parse assets i just close the fd of coords here
+	{
+		// printf("  Closed %s fd, fd number: %d\n", file, data->fd);
+		close(data->fd); // close fd only if it is not the map data
+		return (true);
 	}
 	return (true);
 }
 
-bool	check_map(char *file, t_game *game) // returns null if fails
+bool parse_assets(char *file_name, t_game *game)
 {
-	int		fd;
-	(void) game;
-
-
-	fd = open(file, O_RDONLY);
-	if (!has_file_extension(file, ".cub") || fd < 0)
+	if (!check_fd(file_name, ".cub", game->data, "map data") || !collect_map_data(game->data->fd, &game->data->map, game))
 	{
-		ft_printf("Error: file does not exist or has wrong extension format\n");
-		close(fd);
-        return (NULL);
-	}
-	if(!collect_map(fd, &game->data->map, game))
-	{
-		close(fd);
+		close(game->data->fd);
 		return (false);
 	}
-	close(fd);
-	print_map(game->data);
-	// exit(0); // removing this after testing
+	close(game->data->fd);
+	// printf("  Closed map fd, fd number: %d\n", game->data->fd);
+	if(!parse_textures(game->data))
+		return (false);
+	if(!parse_map(game->data, game->player))
+		return (false);
+	// print_map(game->data);
 	return (true);
 }
-
-
-bool	parse_assets(char	*file_name, t_game *game) // error handling if we have more
-{
-    (void)game;
-    if(!check_map(file_name, game))
-        return (false);
-	// parse_map(game->data->map, game); -- parse items in the map array
-	// parse textures -- parse textures if they can be found and valid
-    return (true);
-}
-

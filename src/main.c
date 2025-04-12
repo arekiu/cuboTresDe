@@ -24,8 +24,10 @@ int main(int argc, char **argv)
 		// we still need to free stuff here i think because parsing will also allocate the map and data
 		// that exec will use
 		// free(game.map); // should free all game data and have if statements to check if they are not null before freeing
+		// print_map(game->data);
 		exit(1);
 	}
+	print_map(game->data, game->player);
 	init_game(game);
 	mlx_hook(game->window, 2, 1, key_press, game); //2 is KEYPRESS event and 1 for listen to keys "pressed"
 	mlx_hook(game->window, 3, 2, key_release, game);

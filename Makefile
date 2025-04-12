@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/02 13:41:42 by aschmidt         ###   ########.fr        #
+#    Updated: 2025/04/11 14:26:00 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT_NAME	= libft.a
 LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 # Compiler flags and commands
 CFLAGS		=	-Wall -Wextra -Werror -g #added g for debugging with gdb
-MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+MLX_FLAGS	=	-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm #commented this to avoid problems on mac compilation for parser
 RM = rm -rf
 
 SRC_DIR = src
@@ -50,9 +50,15 @@ SRC_FILES = \
 	$(RAY_DIR)/minimap.c \
 	$(RAY_DIR)/texture.c \
 	$(PARSE_DIR)/parse_assets.c \
+	$(PARSE_DIR)/file_parsing.c \
 	$(PARSE_DIR)/collect_map_data.c \
 	$(PARSE_DIR)/collect_map_env.c \
-	$(PARSE_DIR)/parsing_debugger.c
+	$(PARSE_DIR)/parsing_debugger.c \
+	$(PARSE_DIR)/parse_textures.c \
+	$(PARSE_DIR)/parse_map.c \
+	$(PARSE_DIR)/parse_map_frame.c \
+	$(PARSE_DIR)/parse_map_symbols.c
+
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

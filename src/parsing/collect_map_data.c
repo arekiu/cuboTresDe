@@ -10,12 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "../cub3d.h"
 
 
@@ -26,7 +20,7 @@ char *ft_get_line(int fd)
 	static int		buff_read;
 	static int		buff_pos;
 	int i = 0;
-	
+
 	if(fd < 0 || 42 <= 0) // <-------------- FD SHOULD BE < 0 AND NOT <= 0
 		return(NULL);
 	while(1)
@@ -52,7 +46,7 @@ char *ft_get_line(int fd)
 	return(ft_strdup(line));
 }
 
-bool	collect_map(int fd, char ***map, t_game *game)
+bool	collect_map_data(int fd, char ***map, t_game *game)
 {
 	char *line;
 	bool err = false;
@@ -77,7 +71,6 @@ bool	collect_map(int fd, char ***map, t_game *game)
 		{
 			if(err)// if texture_data finds an error is overwrites line as null to trigger the error
 			{
-				printf("yoyoyoyoy\n");
 				err = false;
 				free(line);
 				return(false);

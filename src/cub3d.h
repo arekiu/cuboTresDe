@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <limits.h>
 # include <mlx.h>
 
 //COLORS - for debugging and printing pretty ;)
@@ -45,13 +46,16 @@
 #define WE (PI)
 #define EA 0
 
+//This is for the movement, walking
 #define WEST  0
 #define EAST  1
 #define NORTH 2
 #define SOUTH 3
 
+
 typedef struct s_data{
 	//parsed map with needed information
+	int		fd; // fd of various files?
 	char	**map;
 	int		player_x;
 	int		player_y;
@@ -104,6 +108,7 @@ typedef struct s_ray {
 typedef struct s_player{
 	float		x;
 	float		y;
+	char	orientation;
 	int		player_size;
 	float	angle; //its going to be determined by parsing ---> PD: NO and SO were switched because of gaming cardinal things*
 	//NO == PI/2 (90)
@@ -157,13 +162,24 @@ typedef struct s_game{
 //PARSE FILE
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
+int check_fd(char *file, char *type, t_data *data, char *obj);
+bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
+bool	collect_map_data(int fd, char ***map, t_game *game);
 char	*ft_get_line(int fd);
-bool	collect_map(int fd, char ***map, t_game *game);
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
+bool    parse_textures(t_data *data);
+bool parse_map(t_data *data, t_player *player);
+bool is_shaped(char **map, int last_r, int last_c);
+bool	has_required_text(char **map, t_player *player);
+bool	has_enough_sprites(char **map);
+
+
+
+
 
 //debugging
-void print_map(t_data *data);
+void print_map(t_data *data, t_player *player);
 
 
 //INIT
