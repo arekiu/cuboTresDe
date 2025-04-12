@@ -2,117 +2,102 @@
 
 void calc_side_dist(t_game *game)
 {
-    if (game->raycaster->dir_x < 0)
-    {
-        game->raycaster->step_x = -1;
-        game->raycaster->side_x = (game->player->x / BLOCK - game->raycaster->map_x) * game->raycaster->delta_x;
-    }
-    else
-    {
-        game->raycaster->step_x = 1;
-        game->raycaster->side_x = (game->raycaster->map_x + 1.0 - game->player->x / BLOCK) * game->raycaster->delta_x;
-    }
+	if (game->ray->dir_x < 0)
+	{
+		game->ray->step_x = -1;
+		game->ray->side_x = (game->player->x / BLOCK - game->ray->map_x) * game->ray->delta_x;
+	}
+	else
+	{
+		game->ray->step_x = 1;
+		game->ray->side_x = (game->ray->map_x + 1.0 - game->player->x / BLOCK) * game->ray->delta_x;
+	}
+	if (game->ray->dir_y < 0)
+	{
+		game->ray->step_y = -1;
+		game->ray->side_y = (game->player->y / BLOCK - game->ray->map_y) * game->ray->delta_y;
+	}
+	else
+	{
+		game->ray->step_y = 1;
+		game->ray->side_y = (game->ray->map_y + 1.0 - game->player->y / BLOCK) * game->ray->delta_y;
+	}
+}
 
-
-    if (game->raycaster->dir_y < 0)
-    {
-        game->raycaster->step_y = -1;
-        game->raycaster->side_y = (game->player->y / BLOCK - game->raycaster->map_y) * game->raycaster->delta_y;
-    }
-    else
-    {
-        game->raycaster->step_y = 1;
-        game->raycaster->side_y = (game->raycaster->map_y + 1.0 - game->player->y / BLOCK) * game->raycaster->delta_y;
-    }
+void	calc_delta_dist(t_ray *ray)
+{
+	//calculate delta dist x
+	if (ray->dir_x == 0)
+		ray->delta_x = 1e30; //ray parallel to x-axis, give super high value
+	else if (ray->dir_x > 0)
+		ray->delta_x = 1 / ray->dir_x;
+	else
+		ray->delta_x = 1 / -ray->dir_x;
+//calculate delta dist y
+	if (ray->dir_y == 0)
+		ray->delta_y = 1e30; //ray parallel to y-axis, give super high value
+	else if (ray->dir_y > 0)
+		ray->delta_y = 1 / ray->dir_y;
+	else
+		ray->delta_y = 1 / -ray->dir_y;
 
 }
 
-void	calc_delta_dist(t_ray *raycaster)
+void	set_side(t_game *game, char hit)
 {
-	//calculate delta dist x
-	if (raycaster->dir_x == 0)
-		raycaster->delta_x = 1e30; //ray parallel to x-axis, give super high value
-	else if (raycaster->dir_x > 0)
-		raycaster->delta_x = 1 / raycaster->dir_x;
-	else
-		raycaster->delta_x = 1 / -raycaster->dir_x;
-//calculate delta dist y
-	if (raycaster->dir_y == 0)
-		raycaster->delta_y = 1e30; //ray parallel to y-axis, give super high value
-	else if (raycaster->dir_y > 0)
-		raycaster->delta_y = 1 / raycaster->dir_y;
-	else
-		raycaster->delta_y = 1 / -raycaster->dir_y;
+	t_ray *ray = game->ray;
 
+	if (hit == 'x')
+	{
+		if (ray->dir_x < 0)
+			ray->side = WEST;
+		else
+			ray->side = EAST;
+	}
+	else if (hit == 'y')
+	{
+		if (ray->dir_y < 0)
+			ray->side = NORTH;
+		else
+			ray->side = SOUTH;
+	}
 }
 
 void	perform_DDA(t_game *game)
 {
-	game->raycaster->hit_side = 0;
-	while (game->raycaster->hit_side == 0)
+	game->ray->hit_side = 0;
+	while (game->ray->hit_side == 0)
 	{
-		if (game->raycaster->map_x < 0 || game->raycaster->map_x >= get_map_width(game->data->map) ||
-    game->raycaster->map_y < 0 || game->raycaster->map_y >= get_map_height(game->data->map))
-        {
-            // printf("Ray went out of bounds: map_x=%d, map_y=%d\n", game->raycaster->map_x, game->raycaster->map_y);
-            game->raycaster->hit_side = 1; // Stop the loop
-            break;
-        }
-		if (game->raycaster->side_x < game->raycaster->side_y)//jump to next map square, either in x-direction, or in y-direction
+		if (game->ray->side_x < game->ray->side_y)//jump to next map square, either in x-direction, or in y-direction
 		{
-			game->raycaster->side_x += game->raycaster->delta_x;
-			game->raycaster->map_x += game->raycaster->step_x;
-			game->raycaster->side = 0;
+			game->ray->side_x += game->ray->delta_x;
+			game->ray->map_x += game->ray->step_x;
+			set_side(game, 'x');
 		}
 		else
 		{
-			game->raycaster->side_y += game->raycaster->delta_y;
-			game->raycaster->map_y += game->raycaster->step_y;
-			game->raycaster->side = 1;
+			game->ray->side_y += game->ray->delta_y;
+			game->ray->map_y += game->ray->step_y;
+			set_side(game, 'y');
 		}
-		if (game->data->map[game->raycaster->map_y][game->raycaster->map_x] == '1')
-			game->raycaster->hit_side = 1;
-		if (game->raycaster->side == 0)
-			game->raycaster->wall_dist = (game->raycaster->side_x - game->raycaster->delta_x);
+		if (game->data->map[game->ray->map_y][game->ray->map_x] == '1')
+			game->ray->hit_side = 1;
+		if (game->ray->side == 0 || game->ray->side == 1)
+			game->ray->wall_dist = (game->ray->side_x - game->ray->delta_x);
 		else
-			game->raycaster->wall_dist = (game->raycaster->side_y - game->raycaster->delta_y);
+			game->ray->wall_dist = (game->ray->side_y - game->ray->delta_y);
 	}
 }
 
-void	raycaster(t_game *game, int i)
+void	raycaster(t_game *game)
 {
-	game->raycaster->camera_x = 2 * i / (double)game->screen_width - 1; //x-coord in camera space
-	game->raycaster->dir_x = game->player->dir_x + game->player->plane_x * game->raycaster->camera_x;
-	game->raycaster->dir_y = game->player->dir_y + game->player->plane_y * game->raycaster->camera_x;
-	game->raycaster->map_x = (int)(game->player->x / BLOCK);
-	game->raycaster->map_y = (int)(game->player->y / BLOCK);
-	calc_delta_dist(game->raycaster);
+	game->ray->camera_x = 2 * game->ray->current_x / (double)WIN_WIDTH - 1; //x-coord in camera space, the view from the player
+	game->ray->dir_x = game->player->dir_x + game->player->plane_x * game->ray->camera_x;
+	game->ray->dir_y = game->player->dir_y + game->player->plane_y * game->ray->camera_x;
+	game->ray->map_x = (int)(game->player->x / BLOCK);
+	game->ray->map_y = (int)(game->player->y / BLOCK);
+	calc_delta_dist(game->ray);
 	calc_side_dist(game);
 	perform_DDA(game);
-}
-
-int	draw_loop(t_game *game)
-{
-	int		i;
-
-	i = 0;
-	move_player(game);
-	clear(game);
-	draw_square((int)game->player->x - PLAYER_SIZE / 2,\
-		(int)game->player->y - PLAYER_SIZE / 2, PLAYER_SIZE,0xFF0000,game);
-	draw_map(game);
-	while (i < game->screen_width)
-	{
-		raycaster(game, i);
-
-        // Calculate ray end position for debugging
-       float ray_end_x = game->player->x + game->raycaster->dir_x * game->raycaster->wall_dist * BLOCK;
-       float ray_end_y = game->player->y + game->raycaster->dir_y * game->raycaster->wall_dist * BLOCK;
-
-        draw_debug_ray(game, ray_end_x, ray_end_y, 0x00FF00);
-        i++;
-    }
-	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
-	return (1);
 }
 

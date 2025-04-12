@@ -4,7 +4,7 @@ void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
 
-	if(x >= game->screen_width || y >= game->screen_height || x < 0 || y < 0)
+	if(x >= WIN_WIDTH || y >= WIN_HEIGHT || x < 0 || y < 0)
 		return;
 	index = y * game->stride + x * game->bpp / 8;
 	game->buffer[index] = color & 0xFF;
@@ -12,32 +12,31 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->buffer[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_square(int x, int y, int size, int color, t_game *game)
+void draw_square(int x, int y, int size, int color, t_game *game)
 {
-	int	i;
+	int i;
+	int j;
 
 	i = 0;
-	while (i < size)
+	while (i < size)// Fill the square
 	{
-		put_pixel(x + i, y, color, game);
-		put_pixel(x, y + i, color, game);
-		put_pixel(x + size, y + i, color, game);
-		put_pixel(x + i, y + size, color, game);
+		j = 0;
+		while (j < size)
+		{
+			put_pixel(x + i, y + j, color, game);
+			j++;
+		}
 		i++;
 	}
-}
-
-void draw_debug_ray(t_game *game, float end_x, float end_y, int color)
-{
-    float dx = end_x - game->player->x;
-    float dy = end_y - game->player->y;
-    float steps = fmax(fabs(dx), fabs(dy));
-
-    for (int i = 0; i <= steps; i++) {
-        float x = game->player->x + dx * (i/steps);
-        float y = game->player->y + dy * (i/steps);
-        put_pixel((int)x, (int)y, color, game);
-    }
+	i = 0;
+	while (i < size) // Draw the borders
+	{
+		put_pixel(x + i, y, color, game);             // Top border
+		put_pixel(x + i, y + size - 1, color, game);  // Bottom border
+		put_pixel(x, y + i, color, game);             // Left border
+		put_pixel(x + size - 1, y + i, color, game);  // Right border
+		i++;
+	}
 }
 
 void	clear(t_game *game)
@@ -46,10 +45,10 @@ void	clear(t_game *game)
 	int	y;
 
 	y = 0;
-	while (y < game->screen_height)
+	while (y < WIN_HEIGHT)
 	{
 		x = 0;
-		while (x < game->screen_width)
+		while (x < WIN_WIDTH)
 		{
 			put_pixel(x, y, 0, game);
 			x++;
@@ -57,5 +56,3 @@ void	clear(t_game *game)
 		y++;
 	}
 }
-
-
