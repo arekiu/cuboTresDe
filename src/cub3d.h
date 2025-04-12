@@ -190,6 +190,7 @@ void	init_player(t_player *player, float orientation, int x, int y);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
+unsigned int	rgb_to_hex(int rgb[3]);
 
 
 //PLAYER UTILS

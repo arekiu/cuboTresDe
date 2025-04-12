@@ -3,7 +3,11 @@
 void ray_drawer(t_game *game)
 {
 	int	y;
+	unsigned int c_color;
+	unsigned int f_color;
 
+	c_color = rgb_to_hex(game->data->C_rgb);
+	f_color = rgb_to_hex(game->data->F_rgb);
 	y = 0;
 	game->ray->line_height = (int)(WIN_HEIGHT / game->ray->wall_dist);
 	game->ray->draw_start = -(game->ray->line_height) / 2 + WIN_HEIGHT / 2;
@@ -12,10 +16,10 @@ void ray_drawer(t_game *game)
 	game->ray->draw_end = game->ray->line_height / 2 + WIN_HEIGHT /2;
 	if (game->ray->draw_end > WIN_HEIGHT)
 		game->ray->draw_end = WIN_HEIGHT - 1;
-	y = paint_line(game, game->ray->draw_start, y, 0xFF0000); //draw ceiling
+	y = paint_line(game, game->ray->draw_start, y, c_color); //draw ceiling
 	//y = paint_line(game, game->ray->draw_end, y, 0x00FF00); //walls
 	y = draw_texture(game, y);
-	paint_line(game, WIN_HEIGHT, y, 0x0000FF); //floor
+	paint_line(game, WIN_HEIGHT, y, f_color); //floor
 }
 
 void	set_texture(t_game *game)

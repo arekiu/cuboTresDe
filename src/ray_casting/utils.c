@@ -39,6 +39,11 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 	}
 }
 
+unsigned int rgb_to_hex(int rgb[3])
+{
+	return (rgb[0] * 65536 + rgb[1] * 256 + rgb[2]);
+}
+
 void	clear(t_game *game)
 {
 	int	x;
