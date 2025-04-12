@@ -53,36 +53,33 @@ int	paint_line(t_game *game, int y_end, int y_start, int color) // or paint_text
 
 int get_pixel(t_texture *texture, int x, int y)
 {
-    int color;
-    char *pixel;
+	int color;
+	char *pixel;
 
-    // Ensure the pixel coordinates are within the texture bounds
-    if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
-        return 0; // Return black if out of bounds
-
-    pixel = texture->addr + (y * texture->line_length + x * (texture->bpp / 8));
-    color = *(int *)pixel;  // Extract the pixel color from the memory address
-    return color;
+	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
+		return 0;
+	pixel = texture->addr + (y * texture->line_length + x * (texture->bpp / 8));
+	color = *(int *)pixel;  // Extract the pixel color from the memory address
+	return (color);
 }
 
 int draw_texture(t_game *game, int y_start)
 {
-    int pix_color;
-    t_ray *ray;
+	int		pix_color;
+	t_ray	*ray;
 
-    ray = game->ray;
-    set_texture(game);
-    ray->step = 1.0 * game->no_text->height / ray->line_height;
-    ray->text_start = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * ray->step;
+	ray = game->ray;
+	set_texture(game);
+	ray->step = 1.0 * game->no_text->height / ray->line_height;
+	ray->text_start = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * ray->step;
 
-    while (y_start < ray->draw_end - 1)
-    {
-        ray->text_y = (int)ray->text_start % game->no_text->height;
-        ray->text_start += ray->step;
-
-        pix_color = get_pixel(game->no_text, ray->text_x, ray->text_y);
-        put_pixel(ray->current_x, y_start, pix_color, game);  // Update y_start dynamically
-        y_start++;
-    }
-    return y_start;
+	while (y_start < ray->draw_end - 1)
+	{
+		ray->text_y = (int)ray->text_start % game->no_text->height;
+		ray->text_start += ray->step;
+		pix_color = get_pixel(game->no_text, ray->text_x, ray->text_y);
+		put_pixel(ray->current_x, y_start, pix_color, game);  // Update y_start dynamically
+		y_start++;
+	}
+	return (y_start);
 }

@@ -38,22 +38,22 @@ static void calculate_next_position(t_game  *game, float *next_x, float *next_y,
 
 	player = game->player;
 	speed = player->speed;
-	if (direction == 1)//UP
+	if (direction == NORTH)//UP
 	{
 		*next_x = player->x + player->dir_x * speed;
 		*next_y = player->y + player->dir_y * speed;
 	}
-	if (direction == 2)//DOWN
+	if (direction == SOUTH)//DOWN
 	{
 		*next_x = player->x - player->dir_x * speed;
 		*next_y = player->y - player->dir_y * speed;
 	}
-	if (direction == 3)//LEFT
+	if (direction == WEST)//LEFT
 	{
 		*next_x = player->x + player->dir_y * speed;
 		*next_y = player->y - player->dir_x * speed;
 	}
-	if (direction == 4)//RIGHT
+	if (direction == EAST)//RIGHT
 	{
 		*next_x = player->x - player->dir_y * speed;
 		*next_y = player->y + player->dir_x * speed;
@@ -68,22 +68,22 @@ void move_in_direct(t_game *game)
 
 	if (game->player->key_up)
 	{
-		calculate_next_position(game, &next_x, &next_y, 1);
+		calculate_next_position(game, &next_x, &next_y, NORTH);
 		try_move_player(game, next_x, next_y);
 	}
 	if (game->player->key_down)
 	{
-		calculate_next_position(game, &next_x, &next_y, 2);
+		calculate_next_position(game, &next_x, &next_y, SOUTH);
 		try_move_player(game, next_x, next_y);
 	}
 	if (game->player->key_left)
 	{
-		calculate_next_position(game, &next_x, &next_y, 3);
+		calculate_next_position(game, &next_x, &next_y, WEST);
 		try_move_player(game, next_x, next_y);
 	}
 	if (game->player->key_right)
 	{
-		calculate_next_position(game, &next_x, &next_y, 4);
+		calculate_next_position(game, &next_x, &next_y, EAST);
 		try_move_player(game, next_x, next_y);
 	}
 }

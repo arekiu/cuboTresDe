@@ -148,6 +148,9 @@ typedef struct s_game{
 	t_data		*data;
 	t_ray		*ray;
 	t_texture	*no_text;
+	t_texture	*so_text;
+	t_texture	*ea_text;
+	t_texture	*we_text;
 }	t_game;
 
 
