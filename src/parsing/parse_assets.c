@@ -48,6 +48,5 @@ bool parse_assets(char *file_name, t_game *game)
 		return (false);
 	if(!parse_map(game->data, game->player))
 		return (false);
-	// print_map(game->data);
 	return (true);
 }

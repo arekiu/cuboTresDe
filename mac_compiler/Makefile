@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/11 20:04:10 by jslusark         ###   ########.fr        #
+#    Updated: 2025/04/14 19:27:46 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ UNAME		:= $(shell uname)
 
 # Platform-specific MLX settings
 ifeq ($(UNAME), Linux)
-	MLX_DIR		= mlx_linux
+	MLX_DIR		= mac_compiler/mlx_linux
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -L/usr/X11/lib -lXext -lX11 -lm -lbsd
 else ifeq ($(UNAME), Darwin)
 	MLX_DIR		= mac_compiler/mlx_apple
@@ -60,6 +60,9 @@ SRC_FILES = \
 	$(RAY_DIR)/player_utils.c \
 	$(RAY_DIR)/map.c \
 	$(RAY_DIR)/ray_casting.c \
+	$(RAY_DIR)/ray_drawer.c \
+	$(RAY_DIR)/minimap.c \
+	$(RAY_DIR)/texture.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/file_parsing.c \
 	$(PARSE_DIR)/collect_map_data.c \
@@ -128,7 +131,6 @@ fclean: clean
 re: fclean all
 	@echo "$(ORANGE)$(NAME)$(RESET) successfully recompiled $(RESET)"
 
-# Catch invalid targets
 %:
 	@echo "$(RED)Failure:$(RESET) target '$@' is not a valid target."
 	@echo "Please use one of the following valid targets:"
