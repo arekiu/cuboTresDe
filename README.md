@@ -28,7 +28,7 @@
 
 ---
 
-## Map Format
+## 🗺️ Map Format
 
 Each .cub file includes:
 
@@ -54,6 +54,8 @@ C 225,30,0
 111111
 ```
 
+---
+
 ## 🛠️ Build & Run
 
 ### Clone repository
@@ -70,7 +72,9 @@ make
 ./cub3D maps/map.cub
 ```
 
-## Contributors
+---
 
-### JSlusark
-### arekiu
+## 👥 Contributors
+
+- **[Jess](https://github.com/JSlusark )**
+- **[Alex](https://github.com/arekiu)**
