@@ -56,21 +56,21 @@ C 225,30,0
 
 ## 🛠️ Build & Run
 
-# Clone repository
+### Clone repository
 ```
 git clone https://github.com/arekiu/cub3d.git
 cd cub3d
 ```
-# Compile
+### Compile
 ```
 make
 ```
-# Run
+### Run
 ```
 ./cub3D maps/map.cub
 ```
 
 ## Contributors
 
-	# JSlusark
-	# arekiu
+### JSlusark
+### arekiu
