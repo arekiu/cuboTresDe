@@ -185,6 +185,7 @@ void print_map(t_data *data, t_player *player);
 //INIT
 void	init_game(t_game *game);
 void	init_player(t_player *player, float orientation, int x, int y);
+void	init_textures(t_game *game);
 
 //UTILS
 void	put_pixel(int x, int y, int color, t_game *game);
