@@ -214,7 +214,7 @@ int		paint_line(t_game *game, int y, int i, int color);
 
 //TEXTURE
 void	load_texture(t_game *game, t_texture *tex, char *path);
-int		draw_texture(t_game *game, int y_start);
+int		draw_texture(t_game *game);
 
 //MAP
 void	draw_map(t_game *game);

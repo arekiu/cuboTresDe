@@ -8,9 +8,15 @@ void	init_game(t_game *game)
 	init_player(game->player, game->player->orientation, game->player->x, game->player->y);
 	game->mlx = mlx_init();
 	game->no_text = malloc(sizeof(t_texture));
+	game->so_text = malloc(sizeof(t_texture));
+	game->we_text = malloc(sizeof(t_texture));
+	game->ea_text = malloc(sizeof(t_texture));
 	if (!game->no_text)
-	exit(1);
+		exit(1);
 	load_texture(game, game->no_text, game->data->NO_path);
+	load_texture(game, game->so_text, game->data->NO_path);
+	load_texture(game, game->ea_text, game->data->NO_path);
+	load_texture(game, game->we_text, game->data->NO_path);
 	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	game->img = mlx_new_image(game->mlx,WIN_WIDTH, WIN_HEIGHT);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
