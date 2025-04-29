@@ -209,12 +209,19 @@ void	raycaster(t_game *game);
 void	perform_DDA(t_game *game);
 void	calc_delta_dist(t_ray *ray);
 void	calc_side_dist(t_game *game);
+
+//DRAW
 void	ray_drawer(t_game *game);
 int		paint_line(t_game *game, int y, int i, int color);
+int		get_pixel(t_texture *texture, int x, int y);
 
 //TEXTURE
 void	load_texture(t_game *game, t_texture *tex, char *path);
+void	set_texture(t_game *game, t_texture *texture);
+t_texture	*get_wall_texture(t_game *game);
 int		draw_texture(t_game *game);
+int		render_texture_line(t_game *game, t_texture *texture, double step, double tex_pos);
+void	prepare_texture_drawing(t_game *game, t_texture **texture, double *step, double *tex_pos);
 
 //MAP
 void	draw_map(t_game *game);
