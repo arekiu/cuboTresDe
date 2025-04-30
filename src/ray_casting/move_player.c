@@ -3,9 +3,9 @@
 void	rotate_player(t_game *game)
 {
 	if (game->player->left_rotate)
-		game->player->angle -= game->player->angle_speed;
+		game->player->angle -= game->player->angle_speed * game->delta_time;
 	if (game->player->right_rotate)
-		game->player->angle += game->player->angle_speed;
+		game->player->angle += game->player->angle_speed * game->delta_time;
 	if (game->player->angle > 2 * PI) //it means that the angle it's bigger than 360 and get reset to 0;
 		game->player->angle = 0;
 	if (game->player->angle < 0) //less than 0, gets 360
@@ -48,25 +48,25 @@ static void calculate_next_position(t_game  *game, float *next_x, float *next_y,
 
 	player = game->player;
 	speed = player->speed;
-	if (direction == NORTH)//UP
+	if (direction == NORTH)
 	{
-		*next_x = player->x + player->dir_x * speed;
-		*next_y = player->y + player->dir_y * speed;
+		*next_x = player->x + player->dir_x * speed * game->delta_time;
+		*next_y = player->y + player->dir_y * speed * game->delta_time;
 	}
-	if (direction == SOUTH)//DOWN
+	if (direction == SOUTH)
 	{
-		*next_x = player->x - player->dir_x * speed;
-		*next_y = player->y - player->dir_y * speed;
+		*next_x = player->x - player->dir_x * speed * game->delta_time;
+		*next_y = player->y - player->dir_y * speed * game->delta_time;
 	}
-	if (direction == WEST)//LEFT
+	if (direction == WEST)
 	{
-		*next_x = player->x + player->dir_y * speed;
-		*next_y = player->y - player->dir_x * speed;
+		*next_x = player->x + player->dir_y * speed * game->delta_time;
+		*next_y = player->y - player->dir_x * speed * game->delta_time;
 	}
-	if (direction == EAST)//RIGHT
+	if (direction == EAST)
 	{
-		*next_x = player->x - player->dir_y * speed;
-		*next_y = player->y + player->dir_x * speed;
+		*next_x = player->x - player->dir_y * speed * game->delta_time;
+		*next_y = player->y + player->dir_x * speed * game->delta_time;
 	}
 }
 

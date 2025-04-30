@@ -60,6 +60,11 @@ void	init_player(t_player *player, float orientation, int x, int y)
 
 int	draw_loop(t_game *game)
 {
+	double current_time;
+
+	current_time = get_time_in_ms();
+	game->delta_time = (current_time - game->last_frame_time) / 1000.0; // in seconds
+	game->last_frame_time = current_time;
 	game->ray->current_x = 0;
 	move_player(game);
 	clear(game);
