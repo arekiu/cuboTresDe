@@ -5,9 +5,9 @@ void	init_game(t_game *game)
 	game->ray = malloc(sizeof(t_ray));
 	if (!game->ray)
 		exit(1);
+	game->mlx = mlx_init();
 	init_textures(game);
 	init_player(game->player, game->player->orientation, game->player->x, game->player->y);
-	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	game->img = mlx_new_image(game->mlx,WIN_WIDTH, WIN_HEIGHT);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
