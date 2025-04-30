@@ -17,19 +17,29 @@ void	rotate_player(t_game *game)
 
 }
 
-
 static void try_move_player(t_game *game, float next_x, float next_y)
 {
-	if (game->data->map[(int)((next_y - game->player->player_size / 2) / BLOCK)][(int)((next_x - game->player->player_size / 2) / BLOCK)] != '1' && // TOP LEFT
-	game->data->map[(int)((next_y - game->player->player_size / 2) / BLOCK)][(int)((next_x + game->player->player_size / 2) / BLOCK)] != '1' && //TOP RIGHT
-	game->data->map[(int)((next_y + game->player->player_size / 2) / BLOCK)][(int)((next_x - game->player->player_size / 2) / BLOCK)] != '1' && //BOTTOM LEFT
-	game->data->map[(int)((next_y + game->player->player_size / 2) / BLOCK)][(int)((next_x + game->player->player_size / 2) / BLOCK)] != '1') //BOTTOM RIGHT
-{
-	game->player->x = next_x;
-	game->player->y = next_y;
+	t_player	*p;
+	float		size;
+
+	p = game->player;
+	size = p->player_size / 2;
+	if (game->data->map[(int)((p->y - size) / BLOCK)][(int)((next_x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((p->y + size) / BLOCK)][(int)((next_x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((p->y - size) / BLOCK)][(int)((next_x + size) / BLOCK)] != '1' &&
+		game->data->map[(int)((p->y + size) / BLOCK)][(int)((next_x + size) / BLOCK)] != '1')
+	{
+		p->x = next_x;
+	}
+	if (game->data->map[(int)((next_y - size) / BLOCK)][(int)((p->x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((next_y + size) / BLOCK)][(int)((p->x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((next_y - size) / BLOCK)][(int)((p->x + size) / BLOCK)] != '1' &&
+		game->data->map[(int)((next_y + size) / BLOCK)][(int)((p->x + size) / BLOCK)] != '1')
+	{
+		p->y = next_y;
+	}
 }
 
-}
 
 static void calculate_next_position(t_game  *game, float *next_x, float *next_y, int direction)
 {
