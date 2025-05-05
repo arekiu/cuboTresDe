@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/07 18:29:21 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:08:21 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool check_rgb_values(int   *code, char *type)
       {
           if(code[i] > 255 || code[i] < 0)
           {
-              printf("Error: %s's %s:%d is not a valid number between 0 and 255 or not written in the format required", type, color[i], code[i]);
+              printf("Error: %s's %s:%d is not a valid number between 0 and 255 or not written in the format required\n", type, color[i], code[i]);
               return(false);
           }
           i++;

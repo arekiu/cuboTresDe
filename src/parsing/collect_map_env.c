@@ -76,6 +76,17 @@ int *store_rgb(int *found, int *i, char *line)
 	}
 	if(indexes < 2)
 		return(NULL);
+	else
+	{
+		// if (line[*i] == '\0')
+			// printf("END\n");
+		while (line[*i] == ' ' || line[*i] == '\n' || line[*i] == '\t') // skip spaces
+			(*i)--;
+		// printf("----line %s", line);
+		// printf("landed on %c | index %d  | indexes %d \n", line[*i], *i, indexes);
+		if (line[*i] == ',')
+			return(NULL);
+	}
 	return(rgb);
 }
 

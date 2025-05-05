@@ -26,7 +26,7 @@ int check_fd(char *file, char *type, t_data *data, char *obj)
 		printf("Error: %s used for %s does not exist or has wrong extension\n", file, obj);
 		return (false);
 	}
-	if(strcmp(obj, "map data") != 0) // as i close fd in parse assets i just close the fd of coords here
+	if(strcmp(obj, "map data") != 0) // this allows me to close the fd of the textures and notthe map data file
 	{
 		// printf("  Closed %s fd, fd number: %d\n", file, data->fd);
 		close(data->fd); // close fd only if it is not the map data

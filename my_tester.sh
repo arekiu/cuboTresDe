@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Path to the directory containing the map files
-MAP="./map/not_playable/parse_textures"
-# MAP="./map/not_playable/parse_map"
-# MAP="./map/not_playable/wrong_format"
-# MAP="./map/not_playable/wrong_ext_fd"
-# MAP="./map/playable"
-
+# Array of map test directories
+MAP_DIRS=(
+    "./map/not_playable/parse_textures"
+    "./map/not_playable/parse_map"
+    "./map/not_playable/wrong_format"
+    "./map/not_playable/wrong_ext_fd"
+    # "./map/playable"
+)
 
 # Define color codes
 RED='\033[0;31m'
@@ -15,17 +16,13 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
-RESET='\033[0m' # No color
+RESET='\033[0m'
 
-# Function to run valgrind and check output
+# Function to run a test on a map
 run_test() {
     local map=$1
-    local test_type=$2
-    local map_color=$3
 
-
-    echo -e "${CYAN}Running ${test_type} maps:${RESET} ${map_color}$map${RESET}"
-
+    echo -e "${CYAN}Running test on:${RESET} ${YELLOW}$map${RESET}"
     # Run the program and capture both stdout and stderr
     ./cub3d "$map"
     exit_status=$?
@@ -57,13 +54,21 @@ run_test() {
     echo
 }
 
-    echo -e "${MAGENTA}"
-    echo "╔════════════════════════════════════════════════════╗"
-    echo "║                PARSER TESTS STARTED                ║"
-    echo "╚════════════════════════════════════════════════════╝"
-    echo -e "${RESET}"
-# Loop through invalid map files
-for map in "$MAP"/*
+# Display header
+echo -e "${MAGENTA}"
+echo "╔════════════════════════════════════════════════════╗"
+echo "║                PARSER TESTS STARTED                ║"
+echo "╚════════════════════════════════════════════════════╝"
+echo -e "${RESET}"
+
+# Loop through each directory and run tests on all maps inside
+for dir in "${MAP_DIRS[@]}"
 do
-    run_test "$map"
+echo -e "${GREEN}"
+echo "═════════════════ Directory:$dir ═════════════════"
+echo -e "${RESET}"
+    for map in "$dir"/*
+    do
+        run_test "$map"
+    done
 done
