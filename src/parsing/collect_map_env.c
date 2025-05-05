@@ -44,7 +44,7 @@ int *store_rgb(int *found, int *i, char *line)
 	char *value;
 	int	indexes;
 	int len;
-	
+
 	(*found)++;
 	value = NULL;
 	// printf("LINE: %s", line); // C 120,0,16
@@ -70,8 +70,8 @@ int *store_rgb(int *found, int *i, char *line)
 		free(value);
 		*i += len;
 		// printf("N %d: %d\n", indexes, rgb[indexes]);
-		indexes++; 
-		printf("c: '%c'\n", line[*i]); // have a problem with \n at the end for comma edge
+		indexes++;
+		// printf("c: '%c'\n", line[*i]); // have a problem with \n at the end for comma edge
 		(*i)++;
 	}
 	if(indexes < 2)

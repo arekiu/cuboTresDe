@@ -5,16 +5,28 @@ void	init_game(t_game *game)
 	game->ray = malloc(sizeof(t_ray));
 	if (!game->ray)
 		exit(1);
-	init_player(game->player, game->player->orientation, game->player->x, game->player->y);
 	game->mlx = mlx_init();
-	game->no_text = malloc(sizeof(t_texture));
-	if (!game->no_text)
-	exit(1);
-	load_texture(game, game->no_text, game->data->NO_path);
+	init_textures(game);
+	init_player(game->player, game->player->orientation, game->player->x, game->player->y);
 	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	game->img = mlx_new_image(game->mlx,WIN_WIDTH, WIN_HEIGHT);
 	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
+}
+
+void	init_textures(t_game *game)
+{
+	game->no_text = malloc(sizeof(t_texture));
+	game->so_text = malloc(sizeof(t_texture));
+	game->we_text = malloc(sizeof(t_texture));
+	game->ea_text = malloc(sizeof(t_texture));
+	if (!game->no_text || !game->so_text || !game->we_text || !game->ea_text)
+		exit(1);
+	load_texture(game, game->no_text, game->data->NO_path);
+	load_texture(game, game->so_text, game->data->SO_path);
+	load_texture(game, game->ea_text, game->data->EA_path);
+	load_texture(game, game->we_text, game->data->WE_path);
+	//CATCH POSSIBILIY THAT TEXTURE PATH IS WRONG
 }
 
 void	init_player(t_player *player, float orientation, int x, int y)
@@ -48,6 +60,11 @@ void	init_player(t_player *player, float orientation, int x, int y)
 
 int	draw_loop(t_game *game)
 {
+	double current_time;
+
+	current_time = get_time_in_ms();
+	game->delta_time = (current_time - game->last_frame_time) / 1000.0; // in seconds
+	game->last_frame_time = current_time;
 	game->ray->current_x = 0;
 	move_player(game);
 	clear(game);

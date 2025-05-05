@@ -3,9 +3,9 @@
 void	rotate_player(t_game *game)
 {
 	if (game->player->left_rotate)
-		game->player->angle -= game->player->angle_speed;
+		game->player->angle -= game->player->angle_speed * game->delta_time;
 	if (game->player->right_rotate)
-		game->player->angle += game->player->angle_speed;
+		game->player->angle += game->player->angle_speed * game->delta_time;
 	if (game->player->angle > 2 * PI) //it means that the angle it's bigger than 360 and get reset to 0;
 		game->player->angle = 0;
 	if (game->player->angle < 0) //less than 0, gets 360
@@ -17,19 +17,29 @@ void	rotate_player(t_game *game)
 
 }
 
-
 static void try_move_player(t_game *game, float next_x, float next_y)
 {
-	if (game->data->map[(int)((next_y - game->player->player_size / 2) / BLOCK)][(int)((next_x - game->player->player_size / 2) / BLOCK)] != '1' && // TOP LEFT
-	game->data->map[(int)((next_y - game->player->player_size / 2) / BLOCK)][(int)((next_x + game->player->player_size / 2) / BLOCK)] != '1' && //TOP RIGHT
-	game->data->map[(int)((next_y + game->player->player_size / 2) / BLOCK)][(int)((next_x - game->player->player_size / 2) / BLOCK)] != '1' && //BOTTOM LEFT
-	game->data->map[(int)((next_y + game->player->player_size / 2) / BLOCK)][(int)((next_x + game->player->player_size / 2) / BLOCK)] != '1') //BOTTOM RIGHT
-{
-	game->player->x = next_x;
-	game->player->y = next_y;
+	t_player	*p;
+	float		size;
+
+	p = game->player;
+	size = p->player_size / 2;
+	if (game->data->map[(int)((p->y - size) / BLOCK)][(int)((next_x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((p->y + size) / BLOCK)][(int)((next_x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((p->y - size) / BLOCK)][(int)((next_x + size) / BLOCK)] != '1' &&
+		game->data->map[(int)((p->y + size) / BLOCK)][(int)((next_x + size) / BLOCK)] != '1')
+	{
+		p->x = next_x;
+	}
+	if (game->data->map[(int)((next_y - size) / BLOCK)][(int)((p->x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((next_y + size) / BLOCK)][(int)((p->x - size) / BLOCK)] != '1' &&
+		game->data->map[(int)((next_y - size) / BLOCK)][(int)((p->x + size) / BLOCK)] != '1' &&
+		game->data->map[(int)((next_y + size) / BLOCK)][(int)((p->x + size) / BLOCK)] != '1')
+	{
+		p->y = next_y;
+	}
 }
 
-}
 
 static void calculate_next_position(t_game  *game, float *next_x, float *next_y, int direction)
 {
@@ -38,25 +48,25 @@ static void calculate_next_position(t_game  *game, float *next_x, float *next_y,
 
 	player = game->player;
 	speed = player->speed;
-	if (direction == NORTH)//UP
+	if (direction == NORTH)
 	{
-		*next_x = player->x + player->dir_x * speed;
-		*next_y = player->y + player->dir_y * speed;
+		*next_x = player->x + player->dir_x * speed * game->delta_time;
+		*next_y = player->y + player->dir_y * speed * game->delta_time;
 	}
-	if (direction == SOUTH)//DOWN
+	if (direction == SOUTH)
 	{
-		*next_x = player->x - player->dir_x * speed;
-		*next_y = player->y - player->dir_y * speed;
+		*next_x = player->x - player->dir_x * speed * game->delta_time;
+		*next_y = player->y - player->dir_y * speed * game->delta_time;
 	}
-	if (direction == WEST)//LEFT
+	if (direction == WEST)
 	{
-		*next_x = player->x + player->dir_y * speed;
-		*next_y = player->y - player->dir_x * speed;
+		*next_x = player->x + player->dir_y * speed * game->delta_time;
+		*next_y = player->y - player->dir_x * speed * game->delta_time;
 	}
-	if (direction == EAST)//RIGHT
+	if (direction == EAST)
 	{
-		*next_x = player->x - player->dir_y * speed;
-		*next_y = player->y + player->dir_x * speed;
+		*next_x = player->x - player->dir_y * speed * game->delta_time;
+		*next_y = player->y + player->dir_x * speed * game->delta_time;
 	}
 }
 

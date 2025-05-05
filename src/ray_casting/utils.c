@@ -44,20 +44,15 @@ unsigned int rgb_to_hex(int rgb[3])
 	return (rgb[0] * 65536 + rgb[1] * 256 + rgb[2]);
 }
 
+
 void	clear(t_game *game)
 {
-	int	x;
-	int	y;
+	ft_memset(game->buffer, 0, WIN_WIDTH * WIN_HEIGHT * (game->bpp / 8));
+}
 
-	y = 0;
-	while (y < WIN_HEIGHT)
-	{
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			put_pixel(x, y, 0, game);
-			x++;
-		}
-		y++;
-	}
+double	get_time_in_ms(void)
+{
+	struct timeval	time;
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000.0) + (time.tv_usec / 1000.0);
 }

@@ -10,6 +10,7 @@
 #include <math.h>
 #include <limits.h>
 # include <mlx.h>
+#include <sys/time.h> //alex: for the frames
 
 //COLORS - for debugging and printing pretty ;)
 # define RESET_T "\033[0m"
@@ -24,8 +25,8 @@
 #define WIN_HEIGHT 700
 #define BLOCK 64
 #define PLAYER_SIZE 10
-#define PLAYER_SPEED 1
-#define PLAYER_ANGLE_SPEED 0.005
+#define PLAYER_SPEED 70
+#define PLAYER_ANGLE_SPEED 1.0
 #define MINI_BLOCK 20
 #define MINIMAP_OFFSET_X 10 //position in the screen
 #define MINIMAP_OFFSET_Y 10 //position in the screen
@@ -156,6 +157,8 @@ typedef struct s_game{
 	t_texture	*so_text;
 	t_texture	*ea_text;
 	t_texture	*we_text;
+	double		last_frame_time;
+	double		delta_time;
 }	t_game;
 
 
@@ -185,12 +188,14 @@ void print_map(t_data *data, t_player *player);
 //INIT
 void	init_game(t_game *game);
 void	init_player(t_player *player, float orientation, int x, int y);
+void	init_textures(t_game *game);
 
 //UTILS
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
 unsigned int	rgb_to_hex(int rgb[3]);
+double	get_time_in_ms(void);
 
 
 //PLAYER UTILS
@@ -209,12 +214,19 @@ void	raycaster(t_game *game);
 void	perform_DDA(t_game *game);
 void	calc_delta_dist(t_ray *ray);
 void	calc_side_dist(t_game *game);
+
+//DRAW
 void	ray_drawer(t_game *game);
 int		paint_line(t_game *game, int y, int i, int color);
+int		get_pixel(t_texture *texture, int x, int y);
 
 //TEXTURE
 void	load_texture(t_game *game, t_texture *tex, char *path);
-int		draw_texture(t_game *game, int y_start);
+void	set_texture(t_game *game, t_texture *texture);
+t_texture	*get_wall_texture(t_game *game);
+int		draw_texture(t_game *game);
+int		render_texture_line(t_game *game, t_texture *texture, double step, double tex_pos);
+void	prepare_texture_drawing(t_game *game, t_texture **texture, double *step, double *tex_pos);
 
 //MAP
 void	draw_map(t_game *game);
