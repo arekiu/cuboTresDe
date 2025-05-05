@@ -23,9 +23,9 @@ void	init_textures(t_game *game)
 	if (!game->no_text || !game->so_text || !game->we_text || !game->ea_text)
 		exit(1);
 	load_texture(game, game->no_text, game->data->NO_path);
-	load_texture(game, game->so_text, game->data->NO_path);
-	load_texture(game, game->ea_text, game->data->NO_path);
-	load_texture(game, game->we_text, game->data->NO_path);
+	load_texture(game, game->so_text, game->data->SO_path);
+	load_texture(game, game->ea_text, game->data->EA_path);
+	load_texture(game, game->we_text, game->data->WE_path);
 	//CATCH POSSIBILIY THAT TEXTURE PATH IS WRONG
 }
 
