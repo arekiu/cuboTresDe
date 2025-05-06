@@ -193,7 +193,6 @@ void	init_textures(t_game *game);
 //UTILS
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
-void	draw_square(int x, int y, int size, int color, t_game *game);
 unsigned int	rgb_to_hex(int rgb[3]);
 double	get_time_in_ms(void);
 
@@ -228,17 +227,16 @@ int		draw_texture(t_game *game);
 int		render_texture_line(t_game *game, t_texture *texture, double step, double tex_pos);
 void	prepare_texture_drawing(t_game *game, t_texture **texture, double *step, double *tex_pos);
 
-//MAP
-void	draw_map(t_game *game);
-int		get_map_height(char **map);
-int		get_map_width(char **map);
-void	draw_line(t_game *game, int x0, int y0, int x1, int y1, int color);
-//MINIMAP
-void	draw_minimap(t_game *game);
-void	draw_player(t_game *game);
-void	draw_player_dir(t_game *game);
+
 
 //END
 int		on_destroy(t_game *game);
+
+//BONUS
+void	draw_square(int x, int y, int size, int color, t_game *game);
+void	draw_minimap(t_game *game);
+void	draw_player(t_game *game);
+void	draw_player_dir(t_game *game);
+void	draw_line(t_game *game, int x0, int y0, int x1, int y1);
 
 #endif

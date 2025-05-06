@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
+#    By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/04/11 14:26:00 by jslusark         ###   ########.fr        #
+#    Updated: 2025/05/06 10:01:21 by aschmidt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ RM = rm -rf
 SRC_DIR = src
 PARSE_DIR = src/parsing
 RAY_DIR = src/ray_casting
+BONUS_DIR = src/bonus_files
 
 SRC_FILES = \
 	$(SRC_DIR)/main.c \
@@ -44,11 +45,9 @@ SRC_FILES = \
 	$(RAY_DIR)/utils.c \
 	$(RAY_DIR)/move_player.c \
 	$(RAY_DIR)/player_utils.c \
-	$(RAY_DIR)/map.c \
 	$(RAY_DIR)/ray_casting.c \
 	$(RAY_DIR)/ray_drawer.c \
 	$(RAY_DIR)/texture_drawer.c \
-	$(RAY_DIR)/minimap.c \
 	$(RAY_DIR)/texture.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/file_parsing.c \
@@ -58,7 +57,8 @@ SRC_FILES = \
 	$(PARSE_DIR)/parse_textures.c \
 	$(PARSE_DIR)/parse_map.c \
 	$(PARSE_DIR)/parse_map_frame.c \
-	$(PARSE_DIR)/parse_map_symbols.c
+	$(PARSE_DIR)/parse_map_symbols.c \
+	$(BONUS_DIR)/minimap.c \
 
 
 OBJ_DIR = obj

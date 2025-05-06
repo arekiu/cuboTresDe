@@ -11,10 +11,37 @@ void	draw_player_dir(t_game *game)
 	end_x = start_x + cos(game->player->angle) * 20;
 	end_y = start_y + sin(game->player->angle) * 20;
 
-	draw_line(game, start_x, start_y, end_x, end_y, 0xFFFF00);
+	draw_line(game, start_x, start_y, end_x, end_y);
 }
 
-void	draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
+void draw_square(int x, int y, int size, int color, t_game *game)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size)// Fill the square
+	{
+		j = 0;
+		while (j < size)
+		{
+			put_pixel(x + i, y + j, color, game);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < size) // Draw the borders
+	{
+		put_pixel(x + i, y, color, game);             // Top border
+		put_pixel(x + i, y + size - 1, color, game);  // Bottom border
+		put_pixel(x, y + i, color, game);             // Left border
+		put_pixel(x + size - 1, y + i, color, game);  // Right border
+		i++;
+	}
+}
+
+void	draw_line(t_game *game, int x0, int y0, int x1, int y1)
 {
 	int		dx = abs(x1 - x0);
 	int		dy = abs(y1 - y0);
@@ -22,6 +49,7 @@ void	draw_line(t_game *game, int x0, int y0, int x1, int y1, int color)
 	int		sy = (y0 < y1) ? 1 : -1;
 	int		err = dx - dy;
 	int		e2;
+	int		color = 0xFFFF00;
 
 	while (x0 != x1 || y0 != y1)
 	{

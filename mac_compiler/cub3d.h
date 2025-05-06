@@ -197,12 +197,12 @@ void	raycaster(t_game *game, int i);
 void	perform_DDA(t_game *game);
 void	calc_delta_dist(t_ray *raycaster);
 void	calc_side_dist(t_game *game);
-
+/*
 //MAP
 void	draw_map(t_game *game);
 int		get_map_height(char **map);
 int		get_map_width(char **map);
-
+*/
 //END
 int		on_destroy(t_game *game);
 

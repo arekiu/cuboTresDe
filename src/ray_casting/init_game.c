@@ -74,7 +74,7 @@ int	draw_loop(t_game *game)
 		ray_drawer(game);
 		game->ray->current_x++;
 	}
-	draw_minimap(game);
+	draw_minimap(game); //BONUSSSSSS
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (1);
 }
