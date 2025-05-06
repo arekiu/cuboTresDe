@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/05/06 12:58:11 by jslusark         ###   ########.fr        #
+#    Updated: 2025/05/06 13:08:18 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ SRC_FILES = \
 	$(PARSE_DIR)/parse_map.c \
 	$(PARSE_DIR)/parse_map_frame.c \
 	$(PARSE_DIR)/parse_map_symbols.c \
-	$(PARSE_DIR)/free_game.c
+	$(SRC_DIR)/free_game.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

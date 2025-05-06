@@ -6,11 +6,11 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:18:35 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/06 12:38:45 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:26:04 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 /*
 TO FREE
@@ -59,22 +59,23 @@ static void	free_data(t_data *data)
 		return;
     free_map(data->map);
     free_paths(data);
+    free(data);
 }
 
 void	free_game(t_game *game)
 {
     if (!game)
         return;
-    // to check if alexis does this already
-    if (game->window)
-        mlx_destroy_window(game->mlx, game->window);
-    if (game->img)
-        mlx_destroy_image(game->mlx, game->img);
+    // NEED TO FREE MLX LATER - keep in mind that order matters to avoid conditional jump
+    // if (game->window)
+    //     mlx_destroy_window(game->mlx, game->window);
+    // if (game->img)
+    //     mlx_destroy_image(game->mlx, game->img);
     // frees just the parsing data
     free_data(game->data);
     free_player(game->player);
     // free raycaster and other memeory allocated from alexis side
-    if (game->mlx)
-		free(game->mlx);
+    // if (game->mlx)
+	// 	free(game->mlx);
 	free(game);
 }

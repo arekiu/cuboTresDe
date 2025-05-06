@@ -161,6 +161,8 @@ typedef struct s_game{
 	double		delta_time;
 }	t_game;
 
+// freeing
+void	free_game(t_game *game);
 
 //PARSE FILE
 //PARSING FUNCTIONS
@@ -177,8 +179,6 @@ bool is_shaped(char **map, int last_r, int last_c);
 bool	has_required_text(char **map, t_player *player);
 bool	has_enough_sprites(char **map);
 
-// freeing
-void	free_game(t_game *game);
 //debugging
 void print_map(t_data *data, t_player *player);
 

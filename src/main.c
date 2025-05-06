@@ -1,30 +1,40 @@
 #include "cub3d.h"
 
+t_game *start_allocation(void)
+{
+	t_game *game = ft_calloc(1, sizeof(t_game));
+	if (!game)
+	{
+		ft_printf("Error: malloc failed (t_game)\n");
+		return NULL;
+	}
+
+	game->data = ft_calloc(1, sizeof(t_data));
+	game->player = ft_calloc(1, sizeof(t_player));
+
+
+	if (!game->data || !game->player)
+	{
+		ft_printf("Error: malloc failed (sub-struct)\n");
+		free_game(game);
+		return NULL;
+	}
+	return game;
+}
+
 int main(int argc, char **argv)
 {
 	t_game *game;
-	// jess: to avoid segfaults while we code it's better
-	// we allocate the structs at least at the beginning
-	game = malloc(sizeof(t_game));
-	game->data = malloc(sizeof(t_data));
-	game->player = malloc(sizeof(t_player));
-	if (!game || !game->data || !game->player)
-	{
-		ft_printf("Error: malloc failed\n");
-		exit(1); // jess: as error we should exit instead of return
-	}
+
 	if (argc != 2)
 	{
 		ft_printf("Error: invalid number of arguments\n");
 		exit(1); // jess: as error we should exit instead of return
 	}
-	if (!parse_assets(argv[1], game)) // jess: if parsing fails, code should stop here
+	game = start_allocation(); // if anything fails, game will be null and be handled in the conditional below
+	if (!game || !parse_assets(argv[1], game)) // jess: if parsing fails, code should stop here
 	{
-		// jess: no need to print error message as it will be printed in the functions where it fails
-		// we still need to free stuff here i think because parsing will also allocate the map and data
-		// that exec will use
-		// free(game.map); // should free all game data and have if statements to check if they are not null before freeing
-		// print_map(game->data);
+		// no memory leaks for now if !game
 		free_game(game);
 		exit(1);
 	}
