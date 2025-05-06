@@ -39,7 +39,8 @@ bool parse_assets(char *file_name, t_game *game)
 {
 	if (!check_fd(file_name, ".cub", game->data, "map data") || !collect_map_data(game->data->fd, &game->data->map, game))
 	{
-		close(game->data->fd);
+		if(game->data->fd > 0)
+			close(game->data->fd);
 		return (false);
 	}
 	close(game->data->fd);
