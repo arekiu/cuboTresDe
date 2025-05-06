@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 		// that exec will use
 		// free(game.map); // should free all game data and have if statements to check if they are not null before freeing
 		// print_map(game->data);
+		free_game(game);
 		exit(1);
 	}
 	print_map(game->data, game->player);
