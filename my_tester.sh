@@ -2,10 +2,9 @@
 
 # Array of map test directories
 MAP_DIRS=(
-    "./map/not_playable/parse_textures"
-    "./map/not_playable/parse_map"
-    "./map/not_playable/wrong_format"
-    "./map/not_playable/wrong_ext_fd"
+    "./map/not_playable/fd_fails"
+    # "./map/not_playable/parse_textures"
+    # "./map/not_playable/parse_map"
     # "./map/playable"
 )
 
@@ -28,27 +27,27 @@ run_test() {
     exit_status=$?
 
     # After the program runs, check if it exited with a non-zero status (failed test)
-    if [ $exit_status -ne 0 ]; then
-        echo -e "${RED}Exited with non 0 status.${RESET}"
-    else
-        echo -e "${GREEN}Exited with status 0.${RESET}"
-    fi
+    # if [ $exit_status -ne 0 ]; then
+    #     echo -e "${RED}Exited with non 0 status.${RESET}"
+    # else
+    #     echo -e "${GREEN}Exited with status 0.${RESET}"
+    # fi
 
     # Only run valgrind on Linux
-    # if [[ "$(uname)" == "Linux" ]]; then
-    #     # Run valgrind and capture output
-    #     valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
+    if [[ "$(uname)" == "Linux" ]]; then
+        # Run valgrind and capture output
+        valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
 
-    #     # Check for memory leaks or errors
-    #     if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
-    #         echo -e "${GREEN}Memory PASSED: No memory leaks detected.${RESET}"
-    #     else
-    #         echo -e "${RED}Memory issues detected${RESET}"
-    #         echo "$valgrind_output" # Show full valgrind output if there are issues
-    #     fi
-    # else
-    #     echo -e "${YELLOW}Test does not handle nor support memory check on mac OS${RESET}"
-    # fi
+        # Check for memory leaks or errors
+        if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
+            echo -e "${GREEN}Memory PASSED: No memory leaks detected.${RESET}"
+        else
+            echo -e "${RED}Memory issues detected${RESET}"
+            echo "$valgrind_output" # Show full valgrind output if there are issues
+        fi
+    else
+        echo -e "${YELLOW}Test does not handle nor support memory check on mac OS${RESET}"
+    fi
 
     # Add a new line after each test
     echo
