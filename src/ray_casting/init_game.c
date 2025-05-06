@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 13:07:17 by aschmidt          #+#    #+#             */
+/*   Updated: 2025/05/06 13:32:29 by aschmidt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	init_game(t_game *game)
@@ -7,10 +19,12 @@ void	init_game(t_game *game)
 		exit(1);
 	game->mlx = mlx_init();
 	init_textures(game);
-	init_player(game->player, game->player->orientation, game->player->x, game->player->y);
+	init_player(game->player, game->player->orientation, \
+		game->player->x, game->player->y);
 	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
-	game->img = mlx_new_image(game->mlx,WIN_WIDTH, WIN_HEIGHT);
-	game->buffer = mlx_get_data_addr(game->img, &game->bpp, &game->stride, &game->endian);
+	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+	game->buffer = mlx_get_data_addr(game->img, &game->bpp, \
+		&game->stride, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 }
 
@@ -26,12 +40,11 @@ void	init_textures(t_game *game)
 	load_texture(game, game->so_text, game->data->SO_path);
 	load_texture(game, game->ea_text, game->data->EA_path);
 	load_texture(game, game->we_text, game->data->WE_path);
-	//CATCH POSSIBILIY THAT TEXTURE PATH IS WRONG
 }
 
 void	init_player(t_player *player, float orientation, int x, int y)
 {
-	if(orientation == 'W')
+	if (orientation == 'W')
 		player->angle = WE;
 	else if (orientation == 'E')
 		player->angle = EA;
@@ -52,18 +65,16 @@ void	init_player(t_player *player, float orientation, int x, int y)
 	player->right_rotate = false;
 	player->speed = PLAYER_SPEED;
 	player->angle_speed = PLAYER_ANGLE_SPEED;
-	// Set the plane perpendicular to the direction
-	player->plane_x = -player->dir_y * 0.66;  // 0.66 controls FOV (default 66°)
+	player->plane_x = -player->dir_y * 0.66;
 	player->plane_y = player->dir_x * 0.66;
 }
 
-
 int	draw_loop(t_game *game)
 {
-	double current_time;
+	double	current_time;
 
 	current_time = get_time_in_ms();
-	game->delta_time = (current_time - game->last_frame_time) / 1000.0; // in seconds
+	game->delta_time = (current_time - game->last_frame_time) / 1000.0;
 	game->last_frame_time = current_time;
 	game->ray->current_x = 0;
 	move_player(game);

@@ -194,7 +194,7 @@ void	rotate_player(t_game *game);
 //RAY CASTING
 int		draw_loop(t_game *game);
 void	raycaster(t_game *game, int i);
-void	perform_DDA(t_game *game);
+void	perform_dda(t_game *game);
 void	calc_delta_dist(t_ray *raycaster);
 void	calc_side_dist(t_game *game);
 /*
