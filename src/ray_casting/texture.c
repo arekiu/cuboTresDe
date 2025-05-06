@@ -8,6 +8,6 @@ void	load_texture(t_game *game, t_texture *tex, char *path)
 		ft_printf("Error: failed to load texture: %s\n", path);
 		exit(1);
 	}
-	printf("(North) Texture loaded!\n");
+	printf("%s Texture loaded!\n", path);
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_length, &tex->endian);
 }

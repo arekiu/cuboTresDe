@@ -25,7 +25,7 @@
 #define WIN_HEIGHT 700
 #define BLOCK 64
 #define PLAYER_SIZE 10
-#define PLAYER_SPEED 70
+#define PLAYER_SPEED 150
 #define PLAYER_ANGLE_SPEED 1.0
 #define MINI_BLOCK 20
 #define MINIMAP_OFFSET_X 10 //position in the screen
