@@ -38,14 +38,13 @@ int	store_value(const char *nptr)// returns -1 if not valid key
 	return (num);
 }
 
-int *store_rgb(int *found, int *i, char *line)
+int *store_rgb( int *i, char *line)
 {
 	int *rgb = malloc(sizeof(int) * 3);
 	char *value;
 	int	indexes;
 	int len;
 
-	(*found)++;
 	value = NULL;
 	// printf("LINE: %s", line); // C 120,0,16
 	indexes = 0;
@@ -143,17 +142,23 @@ bool	search_textures(char *line, int *i, t_game *game)
 	}
 	if(ft_strncmp("EA ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
 	{
-		game->data->EA_path = store_texture( i, line, game->data->EA_path);
+		game->data->ea_found++;
+		if (game->data->ea_found == 0)
+			game->data->EA_path = store_texture( i, line, game->data->EA_path);
 		return(true);
 	}
 	if(ft_strncmp("C ", &line[*i], 2) == 0) // added a space after NO to avoid NOx passing the condition
 	{
-		game->data->C_rgb = store_rgb(&game->data->c_found, i, line); // or use strdup?
+		game->data->c_found++;
+		if (game->data->c_found == 0)
+			game->data->C_rgb = store_rgb(i, line); // or use strdup?
 		return(true);
 	}
 	if(ft_strncmp("F ", &line[*i], 2) == 0) // added a space after NO to avoid NOx passing the condition
 	{
-		game->data->F_rgb = store_rgb(&game->data->f_found, i, line); // or use strdup?
+		game->data->f_found++;
+		if (game->data->f_found == 0)
+			game->data->F_rgb = store_rgb(i, line); // or use strdup?
 		return(true);
 	}
 	return(false);
@@ -185,7 +190,7 @@ bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 		}
 		else
 		{
-			printf("Error: invalid coord format in line %d\n", *line_n);
+			printf("Error: invalid coord format in line index %d\n", *line_n);
 			// no leaks if it
 			*err = true;// I DON'T REMEMBER THIS
 			return(true); // check_fd(line, game)

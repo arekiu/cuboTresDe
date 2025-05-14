@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/05 19:08:21 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:01:08 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool check_amount(int   amount, char *type)
     }
     if(amount == 0)
     {
-        printf("Error: %s data \n", type);
+        printf("Error: %s data is missing \n", type);
         return(false);
     }
     return(true);
@@ -36,18 +36,18 @@ bool check_rgb_values(int   *code, char *type)
 
       if(code == NULL)
       {
-          printf("Error: %s rgb data has less or more than 3 values\n", type);
+          printf("Error: %s rgb data has to have 3 values [0-255], separated by comma\n", type);
           return(false);
       }
       i = 0;
-      color[0] = "R";
-      color[1] = "G";
-      color[2] = "B";
+      color[0] = "RED";
+      color[1] = "GREEN";
+      color[2] = "BLUE";
       while(i < 3)
       {
           if(code[i] > 255 || code[i] < 0)
           {
-              printf("Error: %s's %s:%d is not a valid number between 0 and 255 or not written in the format required\n", type, color[i], code[i]);
+              printf("Error: %s[%s]:\'%d\' is not a valid digit between 0 and 255\n", type, color[i], code[i]);
               return(false);
           }
           i++;
@@ -57,15 +57,15 @@ bool check_rgb_values(int   *code, char *type)
 
 bool    parse_textures(t_data *data)
 {
-    if (!check_amount(data->c_found, "ceiling")
-        || !check_amount(data->f_found, "floor")
-        || !check_rgb_values(data->C_rgb, "ceiling")
-        || !check_rgb_values(data->F_rgb, "flooring"))
+    if (!check_amount(data->c_found, "CEILING")
+        || !check_amount(data->f_found, "FLOOR")
+        || !check_rgb_values(data->C_rgb, "CEILING")
+        || !check_rgb_values(data->F_rgb, "FLOOR"))
         return(false);
-    if (!check_amount(data->no_found, "north")
-        || !check_amount(data->so_found, "south")
-        || !check_amount(data->ea_found, "east")
-        || !check_amount(data->we_found, "west"))
+    if (!check_amount(data->no_found, "NORTH")
+        || !check_amount(data->so_found, "SOUTH")
+        || !check_amount(data->ea_found, "EAST")
+        || !check_amount(data->we_found, "WEST"))
         return(false);
    if (!check_fd(data->NO_path, ".xpm", data, "NORTH") // also add not found
         || !check_fd(data->SO_path, ".xpm", data, "SOUTH")

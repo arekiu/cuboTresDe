@@ -16,7 +16,7 @@ int check_fd(char *file, char *type, t_data *data, char *obj)
 {
 	if(file == NULL)
 	{
-		printf("Error: %s was not given a path to file\n", obj);
+		printf("Error: %s coordinate path invalid or not found\n", obj);
 		return (false);
 	}
 	data->fd = open(file, O_RDONLY);
@@ -39,6 +39,7 @@ bool parse_assets(char *file_name, t_game *game)
 {
 	if (!check_fd(file_name, ".cub", game->data, "map data") || !collect_map_data(game->data->fd, &game->data->map, game))
 	{
+		// VALGRIND: all leaks handled if check_fd is false
 		if(game->data->fd > 0)
 			close(game->data->fd);
 		return (false);
