@@ -3,9 +3,9 @@
 # Array of map test directories
 MAP_DIRS=(
     "./map/not_playable/fd_fails"
-    # "./map/not_playable/parse_textures"
-    # "./map/not_playable/parse_map"
-    # "./map/playable"
+    "./map/not_playable/parse_textures"
+    "./map/not_playable/parse_map"
+    "./map/playable"
 )
 
 # Define color codes
@@ -17,40 +17,52 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
+# Initialize counters and result arrays
+total_tests=0
+passed_tests=0
+failed_tests=0
+passed_list=()
+failed_list=()
+
 # Function to run a test on a map
 run_test() {
     local map=$1
+    local test_result=0
 
     echo -e "${CYAN}Running test on:${RESET} ${YELLOW}$map${RESET}"
-    # Run the program and capture both stdout and stderr
-    ./cub3d "$map"
-    exit_status=$?
-
-    # After the program runs, check if it exited with a non-zero status (failed test)
-    # if [ $exit_status -ne 0 ]; then
-    #     echo -e "${RED}Exited with non 0 status.${RESET}"
-    # else
-    #     echo -e "${GREEN}Exited with status 0.${RESET}"
-    # fi
-
+    
     # Only run valgrind on Linux
     if [[ "$(uname)" == "Linux" ]]; then
-        # Run valgrind and capture output
         valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
-
-        # Check for memory leaks or errors
         if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
             echo -e "${GREEN}Memory PASSED: No memory leaks detected.${RESET}"
+            test_result=0
         else
             echo -e "${RED}Memory issues detected${RESET}"
-            echo "$valgrind_output" # Show full valgrind output if there are issues
+            echo "$valgrind_output"
+            test_result=1
         fi
     else
+        ./cub3d "$map"
+        test_result=$?
+        if [ $test_result -eq 0 ]; then
+            echo -e "${GREEN}Exited with status 0.${RESET}"
+        else
+            echo -e "${RED}Exited with non-zero status.${RESET}"
+        fi
         echo -e "${YELLOW}Test does not handle nor support memory check on mac OS${RESET}"
     fi
 
-    # Add a new line after each test
     echo
+
+    ((total_tests++))
+    if [ $test_result -eq 0 ]; then
+        ((passed_tests++))
+        passed_list+=("$map")
+    else
+        ((failed_tests++))
+        failed_list+=("$map")
+    fi
 }
 
 # Display header
@@ -63,11 +75,40 @@ echo -e "${RESET}"
 # Loop through each directory and run tests on all maps inside
 for dir in "${MAP_DIRS[@]}"
 do
-echo -e "${GREEN}"
-echo "═════════════════ Directory:$dir ═════════════════"
-echo -e "${RESET}"
+    echo -e "${GREEN}"
+    echo "═════════════════ Directory: $dir ═════════════════"
+    echo -e "${RESET}"
     for map in "$dir"/*
     do
         run_test "$map"
     done
+done
+
+# Final results
+echo -e "${MAGENTA}"
+echo "╔══════════════════════════════════════╗"
+echo "║             FINAL RESULTS            ║"
+echo "╚══════════════════════════════════════╝"
+echo -e "${RESET}"
+
+echo -e "Total tests run: ${CYAN}$total_tests${RESET}"
+echo -e "Tests passed:    ${GREEN}$passed_tests${RESET}"
+echo -e "Tests failed:    ${RED}$failed_tests${RESET}"
+
+if [ "$failed_tests" -eq 0 ]; then
+    echo -e "${GREEN}🎉 All tests passed!${RESET}"
+else
+    echo -e "${RED}❌ $failed_tests test(s) missing to complete ${RESET}"
+fi
+
+echo
+echo -e "${GREEN}✔️  Passing tests:${RESET}"
+for name in "${passed_list[@]}"; do
+    echo -e "${GREEN}- $name${RESET}"
+done
+
+echo
+echo -e "${RED}❌ Failing tests:${RESET}"
+for name in "${failed_list[@]}"; do
+    echo -e "${RED}- $name${RESET}"
 done
