@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	game = start_allocation(); // if anything fails, game will be null and be handled in the conditional below
 	if (!game || !parse_assets(argv[1], game)) // jess: if parsing fails, code should stop here
 	{
-		// no memory leaks for now if !game
+		// VALGRIND: all leaks handled if game returns null
 		free_game(game);
 		exit(1);
 	}

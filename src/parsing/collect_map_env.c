@@ -167,7 +167,7 @@ bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 		{
 			if(!game->data->map_started) // and if map hasn't started yet
 				return (true); //skip the lines
-			else
+			else 
 				return (false); // if map started we have to include in the map
 		}
 		if(search_textures(line, &i, game))
@@ -180,10 +180,10 @@ bool texture_data(char *line, t_game *game, int *line_n, bool *err)
 		else
 		{
 			printf("Error: invalid coord format in line %d\n", *line_n);
-			*err = true;
+			// no leaks if it
+			*err = true;// I DON'T REMEMBER THIS
 			return(true); // check_fd(line, game)
 		}
-
 		i++;
 	}
 	return (false);

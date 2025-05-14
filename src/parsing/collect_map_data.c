@@ -39,6 +39,11 @@ char *ft_get_line(int fd)
 		}
 		line[i] = buff[buff_pos++];
 		i++;
+		// if (i >= 1023) // avoid overflow
+		// {
+		// should i add a limit and also trigger an error if the line is too long?
+		// 	break;
+		// }
 	}
 	if(i == 0)
 		return(NULL);
@@ -53,13 +58,17 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 	(void)game;
 	int i = 0;
 	int line_n = i;
-	*map = malloc(sizeof(char *) * 1024 + 1);
-	if (!*map) // and free?
-		return (false);
-
+	*map = malloc(sizeof(char *) * (1024 + 1));
+	if (!*map)
+	{	
+		// free(*map);
+		game->data->map = NULL; // ensures free_map is safe
+		printf("Error: malloc failed (map)\n");
+		return (false); // VALGRIND: all leaks handled if malloc fails, but conditional jumps to free as not calloced every line
+	}
 	while(1) // get next line returns the full line until /n
 	{
-		line = ft_get_line(fd);
+		line = ft_get_line(fd); // make sure getline is freed accordingly
 		if(line == NULL) // null check before processing the line after
 		{
 			if(i == 0) // if no lines were read
@@ -67,21 +76,30 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 			break; // else break the loop as no lines left to read
 		}
 		// check if the line is part of the map or other data
-		if(texture_data(line, game, &line_n, &err))
+		if(texture_data(line, game, &line_n, &err)) // takes texture  and rgb data
 		{
 			if(err)// if texture_data finds an error is overwrites line as null to trigger the error
 			{
+				printf("YOOOO\n");
 				err = false;
 				free(line);
 				return(false);
 			}
 			line_n++;
+			free(line);
 		}
 		else
 		{
 			// printf("is_map: %s\n", line);
 			(*map)[i] = ft_strdup(line);
 			free(line);
+			// if (!(*map)[i])
+			// {
+			// 	while (--i >= 0)
+			// 		free((*map)[i]); // Free only the strings you allocated
+			// 	free(*map);         // Free the container
+			// 	game->data->map = NULL; // So that free_map() does nothing
+			// }
 			i++;
 			line_n++;
 		}
