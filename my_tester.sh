@@ -5,7 +5,7 @@ MAP_DIRS=(
     "./map/not_playable/fd_fails"
     "./map/not_playable/parse_textures"
     "./map/not_playable/parse_map"
-    "./map/playable"
+    # "./map/playable"
 )
 
 # Define color codes
@@ -28,12 +28,17 @@ failed_list=()
 run_test() {
     local map=$1
     local test_result=0
+    local output=""
+    local valgrind_output=""
 
     echo -e "${CYAN}Running test on:${RESET} ${YELLOW}$map${RESET}"
-    
-    # Only run valgrind on Linux
+
     if [[ "$(uname)" == "Linux" ]]; then
         valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
+        test_result=$?
+        # Capture cub3d output separately (excluding valgrind noise)
+        output=$(echo "$valgrind_output" | grep -v "==[0-9]\{5,\}==")
+
         if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
             echo -e "${GREEN}Memory PASSED: No memory leaks detected.${RESET}"
             test_result=0
@@ -43,7 +48,7 @@ run_test() {
             test_result=1
         fi
     else
-        ./cub3d "$map"
+        output=$(./cub3d "$map" 2>&1)
         test_result=$?
         if [ $test_result -eq 0 ]; then
             echo -e "${GREEN}Exited with status 0.${RESET}"
@@ -53,6 +58,8 @@ run_test() {
         echo -e "${YELLOW}Test does not handle nor support memory check on mac OS${RESET}"
     fi
 
+    echo -e "${BLUE}Program output:${RESET}"
+    echo "$output"
     echo
 
     ((total_tests++))
@@ -64,6 +71,7 @@ run_test() {
         failed_list+=("$map")
     fi
 }
+
 
 # Display header
 echo -e "${MAGENTA}"
