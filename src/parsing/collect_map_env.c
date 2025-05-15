@@ -55,11 +55,17 @@ int *store_rgb( int *i, char *line)
 	{
 		len = 0; // resets for next value
 		if (indexes > 2)
+		{
+			free(rgb);	
 			return(NULL);
+		}
 		while(line[*i] == ' ' && line[*i] != '\0')
 			(*i)++; //skip spaces
 		if(line[*i] == '\0' || line[*i] == ',') // if line ends or comma is found we shoot an error
+		{
+			free(rgb);	
 			return(NULL);
+		}
 		while (line[*i + len] != '\0' && line[*i + len] != '\n' && line[*i + len] != ',') // counts value len unril ,
 			len++;
 		// printf("collected value %d has len %d - from char[%d]:%c to char[%d]: %c,\n", indexes, len, *i, line[*i], (*i)+(len-1), line[(*i)+(len - 1)]);
@@ -73,8 +79,11 @@ int *store_rgb( int *i, char *line)
 		// printf("c: '%c'\n", line[*i]); // have a problem with \n at the end for comma edge
 		(*i)++;
 	}
-	if(indexes < 2)
+	if(indexes < 2) // why less than 2
+	{	
+		// free(rgb);
 		return(NULL);
+	}
 	else
 	{
 		// if (line[*i] == '\0')
@@ -84,7 +93,10 @@ int *store_rgb( int *i, char *line)
 		// printf("----line %s", line);
 		// printf("landed on %c | index %d  | indexes %d \n", line[*i], *i, indexes);
 		if (line[*i] == ',')
+		{
+			free(rgb);	
 			return(NULL);
+		}
 	}
 	return(rgb);
 }
