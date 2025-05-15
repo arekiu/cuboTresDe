@@ -122,42 +122,42 @@ bool	search_textures(char *line, int *i, t_game *game)
 	if(ft_strncmp("NO ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
 	{
 		game->data->no_found++;
-		if (game->data->no_found == 0)
+		if (game->data->no_found == 1)
 			game->data->NO_path = store_texture( i, line, game->data->NO_path);
 		return(true);
 	}
 	if(ft_strncmp("SO ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
 	{
 		game->data->so_found++;
-		if (game->data->so_found == 0)
+		if (game->data->so_found == 1)
 			game->data->SO_path = store_texture(i, line, game->data->SO_path);
 		return(true);
 	}
 	if(ft_strncmp("WE ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
 	{
 		game->data->we_found++;
-		if (game->data->we_found == 0)
+		if (game->data->we_found == 1)
 			game->data->WE_path = store_texture( i, line, game->data->WE_path);
 		return(true);
 	}
 	if(ft_strncmp("EA ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
 	{
 		game->data->ea_found++;
-		if (game->data->ea_found == 0)
+		if (game->data->ea_found == 1)
 			game->data->EA_path = store_texture( i, line, game->data->EA_path);
 		return(true);
 	}
 	if(ft_strncmp("C ", &line[*i], 2) == 0) // added a space after NO to avoid NOx passing the condition
 	{
 		game->data->c_found++;
-		if (game->data->c_found == 0)
+		if (game->data->c_found == 1)
 			game->data->C_rgb = store_rgb(i, line); // or use strdup?
 		return(true);
 	}
 	if(ft_strncmp("F ", &line[*i], 2) == 0) // added a space after NO to avoid NOx passing the condition
 	{
 		game->data->f_found++;
-		if (game->data->f_found == 0)
+		if (game->data->f_found == 1)
 			game->data->F_rgb = store_rgb(i, line); // or use strdup?
 		return(true);
 	}
