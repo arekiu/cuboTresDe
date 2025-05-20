@@ -2,9 +2,9 @@
 
 # Array of map test directories
 MAP_DIRS=(
-    # "./map/not_playable/fd_fails"
-    # "./map/not_playable/parse_textures"
-    # "./map/not_playable/parse_map"
+    "./map/not_playable/fd_fails"
+    "./map/not_playable/parse_textures"
+    "./map/not_playable/parse_map"
     "./map/playable"
 )
 
@@ -24,11 +24,16 @@ failed_tests=0
 passed_list=()
 failed_list=()
 
+# Function to determine expected behavior
+is_playable() {
+    [[ "$1" == *"/playable/"* ]]
+}
+
 # Function to run a test on a map
 run_test() {
     local map=$1
-    local test_result=0
     local output=""
+    local test_result=0
     local valgrind_output=""
 
     echo -e "${CYAN}Running test on:${RESET} ${YELLOW}$map${RESET}"
@@ -49,10 +54,10 @@ run_test() {
         fi
         output=$(./cub3d "$map" 2>&1)
         test_result=$?
-        if [ $test_result -eq 0 ]; then
-            echo -e "${GREEN}Exited with status 0.${RESET}"
-        else
-            echo -e "${RED}Exited with non-zero status.${RESET}"
+    if [ $test_result -eq 0 ]; then
+        echo -e "${GREEN}Exit code: 0${RESET}"
+    else
+        echo -e "${RED}Exit code: $test_result${RESET}"
         fi
     fi
 
@@ -61,15 +66,25 @@ run_test() {
     echo
 
     ((total_tests++))
-    if [ $test_result -eq 0 ]; then
-        ((passed_tests++))
-        passed_list+=("$map")
+
+    if is_playable "$map"; then
+        if [ $test_result -eq 0 ]; then
+            ((passed_tests++))
+            passed_list+=("$map")
+        else
+            ((failed_tests++))
+            failed_list+=("$map")
+        fi
     else
-        ((failed_tests++))
-        failed_list+=("$map")
+        if [ $test_result -ne 0 ]; then
+            ((passed_tests++))
+            passed_list+=("$map")
+        else
+            ((failed_tests++))
+            failed_list+=("$map")
+        fi
     fi
 }
-
 
 # Display header
 echo -e "${MAGENTA}"

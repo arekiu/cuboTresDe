@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 		free_game(game);
 		exit(1);
 	}
-	print_map(game->data, game->player);
+	// print_map(game->data, game->player);
 	init_game(game);
 	mlx_hook(game->window, 2, 1, key_press, game); //2 is KEYPRESS event and 1 for listen to keys "pressed"
 	mlx_hook(game->window, 3, 2, key_release, game);

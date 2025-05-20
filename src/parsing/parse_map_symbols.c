@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 11:55:21 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:17:21 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 {
 	int	r;
 	int	c;
-
+// unsure is also allow tabs here as not specified from the subject but still it counts as emtyness and player could use it
 	char *valid_chars = "01 NSEW"; // valid characters in the map - this gives me probke
 
 	r = 0;
