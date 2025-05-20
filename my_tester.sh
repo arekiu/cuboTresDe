@@ -2,10 +2,10 @@
 
 # Array of map test directories
 MAP_DIRS=(
-    "./map/not_playable/fd_fails"
-    "./map/not_playable/parse_textures"
-    "./map/not_playable/parse_map"
-    # "./map/playable"
+    # "./map/not_playable/fd_fails"
+    # "./map/not_playable/parse_textures"
+    # "./map/not_playable/parse_map"
+    "./map/playable"
 )
 
 # Define color codes
@@ -47,7 +47,6 @@ run_test() {
             echo "$valgrind_output"
             test_result=1
         fi
-    else
         output=$(./cub3d "$map" 2>&1)
         test_result=$?
         if [ $test_result -eq 0 ]; then
@@ -55,7 +54,6 @@ run_test() {
         else
             echo -e "${RED}Exited with non-zero status.${RESET}"
         fi
-        echo -e "${YELLOW}Test does not handle nor support memory check on mac OS${RESET}"
     fi
 
     echo -e "${BLUE}Program output:${RESET}"
