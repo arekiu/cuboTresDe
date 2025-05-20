@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:04:19 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 15:02:44 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:16:36 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ bool	has_file_extension(char *file, char *extension)
 		file_len--;
 		ext_len--;
 	}
-	// added this as a warmup and handle filenames like map.ber.cub
-	while (file_len >= 0)
-	{
-		// if we passed the path to file, the check ends here
-		if (file[file_len] == '/')
-			break ;
-		if (file[file_len] == '.')
-			return (false);
-		file_len--;
-	}
 	return (true);
 }
-
-// add also open close file checks
+// add also open close file checks?
