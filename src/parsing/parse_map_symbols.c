@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_symbols.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/04/11 20:13:00 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:49:10 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 	int	r;
 	int	c;
 
-	char *valid_chars = "01 NEW"; // valid characters in the map - this gives me probke
+	char *valid_chars = "01 NSEW"; // valid characters in the map - this gives me probke
 
 	r = 0;
 	while (map[r] != NULL)
@@ -28,7 +28,7 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 		{
             if (strchr(valid_chars, map[r][c]) != NULL) // check if the character is valid
             {
-				if (strchr("NSEW", map[r][c]) != NULL) // if any of the chars are players we store them
+				if (strchr(valid_chars, map[r][c]) != NULL) // if any of the chars are players we store them
 				{
 					player->orientation = map[r][c];
 					player->y = r; // vertical poisition / line / row of the array
