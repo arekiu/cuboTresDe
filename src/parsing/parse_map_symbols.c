@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 11:49:10 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:55:21 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 		{
             if (strchr(valid_chars, map[r][c]) != NULL) // check if the character is valid
             {
-				if (strchr(valid_chars, map[r][c]) != NULL) // if any of the chars are players we store them
+				if (strchr("NSEW", map[r][c]) != NULL) // if any of the chars are players we store them
 				{
 					player->orientation = map[r][c];
 					player->y = r; // vertical poisition / line / row of the array
