@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/05/06 13:08:18 by jslusark         ###   ########.fr        #
+#    Updated: 2025/05/20 15:54:01 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC_FILES = \
 	$(RAY_DIR)/texture_drawer.c \
 	$(RAY_DIR)/minimap.c \
 	$(RAY_DIR)/texture.c \
+	$(PARSE_DIR)/ft_get_line.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/file_parsing.c \
 	$(PARSE_DIR)/collect_map_data.c \
