@@ -13,29 +13,32 @@
 #include "../cub3d.h"
 
 
-char *ft_get_line(int fd)
+char	*ft_get_line(int fd)
 {
-	static char	buff[42];
-	char		line[70000];
+	static char		buff[42];
+	char			line[70000];
 	static int		buff_read;
 	static int		buff_pos;
-	int i = 0;
+	int				i;
 
-	if(fd < 0 || 42 <= 0) // <-------------- FD SHOULD BE < 0 AND NOT <= 0
-		return(NULL);
-	while(1)
+	i = 0;
+	// <-------------- FD SHOULD BE < 0 AND NOT <= 0
+	if (fd < 0 || 42 <= 0)
+		return (NULL);
+	while (1)
 	{
-		if(buff_pos >= buff_read)
+		if (buff_pos >= buff_read)
 		{
 			buff_read = read(fd, buff, 42);
 			buff_pos = 0;
-			if(buff_read <= 0)
-				break;
+			if (buff_read <= 0)
+				break ;
 		}
-		if(buff[buff_pos] == '\n')
+		if (buff[buff_pos] == '\n')
 		{
-			line[i++] = buff[buff_pos++]; // <------ THIS WAS I DID NOT ADD :(((
-			break;
+			// <------ THIS WAS I DID NOT ADD :(((
+			line[i++] = buff[buff_pos++];
+			break ;
 		}
 		line[i] = buff[buff_pos++];
 		i++;
@@ -45,45 +48,56 @@ char *ft_get_line(int fd)
 		// 	break;
 		// }
 	}
-	if(i == 0)
-		return(NULL);
+	if (i == 0)
+		return (NULL);
 	line[i] = '\0';
-	return(ft_strdup(line));
+	return (ft_strdup(line));
 }
 
 bool	collect_map_data(int fd, char ***map, t_game *game)
 {
-	char *line;
-	bool err = false;
-	(void)game;
-	int i = 0;
-	int line_n = i;
+	char	*line;
+	bool	err;
+	int		i;
+	int		line_n;
+
+	i = 0;
+	line_n = i;
+	err = false;
 	*map = malloc(sizeof(char *) * (1024 + 1));
 	if (!*map)
-	{	
-		// free(*map);
-		game->data->map = NULL; // ensures free_map is safe
-		printf("Error: malloc failed (map)\n");
-		return (false); // VALGRIND: all leaks handled if malloc fails, but conditional jumps to free as not calloced every line
-	}
-	while(1) // get next line returns the full line until /n
 	{
-		line = ft_get_line(fd); // make sure getline is freed accordingly
-		if(line == NULL) // null check before processing the line after
+		// ensures free_map is safe
+		game->data->map = NULL;
+		printf("Error: malloc failed (map)\n");
+		// VALGRIND: all leaks handled if malloc fails, but conditional jumps to free as not calloced every line
+		return (false);
+	}
+	// get next line returns the full line until /n
+	while (1)
+	{
+		// make sure getline is freed accordingly
+		line = ft_get_line(fd);
+		// null check before processing the line after
+		if (line == NULL)
 		{
-			if(i == 0) // if no lines were read
+			// if no lines were read
+			if (i == 0)
 				return (false);
-			break; // else break the loop as no lines left to read
+			// else break the loop as no lines left to read
+			break ;
 		}
 		// check if the line is part of the map or other data
-		if(texture_data(line, game, &line_n, &err)) // takes texture  and rgb data
+		// takes texture  and rgb data
+		if (texture_data(line, game, &line_n, &err))
 		{
-			if(err)// if texture_data finds an error is overwrites line as null to trigger the error
+			// if texture_data finds an error is overwrites line as null to trigger the error
+			if (err)
 			{
 				printf("YOOOO\n");
 				err = false;
 				free(line);
-				return(false);
+				return (false);
 			}
 			line_n++;
 			free(line);
@@ -104,6 +118,7 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 			line_n++;
 		}
 	}
-	(*map)[i] = NULL; // add null terminator to the end of the map
-	return(true);
+	// add null terminator to the end of the map
+	(*map)[i] = NULL;
+	return (true);
 }

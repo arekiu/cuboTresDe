@@ -15,12 +15,11 @@
 
 int	store_value(const char *nptr)// returns -1 if not valid key
 {
-	int	num;
-	size_t				i;
+	int		num;
+	size_t	i;
 
 	num = 0;
 	i = 0;
-
 	// printf("nptr: '%s'\n", nptr);
 	if (!ft_isdigit(nptr[i]))
 		return (-2);
@@ -38,40 +37,51 @@ int	store_value(const char *nptr)// returns -1 if not valid key
 	return (num);
 }
 
-int *store_rgb( int *i, char *line)
+int	*store_rgb( int *i, char *line)
 {
-	int *rgb = malloc(sizeof(int) * 3);
-	char *value;
-	int	indexes;
-	int len;
+	int		*rgb;
+	char	*value;
+	int		indexes;
+	int		len;
 
+	rgb = malloc(sizeof(int) * 3);
 	value = NULL;
 	// printf("LINE: %s", line); // C 120,0,16
 	indexes = 0;
-	(*i)++; // jump the C or F
+	// jump the C or F
+	(*i)++;
 	if (!rgb)
-	    return (false);
-	while(line[*i] != 0 && line[*i] != '\n')// loop thorugh the line until is over
+		return (false);
+	// loop thorugh the line until is over
+	while (line[*i] != 0 && line[*i] != '\n')
 	{
-		len = 0; // resets for next value
+		// resets for next value
+		len = 0;
 		if (indexes > 2)
 		{
 			free(rgb);	
-			return(NULL);
+			return (NULL);
 		}
-		while(line[*i] == ' ' && line[*i] != '\0')
-			(*i)++; //skip spaces
-		if(line[*i] == '\0' || line[*i] == ',') // if line ends or comma is found we shoot an error
+		 //skip spaces
+		while (line[*i] == ' ' && line[*i] != '\0')
+			(*i)++;
+		// if line ends or comma is found we shoot an error
+		if (line[*i] == '\0' || line[*i] == ',')
 		{
-			free(rgb);	
-			return(NULL);
+			free(rgb);
+			return (NULL);
 		}
-		while (line[*i + len] != '\0' && line[*i + len] != '\n' && line[*i + len] != ',') // counts value len unril ,
+		// counts value len until
+		while (line[*i + len] 
+			!= '\0' && line[*i + len] 
+			!= '\n' && line[*i + len] 
+			!= ',') 
 			len++;
 		// printf("collected value %d has len %d - from char[%d]:%c to char[%d]: %c,\n", indexes, len, *i, line[*i], (*i)+(len-1), line[(*i)+(len - 1)]);
 		value = malloc(sizeof(char) * (len + 1));
 		ft_strlcpy(value, line + *i, len + 1);
-		rgb[indexes] = store_value(value); // need to use better atoi from philo
+		// need to use better atoi from philo
+		rgb[indexes] = store_value(value);
 		free(value);
 		*i += len;
 		// printf("N %d: %d\n", indexes, rgb[indexes]);
@@ -79,40 +89,48 @@ int *store_rgb( int *i, char *line)
 		// printf("c: '%c'\n", line[*i]); // have a problem with \n at the end for comma edge
 		(*i)++;
 	}
-	if(indexes < 2) // why less than 2
-	{	
-		// free(rgb);
-		return(NULL);
+	// why less than 2
+	if (indexes < 2)
+	{
+		return (NULL);
 	}
 	else
 	{
 		// if (line[*i] == '\0')
 			// printf("END\n");
-		while (line[*i] == ' ' || line[*i] == '\n' || line[*i] == '\t') // skip spaces
+		while (line[*i] == ' ' 
+			|| line[*i] == '\n' 
+			|| line[*i] == '\t') // skip spaces
 			(*i)--;
 		// printf("----line %s", line);
 		// printf("landed on %c | index %d  | indexes %d \n", line[*i], *i, indexes);
 		if (line[*i] == ',')
 		{
-			free(rgb);	
-			return(NULL);
+			free(rgb);
+			return (NULL);
 		}
 	}
-	return(rgb);
+	return (rgb);
 }
 
+//jump the coord
 char	*store_texture(int *i, char *line, char *path)
 {
-	(void)path;
+	int	len;
 
-	*i = *i + 2; //jump the coord
+	*i = *i + 2;
 	// printf("c: %c\n", line[*i]);
-	while(line[*i] == ' ' && line[*i] != '\0' && line[*i] != '\n' )
-		(*i)++; //skip spaces
+	//skip spaces
+	while (line[*i] == ' ' && line[*i] 
+		!= '\0' && line[*i] 
+		!= '\n' )
+		(*i)++;
 	// if line is \0 rrepeated check here
 	// printf("c: %c\n len path: ", line[*i]);
-	int len = 0;
-	while (line[*i + len] != '\0' && line[*i + len] != '\n' && line[*i + len] != ' ')
+	len = 0;
+	while (line[*i + len] 
+		!= '\0' && line[*i + len] 
+		!= '\n' && line[*i + len] != ' ')
 	{
 		// printf("%c\n", line[*i + len]);
 		len++;
@@ -124,88 +142,106 @@ char	*store_texture(int *i, char *line, char *path)
 		// printf("error\n");
 		return (NULL);
 	}
-	ft_strlcpy(path, line + *i, len + 1); // fixes issue of saving \n (could use strncpy instead)
-	return(path);
+	// fixes issue of saving \n (could use strncpy instead)
+	ft_strlcpy(path, line + *i, len + 1);
+	return (path);
 }
 
 
 bool	search_textures(char *line, int *i, t_game *game)
 {
-	if(ft_strncmp("NO ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
+	// added a space after NO to avoid NOx passing the condition
+	if (ft_strncmp("NO ", &line[*i], 3) == 0)
 	{
 		game->data->no_found++;
 		if (game->data->no_found == 1)
 			game->data->NO_path = store_texture( i, line, game->data->NO_path);
-		return(true);
+		return (true);
 	}
-	if(ft_strncmp("SO ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
+	// added a space after NO to avoid NOx passing the condition
+	if (ft_strncmp("SO ", &line[*i], 3) == 0)
 	{
 		game->data->so_found++;
 		if (game->data->so_found == 1)
 			game->data->SO_path = store_texture(i, line, game->data->SO_path);
-		return(true);
+		return (true);
 	}
-	if(ft_strncmp("WE ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
+	// added a space after NO to avoid NOx passing the condition
+	if (ft_strncmp("WE ", &line[*i], 3) == 0)
 	{
 		game->data->we_found++;
 		if (game->data->we_found == 1)
 			game->data->WE_path = store_texture( i, line, game->data->WE_path);
-		return(true);
+		return (true);
 	}
-	if(ft_strncmp("EA ", &line[*i], 3) == 0) // added a space after NO to avoid NOx passing the condition
+	// added a space after NO to avoid NOx passing the condition
+	if (ft_strncmp("EA ", &line[*i], 3) == 0)
 	{
 		game->data->ea_found++;
 		if (game->data->ea_found == 1)
 			game->data->EA_path = store_texture( i, line, game->data->EA_path);
-		return(true);
+		return (true);
 	}
-	if(ft_strncmp("C ", &line[*i], 2) == 0) // added a space after NO to avoid NOx passing the condition
+	// added a space after NO to avoid NOx passing the condition
+	if (ft_strncmp("C ", &line[*i], 2) == 0)
 	{
 		game->data->c_found++;
 		if (game->data->c_found == 1)
-			game->data->C_rgb = store_rgb(i, line); // or use strdup?
-		return(true);
+			game->data->C_rgb = store_rgb(i, line);
+		// or use strdup?
+		return (true);
 	}
-	if(ft_strncmp("F ", &line[*i], 2) == 0) // added a space after NO to avoid NOx passing the condition
+	// added a space after NO to avoid NOx passing the condition
+	if (ft_strncmp("F ", &line[*i], 2) == 0)
 	{
 		game->data->f_found++;
 		if (game->data->f_found == 1)
-			game->data->F_rgb = store_rgb(i, line); // or use strdup?
-		return(true);
+			game->data->F_rgb = store_rgb(i, line);
+		// or use strdup?
+		return (true);
 	}
-	return(false);
+	return (false);
 }
 
-bool texture_data(char *line, t_game *game, int *line_n, bool *err)
+bool	texture_data(char *line, t_game *game, int *line_n, bool *err)
 {
-	(void)line_n;
-	(void)err;
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (line[i] != '\0')
 	{
-		while (line[i] == ' ') // skip spaces
+		while (line[i] == ' ')
 			i++;
-		if (line[i] == '\n' || line[i] == '\0' ) // if only spaces found until end
+		// if only spaces found until end
+		if (line[i] == '\n' || line[i] == '\0' )
 		{
-			if(!game->data->map_started) // and if map hasn't started yet
+			// and if map hasn't started yet skip the lines
+			if (!game->data->map_started)
 				return (true); //skip the lines
 			else 
-				return (false); // if map started we have to include in the map
+				return (false);
+			// if map started we have to include in the map
 		}
-		if(search_textures(line, &i, game))
-			return(true);
-		if(line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\n') // check if its a map
+		if (search_textures(line, &i, game))
+			return (true);
+		//check if its a map
+		if (line[i] == '1' 
+			|| line[i] == '0' 
+			|| line[i] == ' ' 
+			|| line[i] == '\n')
 		{
 			game->data->map_started = true; // flag to avoid skipping spac
-			return(false); // false - should be saved in map
+			return (false);
+			// false -> should be saved in map
 		}
 		else
 		{
 			printf("Error: invalid coord format in line index %d\n", *line_n);
 			// no leaks if it
-			*err = true;// I DON'T REMEMBER THIS
-			return(true); // check_fd(line, game)
+			// I DON'T REMEMBER THIS
+			*err = true;
+			// check_fd(line, game)
+			return (true); 
 		}
 		i++;
 	}

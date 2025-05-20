@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 12:17:21 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:44:50 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 bool	has_required_text(char **map, t_player *player) // i need a diff function to colculate coords!!
 {
-	int	r;
-	int	c;
-// unsure is also allow tabs here as not specified from the subject but still it counts as emtyness and player could use it
-	char *valid_chars = "01 NSEW"; // valid characters in the map - this gives me probke
+	int		r;
+	int		c;
+	char	*valid_chars;
+	// unsure is also allow tabs here as not specified from the subject but still it counts as emtyness and player could use it
+
+	valid_chars = "01 NSEW";
 
 	r = 0;
 	while (map[r] != NULL)
@@ -26,22 +28,26 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-            if (strchr(valid_chars, map[r][c]) != NULL) // check if the character is valid
-            {
-				if (strchr("NSEW", map[r][c]) != NULL) // if any of the chars are players we store them
+			// chek_map_characters()
+			if (strchr(valid_chars, map[r][c]) != NULL)
+			{
+				 // collect_character() - stores 1 or more player and position in the map
+				if (strchr("NSEW", map[r][c]) != NULL)
 				{
 					player->orientation = map[r][c];
-					player->y = r; // vertical poisition / line / row of the array
-					player->x = c; // horizontal poisition / index / column of the array
+					// vertical poisition / line / row of the array
+					player->y = r;
+					// vertical poisition / line / row of the array
+					player->x = c;
 					// does not need to be in the map
 				}
-            }
-            else
-            {
-                printf("Error: Invalid character '%c' found in map at line[%d][%d]\n", map[r][c], r, c);
-                return (false);
-            }
-            c++;
+			}
+			else
+			{
+				printf("Error: Invalid character '%c' found in map at line[%d][%d]\n", map[r][c], r, c);
+				return (false);
+			}
+			c++;
 		}
 		r++;
 	}
@@ -71,35 +77,38 @@ int	count_sprite(char **map, char c)
 	return (amount);
 }
 
+/*
+smallest map horizontal
+
+ 11
+10N1
+ 11
+
+smallest map vertical
+ 1
+101
+1N1
+ 1
+
+- 0 should be at least 1
+- 1 should be at least 6
+- NSEW should be at least 1 (and between these 4 letters)
+*/
 bool	has_enough_sprites(char **map)
 {
-	/*
-	smallest map horizontal
+	int	floor;
+	int	wall;
+	int	player;
 
-	 11
-	10N1
-	 11
+	floor = count_sprite(map, '0');
+	wall = count_sprite(map, '1');
+	player = count_sprite(map, 'N')
+		+ count_sprite(map, 'S')
+		+ count_sprite(map, 'E')
+		+ count_sprite(map, 'W');
+	// printf("floor: %d, wall: %d, player: %d\n", floor, wall, player);
 
-	smallest map vertical
-	 1
-	101
-	1N1
-	 1
-
-	- 0 should be at least 1
-	- 1 should be at least 6
-	- NSEW should be at least 1 (and between these 4 letters)
-	*/
-
-    int floor;
-    int wall;
-    int player;
-    floor = count_sprite(map, '0');
-    wall = count_sprite(map, '1');
-    player = count_sprite(map, 'N') + count_sprite(map, 'S') + count_sprite(map, 'E') + count_sprite(map, 'W');
-    // printf("floor: %d, wall: %d, player: %d\n", floor, wall, player);
-
-    // see if a tile amount for floor and wall is
+	// see if a tile amount for floor and wall is
 	if (player == 0 || player > 1 || floor < 0 || wall < 0)
 	{
 		ft_printf("Error: Map does not have the required amount assets:\n");

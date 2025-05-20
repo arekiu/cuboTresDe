@@ -12,9 +12,9 @@
 
 #include "../cub3d.h"
 
-int check_fd(char *file, char *type, t_data *data, char *obj)
+int	check_fd(char *file, char *type, t_data *data, char *obj)
 {
-	if(file == NULL)
+	if (file == NULL)
 	{
 		printf("Error: %s coordinate path invalid or not found\n", obj);
 		return (false);
@@ -26,29 +26,30 @@ int check_fd(char *file, char *type, t_data *data, char *obj)
 		printf("Error: %s used for %s does not exist or has wrong extension\n", file, obj);
 		return (false);
 	}
-	if(strcmp(obj, "map data") != 0) // this allows me to close the fd of the textures and notthe map data file
+	// this allows me to close the fd of the textures and notthe map data file
+	if (strcmp(obj, "map data") != 0)
 	{
 		// printf("  Closed %s fd, fd number: %d\n", file, data->fd);
-		close(data->fd); // close fd only if it is not the map data
+		// close fd only if it is not the map data
+		close(data->fd);
 		return (true);
 	}
 	return (true);
 }
 
-bool parse_assets(char *file_name, t_game *game)
+bool	parse_assets(char *file_name, t_game *game)
 {
-	if (!check_fd(file_name, ".cub", game->data, "map data") || !collect_map_data(game->data->fd, &game->data->map, game))
+	if (!check_fd(file_name, ".cub", game->data, "map data")
+		|| !collect_map_data(game->data->fd, &game->data->map, game))
 	{
-		// VALGRIND: all leaks handled if check_fd is false
-		if(game->data->fd > 0)
+		if (game->data->fd > 0)
 			close(game->data->fd);
 		return (false);
 	}
 	close(game->data->fd);
-	// printf("  Closed map fd, fd number: %d\n", game->data->fd);
-	if(!parse_textures(game->data))
+	if (!parse_textures(game->data))
 		return (false);
-	if(!parse_map(game->data, game->player))
+	if (!parse_map(game->data, game->player))
 		return (false);
 	return (true);
 }
