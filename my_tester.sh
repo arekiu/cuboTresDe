@@ -23,6 +23,9 @@ passed_tests=0
 failed_tests=0
 passed_list=()
 failed_list=()
+leaky_maps=()
+leak_count=0
+
 
 # Function to determine expected behavior
 is_playable() {
@@ -41,17 +44,19 @@ run_test() {
     if [[ "$(uname)" == "Linux" ]]; then
         valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
         test_result=$?
-        # Capture cub3d output separately (excluding valgrind noise)
+
+        # Extract program output only (strip valgrind logs)
         output=$(echo "$valgrind_output" | grep -v "==[0-9]\{5,\}==")
 
         if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
             echo -e "${GREEN}Memory PASSED: No memory leaks detected.${RESET}"
-            test_result=0
         else
             echo -e "${RED}Memory issues detected${RESET}"
             echo "$valgrind_output"
-            test_result=1
+            leaky_maps+=("$map")
+            ((leak_count++))
         fi
+    else
         output=$(./cub3d "$map" 2>&1)
         test_result=$?
     if [ $test_result -eq 0 ]; then
@@ -117,19 +122,27 @@ echo -e "Tests passed:    ${GREEN}$passed_tests${RESET}"
 echo -e "Tests failed:    ${RED}$failed_tests${RESET}"
 
 if [ "$failed_tests" -eq 0 ]; then
-    echo -e "${GREEN}🎉 All tests passed!${RESET}"
+    echo -e "🎉 Success: ${GREEN}${#passed_list[@]}/$total_tests${RESET} passed!"
 else
-    echo -e "${RED}❌ $failed_tests test(s) missing to complete ${RESET}"
+    echo -e "❌ Failure: not all tests passed."
+    echo -e "Failed tests: ${RED}$failed_tests${RESET}/$total_tests"
+    echo -e "File names:"
+    for name in "${failed_list[@]}"; do
+        echo -e "${RED}- $name${RESET}"
+    done
+    echo
+    echo -e "Passed tests: ${GREEN}${#passed_list[@]}${RESET}/${CYAN}$total_tests${RESET} are passing."
+    for name in "${passed_list[@]}"; do
+        echo -e "${GREEN}- $name${RESET}"
+    done
 fi
 
 echo
-echo -e "${GREEN}✔️  Passing tests:${RESET}"
-for name in "${passed_list[@]}"; do
-    echo -e "${GREEN}- $name${RESET}"
-done
-
-echo
-echo -e "${RED}❌ Failing tests:${RESET}"
-for name in "${failed_list[@]}"; do
-    echo -e "${RED}- $name${RESET}"
-done
+if [ "$leak_count" -gt 0 ]; then
+    echo -e "💧 Valgrind failure: ${YELLOW}${RED}$leak_count${RESET}/$total_tests leaks were found."
+    for leak in "${leaky_maps[@]}"; do
+        echo -e "${RED}- $leak${RESET}"
+    done
+else
+    echo -e "${GREEN}🎉 No leaks found: $leak_count/$total_tests passed!${RESET}"
+fi
