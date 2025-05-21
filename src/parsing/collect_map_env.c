@@ -13,7 +13,8 @@
 #include "../cub3d.h"
 
 
-int	store_value(const char *nptr)// returns -1 if not valid key
+// returns -1 if not valid key
+int	store_value(const char *nptr)
 {
 	int		num;
 	size_t	i;
@@ -26,7 +27,8 @@ int	store_value(const char *nptr)// returns -1 if not valid key
 	while (ft_isdigit(nptr[i]))
 	{
 		num = (num * 10) + (nptr[i] - '0');
-		if (num > INT_MAX || num < INT_MIN) // to avoid overflow
+		// to avoid overflow
+		if (num > INT_MAX || num < INT_MIN)
 			return (-2);
 		i++;
 	}
@@ -147,60 +149,21 @@ char	*store_texture(int *i, char *line, char *path)
 	return (path);
 }
 
-
-bool	search_textures(char *line, int *i, t_game *game)
+bool	match_texture(char *id, int *counter, int *i, char *line)
 {
-	// added a space after NO to avoid NOx passing the condition
-	if (ft_strncmp("NO ", &line[*i], 3) == 0)
+	if (ft_strncmp(id, &line[*i], ft_strlen(id)) == 0)
 	{
-		game->data->no_found++;
-		if (game->data->no_found == 1)
-			game->data->NO_path = store_texture( i, line, game->data->NO_path);
-		return (true);
-	}
-	// added a space after NO to avoid NOx passing the condition
-	if (ft_strncmp("SO ", &line[*i], 3) == 0)
-	{
-		game->data->so_found++;
-		if (game->data->so_found == 1)
-			game->data->SO_path = store_texture(i, line, game->data->SO_path);
-		return (true);
-	}
-	// added a space after NO to avoid NOx passing the condition
-	if (ft_strncmp("WE ", &line[*i], 3) == 0)
-	{
-		game->data->we_found++;
-		if (game->data->we_found == 1)
-			game->data->WE_path = store_texture( i, line, game->data->WE_path);
-		return (true);
-	}
-	// added a space after NO to avoid NOx passing the condition
-	if (ft_strncmp("EA ", &line[*i], 3) == 0)
-	{
-		game->data->ea_found++;
-		if (game->data->ea_found == 1)
-			game->data->EA_path = store_texture( i, line, game->data->EA_path);
-		return (true);
-	}
-	// added a space after NO to avoid NOx passing the condition
-	if (ft_strncmp("C ", &line[*i], 2) == 0)
-	{
-		game->data->c_found++;
-		if (game->data->c_found == 1)
-			game->data->C_rgb = store_rgb(i, line);
-		// or use strdup?
-		return (true);
-	}
-	// added a space after NO to avoid NOx passing the condition
-	if (ft_strncmp("F ", &line[*i], 2) == 0)
-	{
-		game->data->f_found++;
-		if (game->data->f_found == 1)
-			game->data->F_rgb = store_rgb(i, line);
-		// or use strdup?
-		return (true);
+		(*counter)++;
+		if ((*counter) == 1)
+			return (true);
 	}
 	return (false);
+}
+
+
+bool	find_textures(char *line, int *i, t_game *game)
+{
+	return (collect_coordinates(line, i, game) || collect_rgb(line, i, game));
 }
 
 bool	texture_data(char *line, t_game *game, int *line_n, bool *err)
@@ -222,7 +185,7 @@ bool	texture_data(char *line, t_game *game, int *line_n, bool *err)
 				return (false);
 			// if map started we have to include in the map
 		}
-		if (search_textures(line, &i, game))
+		if (find_textures(line, &i, game))
 			return (true);
 		//check if its a map
 		if (line[i] == '1' 
@@ -239,7 +202,8 @@ bool	texture_data(char *line, t_game *game, int *line_n, bool *err)
 			printf("Error: invalid coord format in line index %d\n", *line_n);
 			// no leaks if it
 			// I DON'T REMEMBER THIS
-			*err = true;
+			(void)err; // I DO NOT NEED ERROR I GUESS
+			// *err = true;
 			// check_fd(line, game)
 			return (true); 
 		}
