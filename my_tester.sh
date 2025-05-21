@@ -38,14 +38,14 @@ run_test() {
     local output=""
     local test_result=0
     local valgrind_output=""
+    local actual_exit_code=0
 
     echo -e "${CYAN}Running test on:${RESET} ${YELLOW}$map${RESET}"
 
     if [[ "$(uname)" == "Linux" ]]; then
         valgrind_output=$(valgrind --leak-check=full --error-exitcode=1 ./cub3d "$map" 2>&1)
-        test_result=$?
+        valgrind_status=$?
 
-        # Extract program output only (strip valgrind logs)
         output=$(echo "$valgrind_output" | grep -v "==[0-9]\{5,\}==")
 
         if echo "$valgrind_output" | grep -q "All heap blocks were freed"; then
@@ -56,16 +56,20 @@ run_test() {
             leaky_maps+=("$map")
             ((leak_count++))
         fi
+
+        # Re-run cub3d just to get the actual program exit code
+        ./cub3d "$map" >/dev/null 2>&1
+        actual_exit_code=$?
     else
         output=$(./cub3d "$map" 2>&1)
-        test_result=$?
-    if [ $test_result -eq 0 ]; then
-        echo -e "${GREEN}Exit code: 0${RESET}"
-    else
-        echo -e "${RED}Exit code: $test_result${RESET}"
-        fi
+        actual_exit_code=$?
     fi
 
+    if [ $actual_exit_code -eq 0 ]; then
+        echo -e "${GREEN}Exit code: $actual_exit_code${RESET}"
+    else
+        echo -e "${RED}Exit code: $actual_exit_code${RESET}"
+    fi
     echo -e "${BLUE}Program output:${RESET}"
     echo "$output"
     echo
@@ -73,7 +77,7 @@ run_test() {
     ((total_tests++))
 
     if is_playable "$map"; then
-        if [ $test_result -eq 0 ]; then
+        if [ $actual_exit_code -eq 0 ]; then
             ((passed_tests++))
             passed_list+=("$map")
         else
@@ -81,7 +85,7 @@ run_test() {
             failed_list+=("$map")
         fi
     else
-        if [ $test_result -ne 0 ]; then
+        if [ $actual_exit_code -ne 0 ]; then
             ((passed_tests++))
             passed_list+=("$map")
         else
@@ -90,6 +94,7 @@ run_test() {
         fi
     fi
 }
+
 
 # Display header
 echo -e "${MAGENTA}"
@@ -137,7 +142,7 @@ else
     done
 fi
 
-echo
+    echo
 if [ "$leak_count" -gt 0 ]; then
     echo -e "💧 Valgrind failure: ${YELLOW}${RED}$leak_count${RESET}/$total_tests leaks were found."
     for leak in "${leaky_maps[@]}"; do
