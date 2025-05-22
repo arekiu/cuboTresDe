@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 15:44:50 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:43:42 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ bool	has_required_text(char **map, t_player *player) // i need a diff function t
 	}
 	return (true);
 }
-
 
 int	count_sprite(char **map, char c)
 {

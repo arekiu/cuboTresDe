@@ -6,12 +6,11 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 15:42:04 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:46:48 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 bool	check_amount(int amount, char *type)
 {
@@ -28,14 +27,14 @@ bool	check_amount(int amount, char *type)
 	return (true);
 }
 
-bool	check_rgb_values(int   *code, char *type)
+bool	check_rgb_values(int *code, char *type)
 {
 	const char	*color[3];
 	int			i;
 
 	if (code == NULL)
 	{
-		printf("Error: %s rgb data has to have 3 values [0-255], separated by comma\n", type);
+		printf("Error: %s rgb data format is wrong\n", type);
 		return (false);
 	}
 	i = 0;
@@ -46,7 +45,8 @@ bool	check_rgb_values(int   *code, char *type)
 	{
 		if (code[i] > 255 || code[i] < 0)
 		{
-			printf("Error: %s[%s]:\'%d\' is not a valid digit between 0 and 255\n", type, color[i], code[i]);
+			printf("Error: %s[%s]:\'%d\' is not a valid digit between 0 and 255\n",
+				type, color[i], code[i]);
 			return (false);
 		}
 		i++;
@@ -66,7 +66,6 @@ bool	parse_textures(t_data *data)
 		|| !check_amount(data->ea_found, "EAST")
 		|| !check_amount(data->we_found, "WEST"))
 		return (false);
-	// also add not found
 	if (!check_fd(data->NO_path, ".xpm", data, "NORTH")
 		|| !check_fd(data->SO_path, ".xpm", data, "SOUTH")
 		|| !check_fd(data->EA_path, ".xpm", data, "EAST")
