@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:52:46 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/21 15:24:52 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:53:00 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,36 @@ static bool	allocate_map(char ***map, t_game *game)
 
 static void assign_to_map(char *line, char ***map, int *i, int *line_n)
 {
+	(void)line_n;
 	(*map)[*i] = ft_strdup(line);
-	free(line);
+	// free(line);
 	(*i)++;
-	(*line_n)++;
+	// (*line_n)++;
 }
 
-static bool	assign_to_texture(char *line, int *line_n, bool *unrecognoised_line)
-{
-	if (*unrecognoised_line)
-	{
-		printf("ERR TRUE with line_n[%d]:'%s'\n", *line_n,line );
-		*unrecognoised_line = false;
-		printf("ERR FALSE");
-		free(line);
-		return (false);
-	}
-	(*line_n)++;
-	free(line);
-	return (true);
-}
+// static bool	assign_to_texture(char *line, int *line_n, bool *unrecognoised_line)
+// {
+// 	if (*unrecognoised_line)
+// 	{
+// 		printf("ERR TRUE with line_n[%d]:'%s'\n", *line_n,line );
+// 		*unrecognoised_line = false;
+// 		printf("ERR FALSE");
+// 		free(line);
+// 		return (false);
+// 	}
+// 	(*line_n)++;
+// 	free(line);
+// 	return (true);
+// }
 
 bool	collect_map_data(int fd, char ***map, t_game *game)
 {
 	char	*line;
-	bool	unrecognoised_line;
 	int		i;
 	int		line_n;
 
 	i = 0;
 	line_n = i;
-	unrecognoised_line = false;
 	if (!allocate_map(map, game))
 		return (false);
 	while (1)
@@ -65,26 +64,24 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 		if (line == NULL)
 		{
 			if (i == 0)
+			{
+				free(line);	
 				return (false);
+			}
 			break ;
 		}
-		// if (!assign_to_texture(line, game, &line_n, &unrecognoised_line))
-		// 	return (false);
-		if (texture_is_found(line, game, &line_n, &unrecognoised_line))
+		if (texture_is_found(line, game, &line_n))
 		{
-			if (!assign_to_texture(line, &line_n, &unrecognoised_line))
-				return (false);
-				// return (true);
 		}
-		else
+		else if (game->data->map_started) // unsure if i should add also tabs 
 			assign_to_map(line, map, &i, &line_n);
-		// else
-		// {
-		// 	(*map)[i] = ft_strdup(line);
-		// 	free(line);
-		// 	i++;
-		// 	line_n++;
-		// }
+		else
+		{
+			free(line);
+			return (false); 
+		}
+		free(line);
+		line_n++;
 	}
 	(*map)[i] = NULL;
 	return (true);

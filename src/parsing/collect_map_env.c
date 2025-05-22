@@ -70,45 +70,36 @@ bool	is_texture(char *line, int *i, t_game *game)
 	return (false); // if both are false returns false
 }
 
-bool	texture_is_found(char *line, t_game *game, int *line_n, bool *unrecognised_line)
+bool	texture_is_found(char *line, t_game *game, int *line_n)
 {
 	int	i;
+	(void)line_n;
 
 	i = 0;
-	while (line[i] != '\0')
-	{
-		//while is spaces skip
-		while (line[i] == ' ')
-			i++;
-		// if only spaces found until end
-		if (line[i] == '\n' || line[i] == '\0' )
-		{
-			// and if map hasn't started yet skip the lines
-			if (!game->data->map_started)
-				return (true); //skip the lines
-			else 
-				return (false);
-			// if map started we have to include in the map
-		}
-		if (is_texture(line, &i, game))
-			return (true);
-		//check if its a map
-		if (line[i] == '1' 
-			|| line[i] == '0' 
-			|| line[i] == ' ' 
-			|| line[i] == '\n')
-		{
-			game->data->map_started = true; // flag to avoid skipping spac
-			return (false);
-			// false -> should be saved in map
-		}
-		else
-		{
-			*unrecognised_line = true;
-			printf("Error: invalid line format at line index %d\n", *line_n);
-			return (true); 
-		}
+	while (line[i] == ' ')
 		i++;
+	if (line[i] == '\n' || line[i] == '\0' )
+	{
+		if (!game->data->map_started)
+			return (true); //skip the lines
+		else 
+			return (false);
+		// if map started we have to include in the map
 	}
+	if (is_texture(line, &i, game))
+	{
+			return (true);
+	}
+	if (line[i] == '1' 
+		|| line[i] == '0' 
+		|| line[i] == ' ' 
+		|| line[i] == '\n') // unsure if i should add also tabs 
+	{
+			// printf("HEYYYY\n");
+			// printf("HEYYY.'%s'\n", line);
+			game->data->map_started = true; // flag to avoid skipping spac
+			// assign_to_map(line, map, &i, &line_n);
+	}
+	// printf("%s\n", line);
 	return (false);
 }
