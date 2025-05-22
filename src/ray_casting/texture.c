@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:06:20 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/06 13:40:06 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:08:14 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	load_texture(t_game *game, t_texture *tex, char *path)
 		ft_printf("Error: failed to load texture: %s\n", path);
 		exit(1);
 	}
-	printf("%s Texture loaded!\n", path);
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_length, \
 		&tex->endian);
 }
