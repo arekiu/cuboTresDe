@@ -169,7 +169,7 @@ bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 bool	collect_map_data(int fd, char ***map, t_game *game);
 char	*ft_get_line(int fd);
-bool	texture_is_found(char *line, t_game *game, int *line_n, unrecognised_line);
+bool	process_line(char *line, t_game *game, int *line_n, unrecognised_line);
 bool    parse_textures(t_data *data);
 bool parse_map(t_data *data, t_player *player);
 bool is_shaped(char **map, int last_r, int last_c);

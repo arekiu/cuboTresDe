@@ -70,36 +70,36 @@ bool	is_texture(char *line, int *i, t_game *game)
 	return (false); // if both are false returns false
 }
 
-bool	texture_is_found(char *line, t_game *game, int *line_n)
+bool	check_start_map(int *i, char *line, bool *map_started)
+{
+	*i = 0;
+	while (line[*i] == ' ')
+		(*i)++;
+
+	if (line[*i] == '\n' || line[*i] == '\0')
+	{
+		if (!*map_started)
+			return (true); // skip line
+		else
+			return (false); // empty line after map started → invalid
+	}
+	if (line[*i] == '1' || line[*i] == '0' || line[*i] == ' ' || line[*i] == '\n')
+		*map_started = true;
+	return (false);
+}
+
+
+bool	process_line(char *line, t_game *game, int *line_n, int *j)
 {
 	int	i;
+	i = 0;
 	(void)line_n;
 
-	i = 0;
-	while (line[i] == ' ')
-		i++;
-	if (line[i] == '\n' || line[i] == '\0' )
-	{
-		if (!game->data->map_started)
-			return (true); //skip the lines
-		else 
-			return (false);
-		// if map started we have to include in the map
-	}
-	if (is_texture(line, &i, game))
-	{
-			return (true);
-	}
-	if (line[i] == '1' 
-		|| line[i] == '0' 
-		|| line[i] == ' ' 
-		|| line[i] == '\n') // unsure if i should add also tabs 
-	{
-			// printf("HEYYYY\n");
-			// printf("HEYYY.'%s'\n", line);
-			game->data->map_started = true; // flag to avoid skipping spac
-			// assign_to_map(line, map, &i, &line_n);
-	}
-	// printf("%s\n", line);
-	return (false);
+	if (check_start_map(&i, line, &game->data->map_started))
+		return (true);
+	if (!is_texture(line, &i, game) && !game->data->map_started)
+		return false;
+	if (game->data->map_started) // unsure if i should add also tabs 
+		assign_to_map(line, &game->data->map, j, line_n);
+	return (true);
 }

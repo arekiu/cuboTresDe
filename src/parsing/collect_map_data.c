@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:52:46 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/22 11:53:00 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:28:33 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,12 @@ static bool	allocate_map(char ***map, t_game *game)
 	return (true);
 }
 
-static void assign_to_map(char *line, char ***map, int *i, int *line_n)
+void assign_to_map(char *line, char ***map, int *i, int *line_n)
 {
 	(void)line_n;
 	(*map)[*i] = ft_strdup(line);
-	// free(line);
 	(*i)++;
-	// (*line_n)++;
 }
-
-// static bool	assign_to_texture(char *line, int *line_n, bool *unrecognoised_line)
-// {
-// 	if (*unrecognoised_line)
-// 	{
-// 		printf("ERR TRUE with line_n[%d]:'%s'\n", *line_n,line );
-// 		*unrecognoised_line = false;
-// 		printf("ERR FALSE");
-// 		free(line);
-// 		return (false);
-// 	}
-// 	(*line_n)++;
-// 	free(line);
-// 	return (true);
-// }
 
 bool	collect_map_data(int fd, char ***map, t_game *game)
 {
@@ -62,26 +45,20 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 	{
 		line = ft_get_line(fd);
 		if (line == NULL)
-		{
-			if (i == 0)
-			{
-				free(line);	
-				return (false);
-			}
 			break ;
-		}
-		if (texture_is_found(line, game, &line_n))
+		if (!process_line(line, game, &line_n, &i))
 		{
-		}
-		else if (game->data->map_started) // unsure if i should add also tabs 
-			assign_to_map(line, map, &i, &line_n);
-		else
-		{
+			printf("Error: Invalid format at line[%d]:%s", line_n, line);
 			free(line);
 			return (false); 
 		}
 		free(line);
 		line_n++;
+	}
+	if (i == 0)
+	{
+		free(line);	
+		return (false);
 	}
 	(*map)[i] = NULL;
 	return (true);

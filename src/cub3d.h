@@ -172,7 +172,7 @@ bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 bool	collect_map_data(int fd, char ***map, t_game *game);
 char	*ft_get_line(int fd);
-bool	texture_is_found(char *line, t_game *game, int *line_n);
+bool	process_line(char *line, t_game *game, int *line_n, int *j);
 bool    parse_textures(t_data *data);
 bool parse_map(t_data *data, t_player *player);
 bool is_shaped(char **map, int last_r, int last_c);
@@ -183,6 +183,7 @@ bool	collect_rgb(char *line, int *i, t_game *game);
 char	*store_texture(int *i, char *line, char *path);
 bool	match_texture(char *id, int *counter, int *i, char *line);
 int		*store_rgb( int *i, char *line);
+void assign_to_map(char *line, char ***map, int *i, int *line_n);
 
 
 //debugging
