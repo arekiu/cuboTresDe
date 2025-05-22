@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Path to the directory containing the map files
-MAP="./map/not_playable/parse_textures"
+# MAP="./map/not_playable/parse_textures"
 # MAP="./map/not_playable/parse_map"
 # MAP="./map/not_playable/wrong_format"
 # MAP="./map/not_playable/wrong_ext_fd"
-# MAP="./map/playable"
+MAP="./map/playable"
 
 
 # Define color codes

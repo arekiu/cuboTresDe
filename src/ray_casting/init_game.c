@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:07:17 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/06 13:32:29 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:16:19 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	init_player(t_player *player, float orientation, int x, int y)
 	player->dir_x = cos(player->angle);
 	player->dir_y = sin(player->angle);
 	player->player_size = PLAYER_SIZE;
-	player->x = x * BLOCK;
-	player->y = y * BLOCK;
+	player->x = (x * BLOCK) + (BLOCK / 2);
+	player->y = (y * BLOCK) + (BLOCK / 2);
 	player->key_up = false;
 	player->key_down = false;
 	player->key_left = false;
