@@ -65,9 +65,9 @@ bool	match_texture(char *id, int *counter, int *i, char *line)
 bool	is_texture(char *line, int *i, t_game *game)
 {
 
-	if (collect_coordinates(line, i, game) || collect_rgb(line, i, game)) // returns true if at least one of them is true
+	if (collect_coordinates(line, i, game) || collect_rgb(line, i, game))
 		return (true);
-	return (false); // if both are false returns false
+	return (false);
 }
 
 bool	check_start_map(int *i, char *line, bool *map_started)
@@ -83,9 +83,11 @@ bool	check_start_map(int *i, char *line, bool *map_started)
 		else
 			return (false); // empty line after map started → invalid
 	}
-	if (line[*i] == '1' || line[*i] == '0' || line[*i] == ' ' || line[*i] == '\n')
+	if (line[*i] == '1'
+		|| line[*i] == '0'
+		|| line[*i] == ' '
+		|| line[*i] == '\n')
 		*map_started = true;
-	// unsure if also tabs to add in map
 	return (false);
 }
 
@@ -98,7 +100,11 @@ bool	process_line(char *line, t_game *game, int *array_i)
 	if (check_start_map(&i, line, &game->data->map_started))
 		return (true);
 	if (!is_texture(line, &i, game) && !game->data->map_started)
-		return (false);
+	{
+		printf("Error: Invalid format at line[%d]:%s", *array_i, line);
+		free(line);
+		return (false); 
+	}
 	if (game->data->map_started)
 		assign_to_map(line, &game->data->map, array_i);
 	return (true);
