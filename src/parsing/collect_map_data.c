@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:52:46 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/22 13:28:33 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:59:43 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,20 @@ static bool	allocate_map(char ***map, t_game *game)
 	return (true);
 }
 
-void assign_to_map(char *line, char ***map, int *i, int *line_n)
+void	assign_to_map(char *line, char ***map, int *array_i)
 {
-	(void)line_n;
-	(*map)[*i] = ft_strdup(line);
-	(*i)++;
+	(*map)[*array_i] = ft_strdup(line);
+	(*array_i)++;
 }
 
 bool	collect_map_data(int fd, char ***map, t_game *game)
 {
 	char	*line;
-	int		i;
-	int		line_n;
+	int		array_i;
+	int		file_i;
 
-	i = 0;
-	line_n = i;
+	array_i = 0;
+	file_i = array_i;
 	if (!allocate_map(map, game))
 		return (false);
 	while (1)
@@ -46,20 +45,20 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 		line = ft_get_line(fd);
 		if (line == NULL)
 			break ;
-		if (!process_line(line, game, &line_n, &i))
+		if (!process_line(line, game, &array_i))
 		{
-			printf("Error: Invalid format at line[%d]:%s", line_n, line);
+			printf("Error: Invalid format at line[%d]:%s", file_i, line);
 			free(line);
 			return (false); 
 		}
 		free(line);
-		line_n++;
+		file_i++;
 	}
-	if (i == 0)
+	if (array_i == 0)
 	{
 		free(line);	
 		return (false);
 	}
-	(*map)[i] = NULL;
+	(*map)[array_i] = NULL;
 	return (true);
 }

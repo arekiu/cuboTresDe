@@ -85,21 +85,21 @@ bool	check_start_map(int *i, char *line, bool *map_started)
 	}
 	if (line[*i] == '1' || line[*i] == '0' || line[*i] == ' ' || line[*i] == '\n')
 		*map_started = true;
+	// unsure if also tabs to add in map
 	return (false);
 }
 
 
-bool	process_line(char *line, t_game *game, int *line_n, int *j)
+bool	process_line(char *line, t_game *game, int *array_i)
 {
 	int	i;
-	i = 0;
-	(void)line_n;
 
+	i = 0;
 	if (check_start_map(&i, line, &game->data->map_started))
 		return (true);
 	if (!is_texture(line, &i, game) && !game->data->map_started)
-		return false;
-	if (game->data->map_started) // unsure if i should add also tabs 
-		assign_to_map(line, &game->data->map, j, line_n);
+		return (false);
+	if (game->data->map_started)
+		assign_to_map(line, &game->data->map, array_i);
 	return (true);
 }
