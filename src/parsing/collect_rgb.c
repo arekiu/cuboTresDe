@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:15:23 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/21 13:11:24 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:35:24 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,20 @@ int	*store_rgb( int *i, char *line)
 	}
 	return (rgb);
 }
+
 bool	collect_rgb(char *line, int *i, t_game *game)
 {
 	if (match_texture("C ", &game->data->c_found, i, line))
-		return ((game->data->C_rgb = store_rgb(i, line)), true);
+	{
+		if (game->data->c_found == 1)
+			game->data->C_rgb = store_rgb(i, line);
+		return (true);
+	}
 	if (match_texture("F ", &game->data->f_found, i, line))
-		return ((game->data->F_rgb = store_rgb(i, line)), true);
+	{
+		if (game->data->f_found == 1)
+			game->data->F_rgb = store_rgb(i, line);
+		return (true);
+	}
 	return (false);
 }

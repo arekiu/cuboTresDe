@@ -56,8 +56,7 @@ bool	match_texture(char *id, int *counter, int *i, char *line)
 	if (ft_strncmp(id, &line[*i], ft_strlen(id)) == 0)
 	{
 		(*counter)++;
-		if ((*counter) == 1) // 
-			return (true);
+		return (true);
 	}
 	return (false);
 }
@@ -65,7 +64,10 @@ bool	match_texture(char *id, int *counter, int *i, char *line)
 
 bool	is_texture(char *line, int *i, t_game *game)
 {
-	return (collect_coordinates(line, i, game) || collect_rgb(line, i, game));
+
+	if (collect_coordinates(line, i, game) || collect_rgb(line, i, game)) // returns true if at least one of them is true
+		return (true);
+	return (false); // if both are false returns false
 }
 
 bool	texture_is_found(char *line, t_game *game, int *line_n, bool *unrecognised_line)
