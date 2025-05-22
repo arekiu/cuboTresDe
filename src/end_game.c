@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:13:23 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/22 15:27:55 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:49:44 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ int	on_destroy(t_game *game)
 {
 	free_textures(game);
 	mlx_destroy_window(game->mlx, game->window);
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
 	mlx_destroy_display(game->mlx);
 	free(game->ray);
 	free(game->mlx);
+	free_game(game);
 	exit(0);
 }
