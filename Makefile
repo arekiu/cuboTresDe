@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/05/06 10:01:21 by aschmidt         ###   ########.fr        #
+#    Updated: 2025/05/22 15:31:13 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,12 @@ SRC_FILES = \
 	$(RAY_DIR)/ray_drawer.c \
 	$(RAY_DIR)/texture_drawer.c \
 	$(RAY_DIR)/texture.c \
+	$(PARSE_DIR)/ft_get_line.c \
 	$(PARSE_DIR)/parse_assets.c \
 	$(PARSE_DIR)/file_parsing.c \
 	$(PARSE_DIR)/collect_map_data.c \
+	$(PARSE_DIR)/collect_coordinates.c \
+	$(PARSE_DIR)/collect_rgb.c \
 	$(PARSE_DIR)/collect_map_env.c \
 	$(PARSE_DIR)/parsing_debugger.c \
 	$(PARSE_DIR)/parse_textures.c \
@@ -59,7 +62,7 @@ SRC_FILES = \
 	$(PARSE_DIR)/parse_map_frame.c \
 	$(PARSE_DIR)/parse_map_symbols.c \
 	$(BONUS_DIR)/minimap.c \
-
+	$(SRC_DIR)/free_game.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

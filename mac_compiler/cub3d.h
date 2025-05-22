@@ -9,8 +9,9 @@
 #include <stdbool.h>
 #include <math.h>
 #include <limits.h>
+# include "../mac_compiler/mlx_linux/mlx.h"
 
-
+// # include <mlx.h>
 
 //COLORS - for debugging and printing pretty ;)
 # define RESET_T "\033[0m"
@@ -21,46 +22,38 @@
 # define GREEN_T "\033[32m"
 
 //VALUES THAT WE CAN MODIFY
+#define	WIN_WIDTH 1200
+#define WIN_HEIGHT 700
 #define BLOCK 64
-#define PLAYER_SIZE 30
+#define PLAYER_SIZE 10
 #define PLAYER_SPEED 1
 #define PLAYER_ANGLE_SPEED 0.005
-# include "../mac_compiler/minilibx_linux/mlx.h"
+#define MINI_BLOCK 20
+#define MINIMAP_OFFSET_X 10 //position in the screen
+#define MINIMAP_OFFSET_Y 10 //position in the screen
 
 //CONSTANT VALUES
 #define PI 3.1415926535
-// keyboard codes for mac and linux
-#ifdef __APPLE__
-# define ESC 53
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define Q 12
-# define LEFT 123
-# define RIGHT 124
-#else
-# include <X11/X.h>
-# include <X11/keysym.h>
-# include <X11/Xlib.h>
-# define ESC 65307
-# define W 119
-# define A 97
-# define S 115
-# define D 100
-# define Q 113
-# define LEFT 65361
-# define RIGHT 65363
-#endif
 
+#define	ESC 65307
+#define	W 119
+#define A 97
+#define S 115
+#define D 100
+#define LEFT 65361
+#define RIGHT 65363
 
 #define	NO (3*PI/2)
 #define SO (PI/2)
 #define WE (PI)
 #define EA 0
 
-// jess - parsing macros
-#define VALID_CHARACTERS "01 NSEW"
+//This is for the movement, walking
+#define WEST  0
+#define EAST  1
+#define NORTH 2
+#define SOUTH 3
+
 
 typedef struct s_data{
 	//parsed map with needed information
@@ -102,6 +95,16 @@ typedef struct s_ray {
 	int		hit_side;
 	double	wall_dist;
 	double	camera_x;
+	int		current_x;
+	double	wall_x; //x-axis where ray hit wall
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		text_x;
+	int		text_y;
+	int		text_start;
+	int		step; //how much we move in the texture vertically per screen pixel.
+	// //So if the wall slice is 64 pixels tall and the texture is 64 pixels tall, the step is 1.0 (1 texel per screen pixel).
 } t_ray;
 
 typedef struct s_player{
@@ -129,21 +132,32 @@ typedef struct s_player{
 
 }	t_player;
 
+typedef struct s_texture {
+	void	*img;
+	int		width;
+	int		height;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_texture;
+
 typedef struct s_game{
 
 	void		*mlx;
 	void		*window;
 	void		*img;
-	int			screen_width;
-	int			screen_height;
 	char		*buffer; //store the pixels
 	int			bpp; //bits per pixel
 	int			stride; //BYtes per row
 	int			endian; //How values are stored
 	t_player	*player;
 	t_data		*data;
-	t_ray		*raycaster;
-
+	t_ray		*ray;
+	t_texture	*no_text;
+	t_texture	*so_text;
+	t_texture	*ea_text;
+	t_texture	*we_text;
 }	t_game;
 
 
@@ -155,7 +169,7 @@ bool	has_file_extension(char *file, char *extension);
 bool	parse_assets(char	*file_name, t_game *game);
 bool	collect_map_data(int fd, char ***map, t_game *game);
 char	*ft_get_line(int fd);
-bool	texture_data(char *line, t_game *game, int *line_n, bool *err);
+bool	process_line(char *line, t_game *game, int *line_n, unrecognised_line);
 bool    parse_textures(t_data *data);
 bool parse_map(t_data *data, t_player *player);
 bool is_shaped(char **map, int last_r, int last_c);
@@ -178,7 +192,7 @@ void	init_player(t_player *player, float orientation, int x, int y);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
-void	draw_debug_ray(t_game *game, float end_x, float end_y, int color);
+unsigned int	rgb_to_hex(int rgb[3]);
 
 
 //PLAYER UTILS

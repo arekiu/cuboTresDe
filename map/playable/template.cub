@@ -1,16 +1,10 @@
-NO   textures/wood.xpm
+NO textures/north.xpm
 WE textures/west.xpm
-SO  textures/south.xpm
-EA  textures/east.xpm
+SO textures/south.xpm
+EA textures/east.xpm
 
 F 0,32,0
 C 120,0,16
-
-
-
-
-
-
 
 111111111111111
 100000000000001
