@@ -25,7 +25,7 @@
 #define WIN_HEIGHT 700
 #define BLOCK 64
 #define PLAYER_SIZE 10
-#define PLAYER_SPEED 70
+#define PLAYER_SPEED 150
 #define PLAYER_ANGLE_SPEED 1.0
 #define MINI_BLOCK 20
 #define MINIMAP_OFFSET_X 10 //position in the screen
@@ -193,7 +193,6 @@ void	init_textures(t_game *game);
 //UTILS
 void	put_pixel(int x, int y, int color, t_game *game);
 void	clear(t_game *game);
-void	draw_square(int x, int y, int size, int color, t_game *game);
 unsigned int	rgb_to_hex(int rgb[3]);
 double	get_time_in_ms(void);
 
@@ -211,7 +210,7 @@ void	rotate_player(t_game *game);
 //RAY CASTING
 int		draw_loop(t_game *game);
 void	raycaster(t_game *game);
-void	perform_DDA(t_game *game);
+void	perform_dda(t_game *game);
 void	calc_delta_dist(t_ray *ray);
 void	calc_side_dist(t_game *game);
 
@@ -225,20 +224,19 @@ void	load_texture(t_game *game, t_texture *tex, char *path);
 void	set_texture(t_game *game, t_texture *texture);
 t_texture	*get_wall_texture(t_game *game);
 int		draw_texture(t_game *game);
-int		render_texture_line(t_game *game, t_texture *texture, double step, double tex_pos);
-void	prepare_texture_drawing(t_game *game, t_texture **texture, double *step, double *tex_pos);
+int		render_text_line(t_game *game, t_texture *texture, double step, double tex_pos);
+void	prep_text_drawing(t_game *game, t_texture **texture, double *step, double *tex_pos);
 
-//MAP
-void	draw_map(t_game *game);
-int		get_map_height(char **map);
-int		get_map_width(char **map);
-void	draw_line(t_game *game, int x0, int y0, int x1, int y1, int color);
-//MINIMAP
-void	draw_minimap(t_game *game);
-void	draw_player(t_game *game);
-void	draw_player_dir(t_game *game);
+
 
 //END
 int		on_destroy(t_game *game);
+
+//BONUS
+void	draw_square(int x, int y, int size, int color, t_game *game);
+void	draw_minimap(t_game *game);
+void	draw_player(t_game *game);
+void	draw_player_dir(t_game *game);
+void	draw_line(t_game *game, int x0, int y0, int x1, int y1);
 
 #endif

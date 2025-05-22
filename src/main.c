@@ -5,17 +5,17 @@ int main(int argc, char **argv)
 	t_game *game;
 	// jess: to avoid segfaults while we code it's better
 	// we allocate the structs at least at the beginning
+	if (argc != 2)
+	{
+		ft_printf("Error: invalid number of arguments\n");
+		exit(1); // jess: as error we should exit instead of return
+	}
 	game = malloc(sizeof(t_game));
 	game->data = malloc(sizeof(t_data));
 	game->player = malloc(sizeof(t_player));
 	if (!game || !game->data || !game->player)
 	{
 		ft_printf("Error: malloc failed\n");
-		exit(1); // jess: as error we should exit instead of return
-	}
-	if (argc != 2)
-	{
-		ft_printf("Error: invalid number of arguments\n");
 		exit(1); // jess: as error we should exit instead of return
 	}
 	if (!parse_assets(argv[1], game)) // jess: if parsing fails, code should stop here
