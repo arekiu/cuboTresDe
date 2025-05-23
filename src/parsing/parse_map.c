@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 12:41:18 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:03:55 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int	count_map_lines(char **map)
 	count = 0;
 	if (!map)
 		return (0);
-
 	while (map[count])
 		count++;
-
 	return (count);
 }
 
@@ -44,7 +42,6 @@ void	expand_line_len(t_data *data, int longest_len)
 	int		i;
 	int		len;
 	char	*new_line;
-	// int		j;
 
 	i = 0;
 	while (data->map[i])
@@ -55,10 +52,9 @@ void	expand_line_len(t_data *data, int longest_len)
 			new_line = malloc(sizeof(char) * (longest_len + 1));
 			if (!new_line)
 			{
-				ft_printf("Error: malloc failed when expanding map line %d\n", i);
+				ft_printf("Error: malloc failed on map line expansion %d\n", i);
 				return ;
 			}
-			// copies and allocated the string
 			ft_memcpy(new_line, data->map[i], len);
 			fill_line(len, longest_len, new_line);
 			free(data->map[i]);
@@ -67,7 +63,6 @@ void	expand_line_len(t_data *data, int longest_len)
 		i++;
 	}
 }
-
 
 int	find_longest_line(t_data *data)
 {
@@ -86,10 +81,9 @@ int	find_longest_line(t_data *data)
 		}
 		i++;
 	}
-	// printf("Line[%d] has the longest len of %d \nLine:'%s'\n", line_n, longest_len, data->map[line_n]);
-	return(longest_len);
+	return (longest_len);
 }
-// better check this
+
 void	remove_nl(t_data *data)
 {
 	int	x;
@@ -112,7 +106,6 @@ void	remove_nl(t_data *data)
 	}
 }
 
-// as remove_nl and expand_line_len fille the nl only line with space we check if there are lines only
 bool	found_empty_line(t_data *data)
 {
 	int	x;
@@ -133,7 +126,6 @@ bool	found_empty_line(t_data *data)
 	}
 	return (false);
 }
-
 
 bool	parse_map(t_data *data, t_player *player)
 {

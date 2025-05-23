@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_map.c                                          :+:      :+:    :+:   */
+/*   parse_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 14:43:41 by jslusark          #+#    #+#             */
-/*   Updated: 2025/03/28 13:50:57 by jslusark         ###   ########.fr       */
+/*   Created: 2025/05/23 17:57:41 by jslusark          #+#    #+#             */
+/*   Updated: 2025/05/23 18:00:37 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ int	check_fd(char *file, char *type, t_data *data, char *obj)
 		return (false);
 	}
 	data->fd = open(file, O_RDONLY);
-	// printf("Opened %s fd, fd number: %d\n", file, data->fd);
 	if (!has_file_extension(file, type) || data->fd < 0)
 	{
-		printf("Error: %s used for %s does not exist or has wrong extension\n", file, obj);
+		printf("Error: %s used for %s does not exist or has wrong extension\n", 
+			file, obj);
 		return (false);
 	}
-	// this allows me to close the fd of the textures and notthe map data file
 	if (strcmp(obj, "map data") != 0)
 	{
-		// printf("  Closed %s fd, fd number: %d\n", file, data->fd);
-		// close fd only if it is not the map data
 		close(data->fd);
 		return (true);
 	}
