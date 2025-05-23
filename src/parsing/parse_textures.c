@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 13:37:17 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:39:34 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 bool	check_amount(int amount, char *type)
 {
@@ -28,14 +27,14 @@ bool	check_amount(int amount, char *type)
 	return (true);
 }
 
-bool	check_rgb_values(int   *code, char *type)
+bool	check_rgb_values(int *code, char *type)
 {
 	const char	*color[3];
 	int			i;
 
 	if (code == NULL)
 	{
-		printf("Error: %s rgb data has to have 3 values [0-255], separated by comma\n", type);
+		printf("Error: %s rgb data format is wrong\n", type);
 		return (false);
 	}
 	i = 0;
@@ -46,7 +45,8 @@ bool	check_rgb_values(int   *code, char *type)
 	{
 		if (code[i] > 255 || code[i] < 0)
 		{
-			printf("Error: %s[%s]:\'%d\' is not a valid digit between 0 and 255\n", type, color[i], code[i]);
+			printf("Error: %s[%s]:\'%d\' is not a valid digit between 0 and 255\n",
+				type, color[i], code[i]);
 			return (false);
 		}
 		i++;
@@ -66,11 +66,10 @@ bool	parse_textures(t_data *data)
 		|| !check_amount(data->ea_found, "EAST")
 		|| !check_amount(data->we_found, "WEST"))
 		return (false);
-	// also add not found
-	if (!check_fd(data->no_path, ".xpm", data, "NORTH")
-		|| !check_fd(data->so_path, ".xpm", data, "SOUTH")
-		|| !check_fd(data->ea_path, ".xpm", data, "EAST")
-		|| !check_fd(data->we_path, ".xpm", data, "WEST"))
+	if (!check_fd(data->NO_path, ".xpm", data, "NORTH")
+		|| !check_fd(data->SO_path, ".xpm", data, "SOUTH")
+		|| !check_fd(data->EA_path, ".xpm", data, "EAST")
+		|| !check_fd(data->WE_path, ".xpm", data, "WEST"))
 		return (false);
 	return (true);
 }

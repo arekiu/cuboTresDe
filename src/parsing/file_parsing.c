@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:04:19 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/21 14:27:42 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:04:27 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ bool	has_file_extension(char *file, char *extension)
 	int	file_len;
 	int	ext_len;
 
-	//!extension makes no sense as it will never be null as passed as param
 	if (!file || !extension)
 		return (false);
 	file_len = ft_strlen(file) - 1;
@@ -33,4 +32,3 @@ bool	has_file_extension(char *file, char *extension)
 	}
 	return (true);
 }
-// add also open close file checks?

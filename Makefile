@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+         #
+#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/05/23 13:02:13 by aschmidt         ###   ########.fr        #
+#    Updated: 2025/05/23 18:40:41 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,9 @@ SRC_FILES = \
 	$(PARSE_DIR)/parsing_debugger.c \
 	$(PARSE_DIR)/parse_textures.c \
 	$(PARSE_DIR)/parse_map.c \
+	$(PARSE_DIR)/parse_map_utils.c \
 	$(PARSE_DIR)/parse_map_frame.c \
+	$(PARSE_DIR)/parse_map_frame_utils.c \
 	$(PARSE_DIR)/parse_map_symbols.c \
 	$(BONUS_DIR)/minimap.c \
 	$(BONUS_DIR)/draw_line.c \

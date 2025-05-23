@@ -6,12 +6,13 @@
 WE textures/west.xpm   
 
 
+F 5, 50   ,120
 
-F 5, 50, 120
-SO  textures/south.xpm    
-EA  textures/east.xpm
-C 120,0,16
+SO  textures/south.xpm        
 
+EA             textures/east.xpm
+
+C     120,0,16
     11111111111111111111111
     10000000000000111111111111
     1000001000000011111111111

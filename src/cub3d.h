@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:13:47 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/23 15:43:02 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:40:17 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,23 +190,36 @@ void			free_game(t_game *game);
 //PARSE FILE
 //PARSING FUNCTIONS
 // Assets are contents in a game, so we can parse/check everything here
-int				check_fd(char *file, char *type, t_data *data, char *obj);
-bool			has_file_extension(char *file, char *extension);
-bool			parse_assets(char	*file_name, t_game *game);
-bool			collect_map_data(int fd, char ***map, t_game *game);
-char			*ft_get_line(int fd);
-bool			process_line(char *line, t_game *game, int *array_i);
-bool			parse_textures(t_data *data);
-bool			parse_map(t_data *data, t_player *player);
-bool			is_shaped(char **map, int last_r, int last_c);
-bool			has_required_text(char **map, t_player *player);
-bool			has_enough_sprites(char **map);
-bool			collect_coordinates(char *line, int *i, t_game *game);
-bool			collect_rgb(char *line, int *i, t_game *game);
-char			*store_texture(int *i, char *line, char *path);
-bool			match_texture(char *id, int *counter, int *i, char *line);
-int				*store_rgb( int *i, char *line);
-void			assign_to_map(char *line, char ***map, int *array_i);
+int check_fd(char *file, char *type, t_data *data, char *obj);
+bool	has_file_extension(char *file, char *extension);
+bool	parse_assets(char	*file_name, t_game *game);
+bool	collect_map_data(int fd, char ***map, t_game *game);
+char	*ft_get_line(int fd);
+bool	process_line(char *line, t_game *game, int *array_i);
+bool    parse_textures(t_data *data);
+bool parse_map(t_data *data, t_player *player);
+bool is_shaped(char **map, int last_r, int last_c);
+bool	has_required_text(char **map, t_player *player);
+bool	has_enough_sprites(char **map);
+bool collect_coordinates(char *line, int *i, t_game *game);
+bool	collect_rgb(char *line, int *i, t_game *game);
+char	*store_texture(int *i, char *line, char *path);
+bool	match_texture(char *id, int *counter, int *i, char *line);
+int		*store_rgb( int *i, char *line);
+void assign_to_map(char *line, char ***map, int *array_i);
+bool	valid_edges(char *line, int r, int last_r, int last_c);
+void	skip_spaces(char *line, int *i);
+bool	valid_sides(char *line, int line_index, int i, int last_c);
+bool	valid_top_bottom(char **map, int line_index, int i, int last_r);
+bool	is_valid_edge_char(char *line, int r, int c);
+int	count_map_lines(char **map);
+void	fill_line(int len, int longest_len, char *new_line);
+void	expand_line_len(t_data *data, int longest_len);
+int	find_longest_line(t_data *data);
+void	remove_nl(t_data *data);
+
+
+
 
 //debugging
 void			print_map(t_data *data, t_player *player);

@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:52:46 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/22 15:11:03 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:08:10 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 	}
 	if (array_i == 0)
 	{
-		free(line);	
+		printf("Error: file is empty\n");
 		return (false);
 	}
 	(*map)[array_i] = NULL;

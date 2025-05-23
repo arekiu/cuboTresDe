@@ -1,52 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_texture_info.c                                     :+:      :+:    :+:   */
+/*   collect_map_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 16:10:03 by jslusark          #+#    #+#             */
-/*   Updated: 2025/03/31 16:38:14 by jslusark         ###   ########.fr       */
+/*   Created: 2025/05/23 17:55:29 by jslusark          #+#    #+#             */
+/*   Updated: 2025/05/23 18:06:05 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-// bool is_map()
-// {
-
-// }
-
-//jump the coord
 char	*store_texture(int *i, char *line, char *path)
 {
 	int	len;
 
 	*i = *i + 2;
-	// printf("c: %c\n", line[*i]);
-	//skip spaces
 	while (line[*i] == ' ' && line[*i] 
 		!= '\0' && line[*i] 
 		!= '\n' )
 		(*i)++;
-	// if line is \0 rrepeated check here
-	// printf("c: %c\n len path: ", line[*i]);
 	len = 0;
 	while (line[*i + len] 
 		!= '\0' && line[*i + len] 
 		!= '\n' && line[*i + len] != ' ')
-	{
-		// printf("%c\n", line[*i + len]);
 		len++;
-	}
-	// printf("len: %d | line: %s\n", len, line);
 	path = malloc(sizeof(char) * (len + 1));
 	if (!path || len == 0)
-	{
-		// printf("error\n");
 		return (NULL);
-	}
-	// fixes issue of saving \n (could use strncpy instead)
 	ft_strlcpy(path, line + *i, len + 1);
 	return (path);
 }
@@ -61,10 +43,8 @@ bool	match_texture(char *id, int *counter, int *i, char *line)
 	return (false);
 }
 
-
 bool	is_texture(char *line, int *i, t_game *game)
 {
-
 	if (collect_coordinates(line, i, game) || collect_rgb(line, i, game))
 		return (true);
 	return (false);
@@ -75,13 +55,12 @@ bool	check_start_map(int *i, char *line, bool *map_started)
 	*i = 0;
 	while (line[*i] == ' ')
 		(*i)++;
-
 	if (line[*i] == '\n' || line[*i] == '\0')
 	{
 		if (!*map_started)
-			return (true); // skip line
+			return (true);
 		else
-			return (false); // empty line after map started → invalid
+			return (false);
 	}
 	if (line[*i] == '1'
 		|| line[*i] == '0'
@@ -90,7 +69,6 @@ bool	check_start_map(int *i, char *line, bool *map_started)
 		*map_started = true;
 	return (false);
 }
-
 
 bool	process_line(char *line, t_game *game, int *array_i)
 {
