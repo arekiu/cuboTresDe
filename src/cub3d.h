@@ -184,6 +184,12 @@ char	*store_texture(int *i, char *line, char *path);
 bool	match_texture(char *id, int *counter, int *i, char *line);
 int		*store_rgb( int *i, char *line);
 void assign_to_map(char *line, char ***map, int *array_i);
+bool	valid_edges(char *line, int r, int last_r, int last_c);
+void	skip_spaces(char *line, int *i);
+bool	valid_sides(char *line, int line_index, int i, int last_c);
+bool	valid_top_bottom(char **map, int line_index, int i, int last_r);
+bool	is_valid_edge_char(char *line, int r, int c);
+
 
 
 //debugging
