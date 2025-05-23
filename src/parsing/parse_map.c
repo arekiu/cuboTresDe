@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:12:20 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 15:45:50 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:41:18 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,25 @@ int	count_map_lines(char **map)
 	return (count);
 }
 
+void	fill_line(int len, int longest_len, char *new_line)
+{
+	int		j;
+
+	j = len;
+	while (j < longest_len)
+	{
+		new_line[j] = ' ';
+		j++;
+	}
+	new_line[longest_len] = '\0';
+}
+
 void	expand_line_len(t_data *data, int longest_len)
 {
 	int		i;
 	int		len;
 	char	*new_line;
+	// int		j;
 
 	i = 0;
 	while (data->map[i])
@@ -46,12 +60,7 @@ void	expand_line_len(t_data *data, int longest_len)
 			}
 			// copies and allocated the string
 			ft_memcpy(new_line, data->map[i], len);
-			// Fill the rest with ' '
-			// change with while loop later
-			for (int j = len; j < longest_len; j++)
-				new_line[j] = ' ';
-			new_line[longest_len] = '\0';
-
+			fill_line(len, longest_len, new_line);
 			free(data->map[i]);
 			data->map[i] = new_line;
 		}

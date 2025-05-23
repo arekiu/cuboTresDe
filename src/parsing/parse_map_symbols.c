@@ -6,45 +6,48 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/22 18:43:42 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 12:23:19 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void collect_character(char **map, int r, int c,  t_player *player)
+{
+	// stores 1 or more player and position in the map
+	if (strchr("NSEW", map[r][c]) != NULL)
+	{
+		player->orientation = map[r][c];
+		// vertical poisition / line / row of the array
+		player->y = r;
+		// vertical poisition / line / row of the array
+		player->x = c;
+		// does not need to be in the map
+	}
 
-bool	has_required_text(char **map, t_player *player) // i need a diff function to colculate coords!!
+}
+
+
+
+bool	has_required_text(char **map, t_player *player)
 {
 	int		r;
 	int		c;
 	char	*valid_chars;
-	// unsure is also allow tabs here as not specified from the subject but still it counts as emtyness and player could use it
 
-	valid_chars = "01 NSEW";
-
+	valid_chars = "01 NSEW"; // an not adding tabs
 	r = 0;
 	while (map[r] != NULL)
 	{
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-			// chek_map_characters()
 			if (strchr(valid_chars, map[r][c]) != NULL)
-			{
-				 // collect_character() - stores 1 or more player and position in the map
-				if (strchr("NSEW", map[r][c]) != NULL)
-				{
-					player->orientation = map[r][c];
-					// vertical poisition / line / row of the array
-					player->y = r;
-					// vertical poisition / line / row of the array
-					player->x = c;
-					// does not need to be in the map
-				}
-			}
+				collect_character(map, r, c, player);
 			else
 			{
-				printf("Error: Invalid character '%c' found in map at line[%d][%d]\n", map[r][c], r, c);
+				printf("Error: Invalid character '%c' found in map[%d][%d]\n",
+					map[r][c], r, c);
 				return (false);
 			}
 			c++;
