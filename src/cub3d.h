@@ -189,6 +189,12 @@ void	skip_spaces(char *line, int *i);
 bool	valid_sides(char *line, int line_index, int i, int last_c);
 bool	valid_top_bottom(char **map, int line_index, int i, int last_r);
 bool	is_valid_edge_char(char *line, int r, int c);
+int	count_map_lines(char **map);
+void	fill_line(int len, int longest_len, char *new_line);
+void	expand_line_len(t_data *data, int longest_len);
+int	find_longest_line(t_data *data);
+void	remove_nl(t_data *data);
+
 
 
 

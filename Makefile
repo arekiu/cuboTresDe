@@ -6,7 +6,7 @@
 #    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/05/23 18:16:01 by jslusark         ###   ########.fr        #
+#    Updated: 2025/05/23 18:22:14 by jslusark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC_FILES = \
 	$(PARSE_DIR)/parsing_debugger.c \
 	$(PARSE_DIR)/parse_textures.c \
 	$(PARSE_DIR)/parse_map.c \
+	$(PARSE_DIR)/parse_map_utils.c \
 	$(PARSE_DIR)/parse_map_frame.c \
 	$(PARSE_DIR)/parse_map_frame_utils.c \
 	$(PARSE_DIR)/parse_map_symbols.c \
