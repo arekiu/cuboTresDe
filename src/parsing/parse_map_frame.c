@@ -6,11 +6,23 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 14:31:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 15:01:47 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:15:45 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+bool	is_valid_edge_char(char *line, int r, int c)
+{
+	if (strchr("0NSEW", line[c]))
+	{
+		printf("Error: incorrect map framing on line[%d][%d]:'%c'\n",
+			r, c, line[c]);
+		return (false);
+	}
+	return (true);
+}
+
 
 // 0,N,S,W,E should not be on line[0] and line[last_r] as it means the map is not framed
 // 0,N,S,W,E should also not be the first character we catch from the left and right of the line
@@ -22,52 +34,26 @@ bool	valid_edges(char *line, int r, int last_r, int last_c)
 
 	i = 0;
 	end = last_c;
-	// top-bottom edges
 	if (r == 0 || r == last_r)
 	{
 		while (line[i] != '\0')
 		{
-			if (line[i] == '0' 
-				|| line[i] == 'N' 
-				|| line[i] == 'S' 
-				|| line[i] == 'W' 
-				|| line[i] == 'E')
-			{
-				printf("Error: map not enclosed, found %c at line[%d]\n", line[i], r);
-				return (false);
-			}
+			if(!is_valid_edge_char(line, r, i))
+				return(false);
 			i++;
 		}
 	}
 	else
 	{
-		// checks side edges
-		// we check left by looping from  the start
 		while (line[i] != '\0' && line[i] == ' ')
 			i++;
-		if (line[i] == '0'
-			|| line[i] == 'N'
-			|| line[i] == 'S'
-			|| line[i] == 'W'
-			|| line[i] == 'E')
-		{
-			printf("Error: map not enclosed on left side on line[%d], found %c index %d\n", r, line[i], i);
-			return (false);
-		}
-		//we check right by looping from the end
+		if(!is_valid_edge_char(line, r, i))
+			return(false);
 		while (end > 0 && line[end] == ' ')
 			end--;
-		if (line[end] == '0'
-			|| line[end] == 'N'
-			|| line[end] == 'S'
-			|| line[end] == 'W'
-			|| line[end] == 'E')
-		{
-			printf("Error: map not enclosed on right side on line[%d], found %c index %d\n", r, line[end], end);
-			return (false);
-		}
+		if(!is_valid_edge_char(line, r, end))
+			return(false);
 	}
-	// edges are valis
 	return (true);
 }
 

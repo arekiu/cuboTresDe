@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 12:23:19 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:13:05 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,14 @@ bool	has_required_text(char **map, t_player *player)
 {
 	int		r;
 	int		c;
-	char	*valid_chars;
 
-	valid_chars = "01 NSEW"; // an not adding tabs
 	r = 0;
 	while (map[r] != NULL)
 	{
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-			if (strchr(valid_chars, map[r][c]) != NULL)
+			if (strchr("01 NSEW", map[r][c]) != NULL)
 				collect_character(map, r, c, player);
 			else
 			{
