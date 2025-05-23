@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:38:12 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 12:59:59 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:14:01 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	print_map(t_data *data, t_player *player)
     int y;
     y = 0;
     while (y < line_len)
-		printf(YELLOW_T"%d"RESET_T, j % 10);
+	{
+		printf(YELLOW_T"%d"RESET_T, y % 10);
+		y++;
+	}
 	printf("\n x \n");
 
 	while (data->map && data->map[i] != NULL)
