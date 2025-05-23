@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:13:47 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/23 13:51:23 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:43:02 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 700
 # define BLOCK 64
-# define PLAYER_SIZE 10
+# define PLAYER_SIZE 7
 # define PLAYER_SPEED 150
 # define PLAYER_ANGLE_SPEED 1.0
 # define MINI_BLOCK 20
-# define MINIMAP_OFFSET_X 10
-# define MINIMAP_OFFSET_Y 10
+# define MINIMAP_OFFSET_X 5
+# define MINIMAP_OFFSET_Y 5
 
 //CONSTANT VALUES
 # define PI 3.1415926535
@@ -221,6 +221,7 @@ void			put_pixel(int x, int y, int color, t_game *game);
 void			clear(t_game *game);
 unsigned int	rgb_to_hex(int rgb[3]);
 double			get_time_in_ms(void);
+int				get_map_width(char **map);
 
 //PLAYER UTILS
 int				key_press(int keycode, t_game *game);
@@ -259,9 +260,10 @@ int				on_destroy(t_game *game);
 //BONUS
 void			draw_square(t_square sq, t_game *game);
 void			draw_minimap(t_game *game);
-void			draw_player(t_game *game);
+void			draw_player(t_game *game, int square_size);
 void			draw_line(t_game *game);
 void			init_line_data(t_game *game, t_line *line);
 void			step_line(t_line *line);
+int				set_square_size(char **map);
 
 #endif

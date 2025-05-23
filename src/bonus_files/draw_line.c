@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:11:55 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/23 13:52:25 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:17:36 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	init_line_data(t_game *game, t_line *line)
 {
-	line->x0 = MINIMAP_OFFSET_X + (int)(game->player->x / BLOCK * MINI_BLOCK);
-	line->y0 = MINIMAP_OFFSET_Y + (int)(game->player->y / BLOCK * MINI_BLOCK);
+	int			square_size;
+
+	square_size = set_square_size(game->data->map);
+	line->x0 = MINIMAP_OFFSET_X + (int)(game->player->x / BLOCK * square_size);
+	line->y0 = MINIMAP_OFFSET_Y + (int)(game->player->y / BLOCK * square_size);
 	line->x1 = line->x0 + cos(game->player->angle) * 20;
 	line->y1 = line->y0 + sin(game->player->angle) * 20;
 	line->dx = abs(line->x1 - line->x0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:34:24 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/22 15:29:10 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:44:22 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,16 @@ int main(int argc, char **argv)
 		ft_printf("Error: invalid number of arguments\n");
 		exit(1);
 	}
-	// jess: if start_allocation fails, game will be null and be handled in the conditional below as !game
 	game = start_allocation();
-	 // jess: if parsing fails, code should stop here
 	if (!game || !parse_assets(argv[1], game))
 	{
 		free_game(game);
 		exit(1);
 	}
 	init_game(game);
-	mlx_hook(game->window, 2, 1, key_press, game); //2 is KEYPRESS event and 1 for listen to keys "pressed"
+	mlx_hook(game->window, 2, 1, key_press, game);
 	mlx_hook(game->window, 3, 2, key_release, game);
-	mlx_hook(game->window, 17, 0, on_destroy, game); //17 event to close game with X
+	mlx_hook(game->window, 17, 0, on_destroy, game);
 	mlx_loop_hook(game->mlx, draw_loop, game);
 	mlx_loop(game->mlx);
 	return (0);

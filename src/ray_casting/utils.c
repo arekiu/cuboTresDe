@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:12:55 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/06 13:46:03 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:35:27 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,22 @@ double	get_time_in_ms(void)
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000.0) + (time.tv_usec / 1000.0));
+}
+
+int	get_map_width(char **map)
+{
+	int	max_width;
+	int	i;
+	int	len;
+
+	max_width = 0;
+	i = 0;
+	while (map[i] != NULL)
+	{
+		len = ft_strlen(map[i]);
+		if (len > max_width)
+			max_width = len;
+		i++;
+	}
+	return (max_width);
 }
