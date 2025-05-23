@@ -6,11 +6,22 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:57:41 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:00:37 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:32:41 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
 
 int	check_fd(char *file, char *type, t_data *data, char *obj)
 {
@@ -26,7 +37,7 @@ int	check_fd(char *file, char *type, t_data *data, char *obj)
 			file, obj);
 		return (false);
 	}
-	if (strcmp(obj, "map data") != 0)
+	if (ft_strcmp(obj, "map data") != 0)
 	{
 		close(data->fd);
 		return (true);
