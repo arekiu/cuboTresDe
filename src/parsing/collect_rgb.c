@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_rgb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:15:23 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/22 09:35:24 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:37:17 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	*store_rgb( int *i, char *line)
 		len = 0;
 		if (indexes > 2)
 		{
-			free(rgb);	
+			free(rgb);
 			return (NULL);
 		}
 		 //skip spaces
@@ -72,10 +72,10 @@ int	*store_rgb( int *i, char *line)
 			return (NULL);
 		}
 		// counts value len until
-		while (line[*i + len] 
-			!= '\0' && line[*i + len] 
-			!= '\n' && line[*i + len] 
-			!= ',') 
+		while (line[*i + len]
+			!= '\0' && line[*i + len]
+			!= '\n' && line[*i + len]
+			!= ',')
 			len++;
 		// printf("collected value %d has len %d - from char[%d]:%c to char[%d]: %c,\n", indexes, len, *i, line[*i], (*i)+(len-1), line[(*i)+(len - 1)]);
 		value = malloc(sizeof(char) * (len + 1));
@@ -98,8 +98,8 @@ int	*store_rgb( int *i, char *line)
 	{
 		// if (line[*i] == '\0')
 			// printf("END\n");
-		while (line[*i] == ' ' 
-			|| line[*i] == '\n' 
+		while (line[*i] == ' '
+			|| line[*i] == '\n'
 			|| line[*i] == '\t') // skip spaces
 			(*i)--;
 		// printf("----line %s", line);
@@ -118,13 +118,13 @@ bool	collect_rgb(char *line, int *i, t_game *game)
 	if (match_texture("C ", &game->data->c_found, i, line))
 	{
 		if (game->data->c_found == 1)
-			game->data->C_rgb = store_rgb(i, line);
+			game->data->c_rgb = store_rgb(i, line);
 		return (true);
 	}
 	if (match_texture("F ", &game->data->f_found, i, line))
 	{
 		if (game->data->f_found == 1)
-			game->data->F_rgb = store_rgb(i, line);
+			game->data->r_rgb = store_rgb(i, line);
 		return (true);
 	}
 	return (false);

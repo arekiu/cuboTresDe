@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_debugger.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:38:12 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/20 12:59:59 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:37:17 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ void	print_map(t_data *data, t_player *player)
 	line_len = data->map && data->map[0] ? ft_strlen(data->map[0]) : 0;
 
 	printf(GREEN_T"\n---DATA COLLECTED FROM .CUB FILE---\n"RESET_T);
-	printf(BLUE_T"\nCoordinates\n"RESET_T);	
-	printf("Times_found:%d  NO: %s\n", data->no_found, data->NO_path ? data->NO_path : RED_T"NOT FOUND"RESET_T);
-	printf("Times_found:%d  SO: %s\n", data->so_found, data->SO_path ? data->SO_path : RED_T"NOT FOUND"RESET_T);
-	printf("Times_found:%d  WE: %s\n", data->we_found, data->WE_path ? data->WE_path : RED_T"NOT FOUND"RESET_T);
-	printf("Times_found:%d  EA: %s\n", data->ea_found, data->EA_path ? data->EA_path : RED_T"NOT FOUND"RESET_T);
+	printf(BLUE_T"\nCoordinates\n"RESET_T);
+	printf("Times_found:%d  NO: %s\n", data->no_found, data->no_path ? data->no_path : RED_T"NOT FOUND"RESET_T);
+	printf("Times_found:%d  SO: %s\n", data->so_found, data->so_path ? data->so_path : RED_T"NOT FOUND"RESET_T);
+	printf("Times_found:%d  WE: %s\n", data->we_found, data->we_path ? data->we_path : RED_T"NOT FOUND"RESET_T);
+	printf("Times_found:%d  EA: %s\n", data->ea_found, data->ea_path ? data->ea_path : RED_T"NOT FOUND"RESET_T);
 	printf(BLUE_T"\nRGB ARRAY\n"RESET_T);
-	if (data->C_rgb)
-		printf("Times_found:%d  CEILING R:'%d', G:'%d', B:'%d'\n", data->c_found, data->C_rgb[0], data->C_rgb[1], data->C_rgb[2]);
+	if (data->c_rgb)
+		printf("Times_found:%d  CEILING R:'%d', G:'%d', B:'%d'\n", data->c_found, data->c_rgb[0], data->c_rgb[1], data->c_rgb[2]);
 	else
 		printf("Times_found:%d  CEILING R:'%s', G:'%s', B:'%s'\n", data->c_found, RED_T"0"RESET_T, RED_T"0"RESET_T, RED_T"0"RESET_T);
 
-	if (data->F_rgb)
-		printf("Times_found:%d  FLOOR   R:'%d', G:'%d', B:'%d'\n", data->f_found, data->F_rgb[0], data->F_rgb[1], data->F_rgb[2]);
+	if (data->r_rgb)
+		printf("Times_found:%d  FLOOR   R:'%d', G:'%d', B:'%d'\n", data->f_found, data->r_rgb[0], data->r_rgb[1], data->r_rgb[2]);
 	else
 		printf("Times_found:%d  FLOOR   R:'%s', G:'%s', B:'%s'\n", data->f_found, RED_T"0"RESET_T, RED_T"0"RESET_T, RED_T"0"RESET_T);
 

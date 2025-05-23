@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:07:17 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/22 15:16:19 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:52:58 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,22 @@ void	init_textures(t_game *game)
 	game->ea_text = malloc(sizeof(t_texture));
 	if (!game->no_text || !game->so_text || !game->we_text || !game->ea_text)
 		exit(1);
-	load_texture(game, game->no_text, game->data->NO_path);
-	load_texture(game, game->so_text, game->data->SO_path);
-	load_texture(game, game->ea_text, game->data->EA_path);
-	load_texture(game, game->we_text, game->data->WE_path);
+	load_texture(game, game->no_text, game->data->no_path);
+	load_texture(game, game->so_text, game->data->so_path);
+	load_texture(game, game->ea_text, game->data->ea_path);
+	load_texture(game, game->we_text, game->data->we_path);
 }
 
 void	init_player(t_player *player, float orientation, int x, int y)
 {
 	if (orientation == 'W')
-		player->angle = WE;
+		player->angle = PI;
 	else if (orientation == 'E')
-		player->angle = EA;
+		player->angle = 0;
 	else if (orientation == 'N')
-		player->angle = NO;
+		player->angle = 3 * PI / 2;
 	else if (orientation == 'S')
-		player->angle = SO;
+		player->angle = PI / 2;
 	player->dir_x = cos(player->angle);
 	player->dir_y = sin(player->angle);
 	player->player_size = PLAYER_SIZE;
@@ -85,7 +85,7 @@ int	draw_loop(t_game *game)
 		ray_drawer(game);
 		game->ray->current_x++;
 	}
-	draw_minimap(game); //BONUSSSSSS
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (1);
 }

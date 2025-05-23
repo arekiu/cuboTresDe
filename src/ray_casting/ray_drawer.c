@@ -6,7 +6,7 @@
 /*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:10:33 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/22 15:11:49 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:37:17 by aschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ray_drawer(t_game *game)
 	unsigned int	c_color;
 	unsigned int	f_color;
 
-	c_color = rgb_to_hex(game->data->C_rgb);
-	f_color = rgb_to_hex(game->data->F_rgb);
+	c_color = rgb_to_hex(game->data->c_rgb);
+	f_color = rgb_to_hex(game->data->r_rgb);
 	game->ray->line_height = (int)(WIN_HEIGHT / game->ray->wall_dist);
 	game->ray->draw_start = -(game->ray->line_height) / 2 + WIN_HEIGHT / 2;
 	if (game->ray->draw_start < 0)

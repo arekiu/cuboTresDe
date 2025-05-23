@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+         #
+#    By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 17:49:39 by jjs               #+#    #+#              #
-#    Updated: 2025/05/22 15:31:13 by jslusark         ###   ########.fr        #
+#    Updated: 2025/05/23 13:02:13 by aschmidt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC_FILES = \
 	$(PARSE_DIR)/parse_map_frame.c \
 	$(PARSE_DIR)/parse_map_symbols.c \
 	$(BONUS_DIR)/minimap.c \
+	$(BONUS_DIR)/draw_line.c \
 	$(SRC_DIR)/free_game.c
 
 OBJ_DIR = obj

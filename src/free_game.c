@@ -41,18 +41,18 @@ static void	free_map(char **map)
 
 static void	free_paths(t_data *data)
 {
-	if (data->NO_path)
-		free(data->NO_path);
-	if (data->SO_path)
-		free(data->SO_path);
-	if (data->WE_path)
-		free(data->WE_path);
-	if (data->EA_path)
-		free(data->EA_path);
-	if (data->F_rgb)
-		free(data->F_rgb); // we just free once, not in the loop
-	if (data->C_rgb)
-		free(data->C_rgb); // we just free once, not in the loop
+	if (data->no_path)
+		free(data->no_path);
+	if (data->so_path)
+		free(data->so_path);
+	if (data->we_path)
+		free(data->we_path);
+	if (data->ea_path)
+		free(data->ea_path);
+	if (data->r_rgb)
+		free(data->r_rgb); // we just free once, not in the loop
+	if (data->c_rgb)
+		free(data->c_rgb); // we just free once, not in the loop
 }
 
 static void	free_data(t_data *data)
