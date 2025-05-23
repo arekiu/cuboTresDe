@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:34:26 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:39:34 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:41:39 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ bool	parse_textures(t_data *data)
 		|| !check_amount(data->ea_found, "EAST")
 		|| !check_amount(data->we_found, "WEST"))
 		return (false);
-	if (!check_fd(data->NO_path, ".xpm", data, "NORTH")
-		|| !check_fd(data->SO_path, ".xpm", data, "SOUTH")
-		|| !check_fd(data->EA_path, ".xpm", data, "EAST")
-		|| !check_fd(data->WE_path, ".xpm", data, "WEST"))
+	if (!check_fd(data->no_path, ".xpm", data, "NORTH")
+		|| !check_fd(data->so_path, ".xpm", data, "SOUTH")
+		|| !check_fd(data->ea_path, ".xpm", data, "EAST")
+		|| !check_fd(data->we_path, ".xpm", data, "WEST"))
 		return (false);
 	return (true);
 }

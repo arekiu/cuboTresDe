@@ -62,10 +62,10 @@ typedef struct s_data{
 	int		player_x;
 	int		player_y;
 	char	player_orient;
-	char	*NO_path;
-	char	*SO_path;
-	char	*WE_path;
-	char	*EA_path;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
 	int		*F_rgb; // jess: i think this should be int array
 	int		*C_rgb; // jess: i think this should be int array
 	int		no_found; // jess: uding these int to check if
