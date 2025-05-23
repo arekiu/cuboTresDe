@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 14:31:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 14:15:45 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:34:54 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_valid_edge_char(char *line, int r, int c)
 {
-	if (strchr("0NSEW", line[c]))
+	if (ft_strchr("0NSEW", line[c]))
 	{
 		printf("Error: incorrect map framing on line[%d][%d]:'%c'\n",
 			r, c, line[c]);
@@ -23,6 +23,42 @@ bool	is_valid_edge_char(char *line, int r, int c)
 	return (true);
 }
 
+bool valid_top_bottom(char **map, int line_index, int i, int last_r)
+{
+	int	bottom;
+	int	top;
+
+	bottom = line_index + 1;
+	top = line_index - 1;
+	if (line_index != 0) 
+	{
+		if (!is_valid_edge_char(map[top], top, i))
+			return (false);
+	}
+	// Check dowm
+	if (line_index != last_r)
+	{
+		if (!is_valid_edge_char(map[bottom], bottom, i))
+			return (false);
+	}
+	return (true);
+
+}
+bool valid_sides(char *line, int line_index, int i, int last_c)
+{
+	if (i != 0)
+	{
+		if (!is_valid_edge_char(line, line_index, i - 1))
+			return (false);
+	}
+	// we check right
+	if (i != last_c)
+	{
+		if (!is_valid_edge_char(line, line_index, i + 1))
+			return (false);
+	}
+	return true;
+}
 
 // 0,N,S,W,E should not be on line[0] and line[last_r] as it means the map is not framed
 // 0,N,S,W,E should also not be the first character we catch from the left and right of the line
@@ -38,8 +74,8 @@ bool	valid_edges(char *line, int r, int last_r, int last_c)
 	{
 		while (line[i] != '\0')
 		{
-			if(!is_valid_edge_char(line, r, i))
-				return(false);
+			if (!is_valid_edge_char(line, r, i))
+				return (false);
 			i++;
 		}
 	}
@@ -47,12 +83,12 @@ bool	valid_edges(char *line, int r, int last_r, int last_c)
 	{
 		while (line[i] != '\0' && line[i] == ' ')
 			i++;
-		if(!is_valid_edge_char(line, r, i))
-			return(false);
+		if (!is_valid_edge_char(line, r, i))
+			return (false);
 		while (end > 0 && line[end] == ' ')
 			end--;
-		if(!is_valid_edge_char(line, r, end))
-			return(false);
+		if (!is_valid_edge_char(line, r, end))
+			return (false);
 	}
 	return (true);
 }
@@ -69,64 +105,15 @@ bool	space_contained(char **map, char *line, int line_index, int last_r)
 	bottom = line_index + 1;
 	top = line_index - 1;
 	i = 0;
-	// printf(RED_T"Space check\n"RESET_T);
-	// printf("line[%d]:%s\n", top, map[top]);
-	// printf("line[%d]:%s\n", line_index, line);
-	// printf("line[%d]:%s\n", bottom, map[bottom]);
-	// goes through the line
 	while (line[i] != '\0')
 	{
 		// we check that ' ' is not surrounded by 0NSEW top,left,right, bottom
 		if (line[i] == ' ')
 		{
-			// check top of i
-			if (line_index != 0) 
-			{
-				if (map[top][i] == '0'
-					|| map[top][i] == 'N'
-					|| map[top][i] == 'S'
-					|| map[top][i] == 'W'
-					|| map[top][i] == 'E')
-				{
-					printf("Error: space at line[%d][%d]:'%c' touches line[%d][%d]:'%c' at top\n", line_index, i, line[i], top, i, map[top][i]);
-					return (false);
-				}
-			}
-			// Check dowm
-			if (line_index != last_r)
-			{
-				if (map[bottom][i] == '0'
-					|| map[bottom][i] == 'N' 
-					|| map[bottom][i] == 'S' 
-					|| map[bottom][i] == 'W' 
-					|| map[bottom][i] == 'E')
-				{
-					printf("Error: space at line[%d][%d]:'%c' touches line[%d][%d]:'%c' at bottom\n", line_index, i, line[i], bottom, i, map[bottom][i]);
-					return (false);
-				}
-			}
-			 // we check left
-			if (i != 0)
-			{
-				if (line[i - 1] == '0' || line[i - 1] == 'N' || line[i - 1] == 'S' || line[i - 1] == 'W' || line[i - 1] == 'E')
-				{
-					printf("Error: space at line[%d] col[%d] touches invalid character(%c) on the left\n", line_index, i, line[i - 1]);
-					return (false);
-				}
-			}
-			// we check right
-			if (i != last_c)
-			{
-				if (line[i + 1] == '0' 
-					|| line[i + 1] == 'N' 
-					|| line[i + 1] == 'S' 
-					|| line[i + 1] == 'W' 
-					|| line[i + 1] == 'E')
-				{
-					printf("Error: space at line[%d] col[%d] touches invalid character(%c) on the right\n", line_index, i, line[i + 1]);
-					return (false);
-				}
-			}
+			if (!valid_top_bottom(map, line_index, i, last_r))
+				return (false);
+			if (!valid_sides (line, line_index, i, last_c))
+				return (false);
 		}
 		i++; // check next character
 	}

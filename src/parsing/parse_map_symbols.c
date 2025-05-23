@@ -6,7 +6,7 @@
 /*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 14:13:05 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:18:41 by jslusark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void collect_character(char **map, int r, int c,  t_player *player)
 {
 	// stores 1 or more player and position in the map
-	if (strchr("NSEW", map[r][c]) != NULL)
+	if (ft_strchr("NSEW", map[r][c]) != NULL)
 	{
 		player->orientation = map[r][c];
 		// vertical poisition / line / row of the array
@@ -40,7 +40,7 @@ bool	has_required_text(char **map, t_player *player)
 		c = 0;
 		while (map[r][c] != '\0')
 		{
-			if (strchr("01 NSEW", map[r][c]) != NULL)
+			if (ft_strchr("01 NSEW", map[r][c]) != NULL)
 				collect_character(map, r, c, player);
 			else
 			{
