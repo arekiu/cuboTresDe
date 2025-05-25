@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_map_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:55:29 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:06:05 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:31:47 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ char	*store_texture(int *i, char *line, char *path)
 	int	len;
 
 	*i = *i + 2;
-	while (line[*i] == ' ' && line[*i] 
-		!= '\0' && line[*i] 
+	while (line[*i] == ' ' && line[*i]
+		!= '\0' && line[*i]
 		!= '\n' )
 		(*i)++;
 	len = 0;
-	while (line[*i + len] 
-		!= '\0' && line[*i + len] 
+	while (line[*i + len]
+		!= '\0' && line[*i + len]
 		!= '\n' && line[*i + len] != ' ')
 		len++;
 	path = malloc(sizeof(char) * (len + 1));
@@ -81,7 +81,7 @@ bool	process_line(char *line, t_game *game, int *array_i)
 	{
 		printf("Error: Invalid format at line[%d]:%s", *array_i, line);
 		free(line);
-		return (false); 
+		return (false);
 	}
 	if (game->data->map_started)
 		assign_to_map(line, &game->data->map, array_i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_drawer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:12:32 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/06 13:44:56 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:43:10 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	render_text_line(t_game *game, t_texture *text, double step, double tex_pos)
 	return (y);
 }
 
-void	prep_text_drawing(t_game *game, t_texture **text, double *step, \
+void	prep_text_drawing(t_game *game, t_texture **text, double *step,
 	double *tex_pos)
 {
 	t_ray	*ray;
@@ -57,7 +57,7 @@ void	prep_text_drawing(t_game *game, t_texture **text, double *step, \
 	*text = get_wall_texture(game);
 	set_texture(game, *text);
 	*step = 1.0 * (*text)->height / ray->line_height;
-	*tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) \
+	*tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2)
 		* (*step);
 	if (ray->draw_start < 0)
 		*tex_pos += (*step) * -ray->draw_start;

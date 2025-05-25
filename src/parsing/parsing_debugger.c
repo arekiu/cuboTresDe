@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_debugger.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:38:12 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:39:48 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:34:01 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	print_map(t_data *data, t_player *player)
 {
 	int	i;
-	int	j;
 	int	line_len;
 
 	i = 0;
-	j = 0;
 	line_len = data->map && data->map[0] ? ft_strlen(data->map[0]) : 0;
 
 	printf(GREEN_T"\n---DATA COLLECTED FROM .CUB FILE---\n"RESET_T);

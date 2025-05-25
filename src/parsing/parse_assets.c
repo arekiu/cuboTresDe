@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:57:41 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:32:41 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:31:23 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-
 int	check_fd(char *file, char *type, t_data *data, char *obj)
 {
 	if (file == NULL)
@@ -33,7 +32,7 @@ int	check_fd(char *file, char *type, t_data *data, char *obj)
 	data->fd = open(file, O_RDONLY);
 	if (!has_file_extension(file, type) || data->fd < 0)
 	{
-		printf("Error: %s used for %s does not exist or has wrong extension\n", 
+		printf("Error: %s used for %s does not exist or has wrong extension\n",
 			file, obj);
 		return (false);
 	}

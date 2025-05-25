@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_rgb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:15:23 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:39:20 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:29:58 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ bool	get_rgb_value(char *line, int *i, int *rgb, int *rgb_n)
 		free(rgb);
 		return (false);
 	}
-	while (line[*i + len] 
-		!= '\0' && line[*i + len] 
-		!= '\n' && line[*i + len] 
-		!= ',') 
+	while (line[*i + len]
+		!= '\0' && line[*i + len]
+		!= '\n' && line[*i + len]
+		!= ',')
 		len++;
 	value = malloc(sizeof(char) * (len + 1));
 	ft_strlcpy(value, line + *i, len + 1);
@@ -70,8 +70,8 @@ bool	rgb_n_are_correct(int rgb_n, char *line, int *i, int *rgb)
 		free(rgb);
 		return (false);
 	}
-	while (line[*i] == ' ' 
-		|| line[*i] == '\n' 
+	while (line[*i] == ' '
+		|| line[*i] == '\n'
 		|| line[*i] == '\t')
 		(*i)--;
 	if (line[*i] == ',')

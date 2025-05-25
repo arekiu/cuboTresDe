@@ -50,15 +50,15 @@ static void	free_paths(t_data *data)
 	if (data->ea_path)
 		free(data->ea_path);
 	if (data->r_rgb)
-		free(data->r_rgb); // we just free once, not in the loop
+		free(data->r_rgb);
 	if (data->c_rgb)
-		free(data->c_rgb); // we just free once, not in the loop
+		free(data->c_rgb);
 }
 
 static void	free_data(t_data *data)
 {
 	if (!data)
-		return;
+		return ;
 	free_map(data->map);
 	free_paths(data);
 	free(data);
@@ -68,16 +68,7 @@ void	free_game(t_game *game)
 {
 	if (!game)
 		return ;
-	// NEED TO FREE MLX LATER - keep in mind that order matters to avoid conditional jump
-	// if (game->window)
-	//	 mlx_destroy_window(game->mlx, game->window);
-	// if (game->img)
-	//	 mlx_destroy_image(game->mlx, game->img);
-	// frees just the parsing data
 	free_data(game->data);
 	free_player(game->player);
-	// free raycaster and other memeory allocated from alexis side
-	// if (game->mlx)
-	// 	free(game->mlx);
 	free(game);
 }

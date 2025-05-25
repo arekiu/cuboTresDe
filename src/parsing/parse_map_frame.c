@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_frame.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 14:31:06 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:23:32 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:34:15 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 bool	space_contained(char **map, char *line, int line_index, int last_r)
 {
 	int	last_c;
-	int	bottom;
-	int	top;
 	int	i;
 
 	last_c = ft_strlen(line) - 1;
-	bottom = line_index + 1;
-	top = line_index - 1;
 	i = 0;
 	while (line[i] != '\0')
 	{

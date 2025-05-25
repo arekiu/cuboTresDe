@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:08:36 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/06 13:27:45 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:40:47 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ static void	try_move_player(t_game *game, float next_x, float next_y)
 	p = game->player;
 	s = p->player_size / 2;
 	map = game->data->map;
-	if (map[(int)((p->y - s) / BLOCK)][(int)((next_x - s) / BLOCK)] != '1' && \
-		map[(int)((p->y + s) / BLOCK)][(int)((next_x - s) / BLOCK)] != '1' && \
-		map[(int)((p->y - s) / BLOCK)][(int)((next_x + s) / BLOCK)] != '1' && \
+	if (map[(int)((p->y - s) / BLOCK)][(int)((next_x - s) / BLOCK)] != '1' &&
+		map[(int)((p->y + s) / BLOCK)][(int)((next_x - s) / BLOCK)] != '1' &&
+		map[(int)((p->y - s) / BLOCK)][(int)((next_x + s) / BLOCK)] != '1' &&
 		map[(int)((p->y + s) / BLOCK)][(int)((next_x + s) / BLOCK)] != '1')
 	{
 		p->x = next_x;
 	}
-	if (map[(int)((next_y - s) / BLOCK)][(int)((p->x - s) / BLOCK)] != '1' && \
-		map[(int)((next_y + s) / BLOCK)][(int)((p->x - s) / BLOCK)] != '1' && \
-		map[(int)((next_y - s) / BLOCK)][(int)((p->x + s) / BLOCK)] != '1' && \
+	if (map[(int)((next_y - s) / BLOCK)][(int)((p->x - s) / BLOCK)] != '1' &&
+		map[(int)((next_y + s) / BLOCK)][(int)((p->x - s) / BLOCK)] != '1' &&
+		map[(int)((next_y - s) / BLOCK)][(int)((p->x + s) / BLOCK)] != '1' &&
 		map[(int)((next_y + s) / BLOCK)][(int)((p->x + s) / BLOCK)] != '1')
 	{
 		p->y = next_y;

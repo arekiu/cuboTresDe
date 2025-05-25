@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_map_data.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:52:46 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:08:10 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:30:46 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	collect_map_data(int fd, char ***map, t_game *game)
 		if (line == NULL)
 			break ;
 		if (!process_line(line, game, &array_i))
-			return (false); 
+			return (false);
 		free(line);
 		file_i++;
 	}

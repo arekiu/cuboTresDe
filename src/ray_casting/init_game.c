@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:07:17 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/23 13:52:58 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:38:48 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	init_game(t_game *game)
 		exit(1);
 	game->mlx = mlx_init();
 	init_textures(game);
-	init_player(game->player, game->player->orientation, \
+	init_player(game->player, game->player->orientation,
 		game->player->x, game->player->y);
 	game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
-	game->buffer = mlx_get_data_addr(game->img, &game->bpp, \
-		&game->stride, &game->endian);
+	game->buffer = mlx_get_data_addr(game->img, &game->bpp,
+			&game->stride, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 }
 

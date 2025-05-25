@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_frame_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jslusark <jslusark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:13:43 by jslusark          #+#    #+#             */
-/*   Updated: 2025/05/23 18:23:47 by jslusark         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:30:17 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	valid_top_bottom(char **map, int line_index, int i, int last_r)
 
 	bottom = line_index + 1;
 	top = line_index - 1;
-	if (line_index != 0) 
+	if (line_index != 0)
 	{
 		if (!is_valid_edge_char(map[top], top, i))
 			return (false);

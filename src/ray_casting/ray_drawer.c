@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_drawer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschmidt <aschmidt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: birdieber <birdieber@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:10:33 by aschmidt          #+#    #+#             */
-/*   Updated: 2025/05/23 13:37:17 by aschmidt         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:42:46 by birdieber        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	set_texture(t_game *game, t_texture *texture)
 		ray->wall_x = px + ray->wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 	ray->text_x = (int)(ray->wall_x * (double)texture->width);
-	if ((ray->side == EAST && ray->dir_x > 0) || (ray->side == WEST && \
-			ray->dir_x < 0))
+	if ((ray->side == EAST && ray->dir_x > 0) || (ray->side == WEST
+			&& ray->dir_x < 0))
 		ray->text_x = texture->width - ray->text_x - 1;
-	else if ((ray->side == NORTH && ray->dir_y < 0) || (ray->side == SOUTH \
+	else if ((ray->side == NORTH && ray->dir_y < 0) || (ray->side == SOUTH
 			&& ray->dir_y > 0))
 		ray->text_x = texture->width - ray->text_x - 1;
 }
